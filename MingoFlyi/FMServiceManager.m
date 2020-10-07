@@ -27,8 +27,8 @@ static NSString *key = @"972519001";
 }
 
 + (void)requestDataWihtMethodUrl:(NSString *)url
-                     success:(void (^)(id response))success
-                     failure:(void (^)(NSError *err))failure {
+                         success:(void (^)(id response))success
+                         failure:(void (^)(NSError *err))failure {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer.timeoutInterval = kTimeOutInterval;
@@ -39,35 +39,35 @@ static NSString *key = @"972519001";
     [manager GET:url
       parameters:nil
         progress:^(NSProgress * _Nonnull downloadProgress) {
-            
-        }
+        
+    }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             success(responseObject);
-         }
+        success(responseObject);
+    }
          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             failure(error);
-         }];
+        failure(error);
+    }];
 }
 
 - (void)requestDataWithTextString:(NSString *)text
-                          data:(void (^)(id response))data {
+                             data:(void (^)(id response))data {
     NSString *encoded = [text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *url = [NSString stringWithFormat:@"http://fanyi.youdao.com/openapi.do?keyfrom=%@&key=%@&type=data&doctype=json&version=1.1&q=%@",keyfrom,key,encoded];
     [FMServiceManager requestDataWihtMethodUrl:url
-                                        success:^(id response) {
-                                            
-                                            NSString *result = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-                                            NSLog(@"翻译：%@",result);
-                                            NSError *err;
-                                            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response
-                                                                                                options:NSJSONReadingMutableContainers
-                                                                                                  error:&err];
-                                            NSString *translation = [dic valueForKey:@"translation"];
-                                            data(translation);
-                                        }
-                                        failure:^(NSError *err) {
-                                            NSLog(@"error :%@",err);
-                                        }];
+                                       success:^(id response) {
+        
+        NSString *result = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+        NSLog(@"翻译：%@",result);
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        NSString *translation = [dic valueForKey:@"translation"];
+        data(translation);
+    }
+                                       failure:^(NSError *err) {
+        NSLog(@"error :%@",err);
+    }];
 }
 
 @end

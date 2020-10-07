@@ -34,6 +34,7 @@
     NSPasteboard *_pasteboard;
     NSButton *_btnSelected;
     NSMutableArray *_arrBtns;
+    NSMutableArray *_arrFilter;
 }
 
 - (void)viewDidLoad {
@@ -46,10 +47,10 @@
     [_arrBtns addObject:_btnUnderLineBig];
     _btnSelected = _btnHumpSmall;
     
-
+    
     _inputTextView.delegate = self;
     _outputTextView.delegate = self;
-
+    
     _outputTextView.editable = NO;
     [_inputTextView setRichText:NO];
     [_inputTextView setFont:[NSFont systemFontOfSize:14]];
@@ -66,9 +67,15 @@
     }
 }
 
+
+- (void )fm_getFilter {
+    _arrFilter = [self.tfFilter.stringValue componentsSeparatedByString:@","].mutableCopy;
+}
+
+
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
-
+    
 }
 
 - (void)dealloc {
@@ -78,7 +85,7 @@
 
 
 - (NSTextField *)addTextViewPlaceholderWithString:(NSString *)placeholder textView:(NSTextView *)textView {
-     NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(15, 0, 220, 40)];
+    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(15, 0, 220, 40)];
     [textField setEnabled:NO];
     [textField setBordered:NO];
     textField.placeholderString = placeholder;
@@ -92,12 +99,12 @@
 }
 
 - (void)textDidChange:(NSNotification *)notification {
-
+    
     if (notification.object == _inputTextView) {
         _serviceManager = FMServiceManager.sharedFMServiceManager;
         [self fm_requetFanyi:_inputTextView.string];
     }
-      
+    
 }
 
 
@@ -120,43 +127,47 @@
     if (text.length <= 0) {
         return;
     }
-
+    
     NSString *tempString = [self fm_formatForChinese:str];
+    
+    _arrFilter = [self.tfFilter.stringValue componentsSeparatedByString:@","].mutableCopy;
+    
     
     __weak typeof(self) weakSelf = self;
     [_serviceManager requestDataWithTextString:tempString
                                           data:^(id response) {
-                                              if (!response) {
-                                                  return;
-                                              }
-                                              __strong typeof(self) strongSelf = weakSelf;
-                                              if (strongSelf) {
-                                                  
-                                                  [strongSelf.outputTextView.textStorage beginEditing];
-                                                  NSString *result;
-                                                  if (_btnHumpSmall.state) {
-                                                      result = [NSString commonStringToHumpString:response[0] isCapitalized:NO];
-                                                      
-                                                  }else if (_btnHumpBig.state) {
-                                                      result = [NSString commonStringToHumpString:response[0] isCapitalized:YES];
-                                                      
-                                                  } else if (_btnUnderLineSmall.state) {
-                                                      result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:NO];
-                                                      
-                                                  }else if (_btnUnderLineBig.state) {
-                                                      result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:YES];
-                                                  }else {
-                                                      result = response[0];
-                                                  }
-                                                  NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
-                                                  [strongSelf.outputTextView.textStorage setAttributedString:attrContent];
-                                                  [strongSelf.outputTextView.textStorage setFont:[NSFont systemFontOfSize:14]];
-                                                  [strongSelf.outputTextView.textStorage setForegroundColor:[NSColor redColor]];
-                                                  [strongSelf.outputTextView.textStorage endEditing];
-                                                  if (_btnCopy.state) {
-                                                      [strongSelf writeDataToThePasteboardWithString:result];
-                                                  }
-                                              }
+        if (!response) {
+            return;
+        }
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf) {
+            
+            [strongSelf.outputTextView.textStorage beginEditing];
+            NSString *result;
+            
+            if (_btnHumpSmall.state) {
+                result = [NSString commonStringToHumpString:response[0] isCapitalized:NO];
+                
+            }else if (_btnHumpBig.state) {
+                result = [NSString commonStringToHumpString:response[0] isCapitalized:YES];
+                
+            } else if (_btnUnderLineSmall.state) {
+                result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:NO];
+                
+            }else if (_btnUnderLineBig.state) {
+                result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:YES];
+            }else {
+                result = response[0];
+            }
+            NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
+            [strongSelf.outputTextView.textStorage setAttributedString:attrContent];
+            [strongSelf.outputTextView.textStorage setFont:[NSFont systemFontOfSize:14]];
+            [strongSelf.outputTextView.textStorage setForegroundColor:[NSColor redColor]];
+            [strongSelf.outputTextView.textStorage endEditing];
+            if (_btnCopy.state) {
+                [strongSelf writeDataToThePasteboardWithString:result];
+            }
+        }
     }];
     
 }
@@ -179,11 +190,11 @@
         sender.state = YES;
         _btnSelected = sender;
     } else {
-//        sender.state = YES;
-//        _btnSelected = sender;
+        //        sender.state = YES;
+        //        _btnSelected = sender;
     }
     [self fm_requetFanyi:_inputTextView.string];
-
+    
     
 }
 
