@@ -1,0 +1,3 @@
+target 'MingoFanyi' do
+pod 'AFNetworking'
+end
