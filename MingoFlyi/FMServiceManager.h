@@ -8,10 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^CompletedBlock)(id response);
+
+typedef NS_ENUM(NSInteger, FanyiType) {
+    /// 有道
+    FanyiType_Youdao = 0,
+    /// 新品
+    FanyiType_Baidu = 1,
+};
+
 @interface FMServiceManager : NSObject
 
 + (FMServiceManager *)sharedFMServiceManager;
 
-- (void)requestDataWithTextString:(NSString *)text
-                             data:(void (^)(id response))data;
+- (void)fm_requestWithString:(NSString *)text type:(FanyiType)type
+                completedBlock:(CompletedBlock)completedBlock ;
 @end

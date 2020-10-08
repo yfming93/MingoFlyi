@@ -17,6 +17,8 @@
 		1E3265271E986B2700DF90FA /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265261E986B2700DF90FA /* PodFile */; };
 		1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3265291E98A73F00DF90FA /* FMServiceManager.m */; };
 		1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */; };
+		881ADD2E252F063100CC35AA /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 881ADD2D252F063100CC35AA /* Tools.m */; };
+		881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881ADD38252F095900CC35AA /* AppKit.framework */; };
 		88922A22252D706E009B1D69 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265011E97DEF300DF90FA /* Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,9 @@
 		1ED27FE11E9BCD2400E2287F /* NSString+FMAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FMAdd.h"; sourceTree = "<group>"; };
 		1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FMAdd.m"; sourceTree = "<group>"; };
 		504153C5BACB3B586B2B3230 /* Pods-JFFanYi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.debug.xcconfig"; sourceTree = "<group>"; };
+		881ADD2C252F063100CC35AA /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		881ADD2D252F063100CC35AA /* Tools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		881ADD38252F095900CC35AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,14 +119,14 @@
 		1E3264F21E97DEF200DF90FA /* MingoFlyi */ = {
 			isa = PBXGroup;
 			children = (
+				881ADD34252F06B700CC35AA /* Tools */,
+				881ADD14252F05F000CC35AA /* Vendors */,
 				1E3264F31E97DEF200DF90FA /* AppDelegate.h */,
 				1E3264F41E97DEF200DF90FA /* AppDelegate.m */,
 				1E3264F91E97DEF300DF90FA /* FMHomeViewController.h */,
 				1E3264FA1E97DEF300DF90FA /* FMHomeViewController.m */,
 				1E3265281E98A73F00DF90FA /* FMServiceManager.h */,
 				1E3265291E98A73F00DF90FA /* FMServiceManager.m */,
-				1ED27FE11E9BCD2400E2287F /* NSString+FMAdd.h */,
-				1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */,
 				1E3264FC1E97DEF300DF90FA /* Assets.xcassets */,
 				1E3264FE1E97DEF300DF90FA /* Main.storyboard */,
 				1E3265011E97DEF300DF90FA /* Info.plist */,
@@ -155,6 +161,24 @@
 			path = MingoFlyiUITests;
 			sourceTree = "<group>";
 		};
+		881ADD14252F05F000CC35AA /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendors;
+			sourceTree = "<group>";
+		};
+		881ADD34252F06B700CC35AA /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1ED27FE11E9BCD2400E2287F /* NSString+FMAdd.h */,
+				1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */,
+				881ADD2C252F063100CC35AA /* Tools.h */,
+				881ADD2D252F063100CC35AA /* Tools.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		A9C6CF0DCC466BBD46A30ABB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +191,7 @@
 		B5795F744EA8D3160E45A5DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				881ADD38252F095900CC35AA /* AppKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,9 +259,9 @@
 		1E3264E81E97DEF200DF90FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = FYI;
+				CLASSPREFIX = FM;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = zhifenx;
+				ORGANIZATIONNAME = "袁凤鸣";
 				TargetAttributes = {
 					1E3264EF1E97DEF200DF90FA = {
 						CreatedOnToolsVersion = 8.3;
@@ -335,6 +360,7 @@
 				1E3264FB1E97DEF300DF90FA /* FMHomeViewController.m in Sources */,
 				1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */,
 				1E3264F81E97DEF300DF90FA /* main.m in Sources */,
+				881ADD2E252F063100CC35AA /* Tools.m in Sources */,
 				1E3264F51E97DEF200DF90FA /* AppDelegate.m in Sources */,
 				1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */,
 			);

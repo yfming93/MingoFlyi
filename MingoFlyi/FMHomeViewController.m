@@ -9,6 +9,7 @@
 #import "FMHomeViewController.h"
 #import "FMServiceManager.h"
 #import "NSString+FMAdd.h"
+#import "Tools.h"
 
 @interface FMHomeViewController () <NSTextViewDelegate>
 
@@ -67,12 +68,6 @@
     }
 }
 
-
-- (void )fm_getFilter {
-    _arrFilter = [self.tfFilter.stringValue componentsSeparatedByString:@","].mutableCopy;
-}
-
-
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
     
@@ -81,8 +76,6 @@
 - (void)dealloc {
     NSLog(@"FMHomeViewController dealloc");
 }
-
-
 
 - (NSTextField *)addTextViewPlaceholderWithString:(NSString *)placeholder textView:(NSTextView *)textView {
     NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(15, 0, 220, 40)];
@@ -99,7 +92,6 @@
 }
 
 - (void)textDidChange:(NSNotification *)notification {
-    
     if (notification.object == _inputTextView) {
         _serviceManager = FMServiceManager.sharedFMServiceManager;
         [self fm_requetFanyi:_inputTextView.string];
@@ -107,17 +99,14 @@
     
 }
 
-
+// 将各种翻译的结果 转换 为 分割 空格的字符串
 - (NSString *)fm_formatForChinese:(NSString *)text {
-    
     NSString *tempString;
-    
     if ([text containsString:@"_"]) {
         tempString = [NSString fm_underLineStringToCommonString:text];
     }else {
         tempString = [NSString fm_humpStringToCommonString:text];
     }
-    
     return tempString;
     
 }
@@ -129,48 +118,61 @@
     }
     
     NSString *tempString = [self fm_formatForChinese:str];
-    
-    _arrFilter = [self.tfFilter.stringValue componentsSeparatedByString:@","].mutableCopy;
-    
-    
     __weak typeof(self) weakSelf = self;
-    [_serviceManager requestDataWithTextString:tempString
-                                          data:^(id response) {
+    [_serviceManager fm_requestWithString:tempString type:FanyiType_Baidu completedBlock:^(id response) {
         if (!response) {
             return;
         }
-        __strong typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            
-            [strongSelf.outputTextView.textStorage beginEditing];
-            NSString *result;
-            
-            if (_btnHumpSmall.state) {
-                result = [NSString commonStringToHumpString:response[0] isCapitalized:NO];
-                
-            }else if (_btnHumpBig.state) {
-                result = [NSString commonStringToHumpString:response[0] isCapitalized:YES];
-                
-            } else if (_btnUnderLineSmall.state) {
-                result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:NO];
-                
-            }else if (_btnUnderLineBig.state) {
-                result = [NSString fm_commonStringToUnderLineString:response[0] isCapitalized:YES];
-            }else {
-                result = response[0];
-            }
-            NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
-            [strongSelf.outputTextView.textStorage setAttributedString:attrContent];
-            [strongSelf.outputTextView.textStorage setFont:[NSFont systemFontOfSize:14]];
-            [strongSelf.outputTextView.textStorage setForegroundColor:[NSColor redColor]];
-            [strongSelf.outputTextView.textStorage endEditing];
-            if (_btnCopy.state) {
-                [strongSelf writeDataToThePasteboardWithString:result];
-            }
-        }
+//        [weakSelf fm_resultFormat:response];
     }];
     
+    [_serviceManager fm_requestWithString:tempString type:FanyiType_Youdao completedBlock:^(id response) {
+        if (!response) {
+            return;
+        }
+        [weakSelf fm_resultFormat:response];
+        NSLog(@"youdao:%@",response);
+    }];
 }
+
+- (void)fm_resultFormat:(NSString *)resultStr {
+    [self.outputTextView.textStorage beginEditing];
+    
+    NSString *result = resultStr;
+    result = [result lowercaseStringWithLocale:NSLocale.currentLocale];
+
+    _arrFilter = [self.tfFilter.stringValue componentsSeparatedByString:@","].mutableCopy;
+    for (NSString *str in _arrFilter) {
+        if ([result containsString:str]) {
+            NSRange range = NSMakeRange([result rangeOfString:str].location,
+                                           [result rangeOfString:str].length+ 1);
+            result = [result stringByReplacingCharactersInRange:range withString:@""];
+        }
+    }
+    
+    
+    if (_btnHumpSmall.state) {
+        result = [NSString commonStringToHumpString:result isCapitalized:NO];
+
+    }else if (_btnHumpBig.state) {
+        result = [NSString commonStringToHumpString:result isCapitalized:YES];
+
+    } else if (_btnUnderLineSmall.state) {
+        result = [NSString fm_commonStringToUnderLineString:result isCapitalized:NO];
+
+    }else if (_btnUnderLineBig.state) {
+        result = [NSString fm_commonStringToUnderLineString:result isCapitalized:YES];
+    }
+    NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
+    [self.outputTextView.textStorage setAttributedString:attrContent];
+    [self.outputTextView.textStorage setFont:[NSFont systemFontOfSize:14]];
+    [self.outputTextView.textStorage setForegroundColor:[NSColor redColor]];
+    [self.outputTextView.textStorage endEditing];
+    if (_btnCopy.state) {
+        [self writeDataToThePasteboardWithString:result];
+    }
+}
+
 
 - (void)writeDataToThePasteboardWithString:(NSString *)data {
     [_pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
@@ -184,18 +186,14 @@
     [_outputTextView.textStorage setAttributedString:attrContent];
 }
 
+// 选择翻译模式
 - (void)selectAction:(NSButton *)sender {
     if (![sender isEqualTo:_btnSelected]) {
         _btnSelected.state = NO;
         sender.state = YES;
         _btnSelected = sender;
-    } else {
-        //        sender.state = YES;
-        //        _btnSelected = sender;
     }
     [self fm_requetFanyi:_inputTextView.string];
-    
-    
 }
 
 @end

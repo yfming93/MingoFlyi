@@ -10,10 +10,21 @@
 
 @interface NSString (FMAdd)
 
-
+/**
+ *  32位md5加密算法
+ *  @param str 传入要加密的字符串
+ *  @return NSString
+ */
+- (NSString *)md5_32bit;
 
 //判断是否是全汉字字符串
-+ (BOOL)isChinese:(NSString *)string;
+- (BOOL)isChinese;
+
+/**
+ *  @brief  判断是否包含中文
+ *  @return 是否包含中文
+ */
+- (BOOL)isContainChinese;
 
 /**
  驼峰字符串转普通字符串（若全是中文字符，不转换）

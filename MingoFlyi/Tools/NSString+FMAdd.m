@@ -7,13 +7,49 @@
 //
 
 #import "NSString+FMAdd.h"
+#import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (FMAdd)
+
+/**
+ *  32位md5加密算法
+ *  @param str 传入要加密的字符串
+ *  @return NSString
+ */
+- (NSString *)md5_32bit{
+    const char *cStr = self.UTF8String;
+    unsigned char result[16];
+    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
+    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
+
 //判断是否是全汉字字符串
-+ (BOOL)isChinese:(NSString *)string {
+- (BOOL)isChinese {
     NSString *regex = @"[\u4e00-\u9fa5]+";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    return [predicate evaluateWithObject:string];
+    return [predicate evaluateWithObject:self];
+}
+
+/**
+ *  @brief  判断是否包含中文
+ *  @return 是否包含中文
+ */
+- (BOOL)isContainChinese {
+    NSUInteger length = [self length];
+    for (NSUInteger i = 0; i < length; i++) {
+        NSRange range = NSMakeRange(i, 1);
+        NSString *subString = [self substringWithRange:range];
+        const char *cString = [subString UTF8String];
+        if (strlen(cString) == 3) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 ////移除前缀
@@ -33,7 +69,7 @@
 
 //驼峰格式转普通格式
 + (NSString *)fm_humpStringToCommonString:(NSString *)string {
-    if ([self isChinese:string]) {
+    if (string.isChinese) {
         return string;
     }
     
@@ -62,7 +98,7 @@
 
 //普通格式转驼峰格式
 + (NSString *)commonStringToHumpString:(NSString *)string  isCapitalized:(BOOL)isCapitalized {
-    if ([self isChinese:string]) {
+    if (string.isChinese) {
         return string;
     }
     //字符串中每个单词首字母大写
@@ -83,7 +119,7 @@
 
 //下划线格式 转 普通格式
 + (NSString *)fm_underLineStringToCommonString:(NSString *)string {
-    if ([self isChinese:string]) {
+    if (string.isChinese) {
         return string;
     }
     NSString *tempString = string;
@@ -98,7 +134,7 @@
 
 //普通格式 转 下划线格式
 + (NSString *)fm_commonStringToUnderLineString:(NSString *)string isCapitalized:(BOOL)isCapitalized {
-    if ([self isChinese:string]) {
+    if (string.isChinese) {
         return string;
     }
     NSString *tempString = [string lowercaseStringWithLocale:NSLocale.currentLocale];
