@@ -16,7 +16,9 @@
 @property (strong) IBOutlet NSScrollView *inputContentScrollView;
 @property (strong) IBOutlet NSTextView *inputTextView;
 @property (strong) IBOutlet NSScrollView *outputContentScrollView;
-@property (strong) IBOutlet NSTextView *outputTextView;
+@property (strong) IBOutlet NSTextView *outputTextViewBaidu;
+@property (strong) IBOutlet NSTextView *outputTextViewYoudao;
+
 @property (strong) IBOutlet NSButton *btnHumpSmall;
 @property (strong) IBOutlet NSButton *btnCopy;
 @property (strong) IBOutlet NSButton *btnUnderLineSmall;
@@ -26,6 +28,12 @@
 @property (strong) IBOutlet NSTextField *tfFilter;
 @property (strong) IBOutlet NSButton *clearButton;
 
+@property (strong) IBOutlet NSButton *btnAutoCopyBaidu;
+@property (strong) IBOutlet NSButton *btnAutoCopyYoudao;
+@property (strong) IBOutlet NSButton *btnCopyBaidu;
+@property (strong) IBOutlet NSButton *btnCopyYoudao;
+
+
 
 @end
 
@@ -34,6 +42,7 @@
     FMServiceManager *_serviceManager;
     NSPasteboard *_pasteboard;
     NSButton *_btnSelected;
+    NSButton *_btnAutoCopy;
     NSMutableArray *_arrBtns;
     NSMutableArray *_arrFilter;
 }
@@ -48,20 +57,45 @@
     [_arrBtns addObject:_btnUnderLineBig];
     _btnSelected = _btnHumpSmall;
     
+    NSMutableArray *arrCopys = NSMutableArray.array;
+    [arrCopys addObject:_btnAutoCopyBaidu];
+    [arrCopys addObject:_btnAutoCopyYoudao];
+    for (NSButton *btn in arrCopys) {
+        [btn setTarget:self];
+        [btn setAction:@selector(autoCopyAction:)];
+    }
+    
+    NSMutableArray *arrCopysManuel = NSMutableArray.array;
+    [arrCopysManuel addObject:_btnCopyBaidu];
+    [arrCopysManuel addObject:_btnCopyYoudao];
+    for (NSButton *btn in arrCopysManuel) {
+        [btn setTarget:self];
+        [btn setAction:@selector(clickCopyAction:)];
+    }
     
     _inputTextView.delegate = self;
-    _outputTextView.delegate = self;
-    
-    _outputTextView.editable = NO;
     [_inputTextView setRichText:NO];
     [_inputTextView setFont:[NSFont systemFontOfSize:14]];
     [_inputTextView setTextColor:[NSColor blackColor]];
+    
+    _outputTextViewBaidu.editable = NO;
+    _outputTextViewBaidu.delegate = self;
+
+    _outputTextViewYoudao.editable = NO;
+    _outputTextViewYoudao.delegate = self;
+
+
+  
     
     _pasteboard = [NSPasteboard generalPasteboard];
     
     [_clearButton setTarget:self];
     [_clearButton setAction:@selector(clearContent:)];
     
+    _btnAutoCopy = _btnAutoCopyBaidu;
+    [_btnAutoCopyBaidu setTarget:self];
+    [_btnAutoCopyBaidu setAction:@selector(autoCopyAction:)];
+
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
@@ -123,20 +157,20 @@
         if (!response) {
             return;
         }
-//        [weakSelf fm_resultFormat:response];
+        [weakSelf fm_resultFormat:response type:FanyiType_Baidu];
     }];
     
     [_serviceManager fm_requestWithString:tempString type:FanyiType_Youdao completedBlock:^(id response) {
         if (!response) {
             return;
         }
-        [weakSelf fm_resultFormat:response];
+        [weakSelf fm_resultFormat:response type:FanyiType_Youdao];
         NSLog(@"youdao:%@",response);
     }];
 }
 
-- (void)fm_resultFormat:(NSString *)resultStr {
-    [self.outputTextView.textStorage beginEditing];
+- (void)fm_resultFormat:(NSString *)resultStr type:(FanyiType)type {
+//    [self.outputTextViewBaidu.textStorage beginEditing];
     
     NSString *result = resultStr;
     result = [result lowercaseStringWithLocale:NSLocale.currentLocale];
@@ -163,27 +197,81 @@
     }else if (_btnUnderLineBig.state) {
         result = [NSString fm_commonStringToUnderLineString:result isCapitalized:YES];
     }
+   
+    [self writeDataToThePasteboardWithString:result type:type];
+
+}
+
+
+- (void)writeDataToThePasteboardWithString:(NSString *)result type:(FanyiType)type  {
     NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
-    [self.outputTextView.textStorage setAttributedString:attrContent];
-    [self.outputTextView.textStorage setFont:[NSFont systemFontOfSize:14]];
-    [self.outputTextView.textStorage setForegroundColor:[NSColor redColor]];
-    [self.outputTextView.textStorage endEditing];
-    if (_btnCopy.state) {
-        [self writeDataToThePasteboardWithString:result];
+    switch (type) {
+        case FanyiType_Baidu:{
+            [self.outputTextViewBaidu.textStorage setAttributedString:attrContent];
+
+        }
+            break;
+        case FanyiType_Youdao:{
+            [self.outputTextViewYoudao.textStorage setAttributedString:attrContent];
+        }
+            break;
+    }
+    [self.outputTextViewBaidu.textStorage setFont:[NSFont systemFontOfSize:14]];
+    [self.outputTextViewBaidu.textStorage setForegroundColor:[NSColor redColor]];
+    [self.outputTextViewYoudao.textStorage setFont:[NSFont systemFontOfSize:14]];
+    [self.outputTextViewYoudao.textStorage setForegroundColor:[NSColor redColor]];
+    
+    if (type == FanyiType_Baidu ? _btnAutoCopyBaidu.state : type == FanyiType_Youdao ? _btnAutoCopyYoudao.state : NO) {
+        [self fm_copyToPasteboard:result];
     }
 }
 
-
-- (void)writeDataToThePasteboardWithString:(NSString *)data {
-    [_pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+- (void)fm_copyToPasteboard:(NSString *)result {
+    [_pasteboard declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
     [_pasteboard clearContents];
-    [_pasteboard setString:data forType:NSStringPboardType];
+    [_pasteboard setString:result forType:NSPasteboardTypeString];
 }
+
 
 - (void)clearContent:(NSButton *)sender {
     NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:@""];
     [_inputTextView.textStorage setAttributedString:attrContent];
-    [_outputTextView.textStorage setAttributedString:attrContent];
+    [_outputTextViewBaidu.textStorage setAttributedString:attrContent];
+}
+
+// 自动复制
+- (void)autoCopyAction:(NSButton *)sender {
+    if (![sender isEqualTo:_btnAutoCopy]) {
+        _btnAutoCopy.state = NO;
+        sender.state = YES;
+        _btnAutoCopy = sender;
+    }else{
+        _btnAutoCopy.state = !_btnAutoCopy.state;
+    }
+    switch (sender.tag) {
+        case FanyiType_Baidu:
+            [self fm_copyToPasteboard:self.outputTextViewBaidu.string];
+            break;
+        case FanyiType_Youdao:
+            [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
+            break;
+        default:
+            break;
+    }
+}
+
+// 手动点击复制
+- (void)clickCopyAction:(NSButton *)sender {
+    switch (sender.tag) {
+        case FanyiType_Baidu:
+            [self fm_copyToPasteboard:self.outputTextViewBaidu.string];
+            break;
+        case FanyiType_Youdao:
+            [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
+            break;
+        default:
+            break;
+    }
 }
 
 // 选择翻译模式

@@ -11,10 +11,11 @@
 typedef void(^CompletedBlock)(id response);
 
 typedef NS_ENUM(NSInteger, FanyiType) {
-    /// 有道
-    FanyiType_Youdao = 0,
-    /// 新品
+
+    /// 百度
     FanyiType_Baidu = 1,
+    /// 有道
+    FanyiType_Youdao = 2,
 };
 
 @interface FMServiceManager : NSObject
