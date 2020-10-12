@@ -32,7 +32,7 @@
 //    }];
     
     NSWindow *fyiWindow = [NSApplication sharedApplication].mainWindow;
-    fyiWindow.title = @"Flyi飞译 ———— 让你的变量命名不在烦恼";
+    fyiWindow.title = @"Flyi飞译 ———— 让你变量命名不在烦恼";
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {

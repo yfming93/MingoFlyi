@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, FanyiType) {
 
 @interface FMServiceManager : NSObject
 
-+ (FMServiceManager *)sharedFMServiceManager;
++ (FMServiceManager *)shareInstance;
 
 - (void)fm_requestWithString:(NSString *)text type:(FanyiType)type
                 completedBlock:(CompletedBlock)completedBlock ;

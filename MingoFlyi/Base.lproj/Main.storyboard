@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -826,7 +825,7 @@
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvl-XD-jqZ">
                                         <rect key="frame" x="589" y="69" width="73" height="72"/>
-                                        <buttonCell key="cell" type="radio" title="AutoCopy" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" inset="2" id="Fgp-vl-qPb">
+                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" inset="2" id="Fgp-vl-qPb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -887,7 +886,7 @@
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="2" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S31-7X-4dC">
                                         <rect key="frame" x="589" y="69" width="73" height="72"/>
-                                        <buttonCell key="cell" type="radio" title="AutoCopy" bezelStyle="regularSquare" imagePosition="above" alignment="center" inset="2" id="gVe-cn-FFA">
+                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" inset="2" id="gVe-cn-FFA">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -913,6 +912,30 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qib-UC-8On">
+                                <rect key="frame" x="230" y="17" width="70" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="wPF-Wc-rrn"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="前缀" drawsBackground="YES" id="9xt-RP-OCx">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="A0O-g7-vjM"/>
+                                </connections>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="qDU-fc-N0c">
+                                <rect key="frame" x="165" y="18" width="62" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="14" id="eXp-2p-Lxx"/>
+                                </constraints>
+                                <buttonCell key="cell" type="check" title="加前缀" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UaT-al-YLp">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="90a-VU-mcn" firstAttribute="bottom" secondItem="Z5V-0o-BVn" secondAttribute="bottom" id="1cO-xI-JUo"/>
@@ -924,7 +947,9 @@
                             <constraint firstItem="yFR-HV-Hh4" firstAttribute="centerY" secondItem="Z5V-0o-BVn" secondAttribute="centerY" id="BtL-2z-Tkh"/>
                             <constraint firstAttribute="bottom" secondItem="F2G-7G-F4K" secondAttribute="bottom" constant="20" id="Fmi-Ut-khV"/>
                             <constraint firstItem="KPK-No-GcO" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="NhY-ZO-TWH"/>
+                            <constraint firstItem="qib-UC-8On" firstAttribute="leading" secondItem="qDU-fc-N0c" secondAttribute="trailing" constant="5" id="Nyu-MD-QVM"/>
                             <constraint firstItem="KPK-No-GcO" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="9" id="Ppg-Ay-J7X"/>
+                            <constraint firstItem="Z5V-0o-BVn" firstAttribute="centerY" secondItem="qib-UC-8On" secondAttribute="centerY" id="Q7g-xi-NfG"/>
                             <constraint firstItem="Pa8-Kz-cIx" firstAttribute="trailing" secondItem="t70-fo-hib" secondAttribute="trailing" id="Qgl-7E-VZr"/>
                             <constraint firstItem="0vy-7M-XmW" firstAttribute="trailing" secondItem="KPK-No-GcO" secondAttribute="trailing" id="R3a-iB-Ior"/>
                             <constraint firstItem="0vy-7M-XmW" firstAttribute="centerY" secondItem="7nN-1r-cD3" secondAttribute="centerY" id="SWF-nX-kXh"/>
@@ -932,6 +957,7 @@
                             <constraint firstItem="tqq-HW-W8a" firstAttribute="leading" secondItem="KPK-No-GcO" secondAttribute="leading" id="UbN-vs-DWb"/>
                             <constraint firstAttribute="trailing" secondItem="KPK-No-GcO" secondAttribute="trailing" constant="20" id="Uea-Ky-Hl0"/>
                             <constraint firstItem="Pa8-Kz-cIx" firstAttribute="height" secondItem="t70-fo-hib" secondAttribute="height" id="VFp-c7-TgV"/>
+                            <constraint firstItem="Z5V-0o-BVn" firstAttribute="leading" secondItem="qib-UC-8On" secondAttribute="trailing" constant="10" id="VqK-Cc-YLA"/>
                             <constraint firstItem="t70-fo-hib" firstAttribute="top" secondItem="7nN-1r-cD3" secondAttribute="bottom" constant="10" id="Zdi-xM-Rdc"/>
                             <constraint firstItem="tqq-HW-W8a" firstAttribute="top" secondItem="KPK-No-GcO" secondAttribute="bottom" constant="18" id="dDM-Jg-ryh"/>
                             <constraint firstItem="F2G-7G-F4K" firstAttribute="leading" secondItem="90a-VU-mcn" secondAttribute="trailing" constant="10" id="gp5-l2-U6I"/>
@@ -939,6 +965,7 @@
                             <constraint firstItem="7nN-1r-cD3" firstAttribute="leading" secondItem="tqq-HW-W8a" secondAttribute="trailing" constant="10" id="lx1-aF-Ba9"/>
                             <constraint firstItem="7nN-1r-cD3" firstAttribute="centerY" secondItem="tqq-HW-W8a" secondAttribute="centerY" id="pRl-LI-KKG"/>
                             <constraint firstAttribute="trailing" secondItem="F2G-7G-F4K" secondAttribute="trailing" constant="20" id="pto-a7-e8U"/>
+                            <constraint firstItem="qib-UC-8On" firstAttribute="centerY" secondItem="qDU-fc-N0c" secondAttribute="centerY" id="qRv-8Q-phZ"/>
                             <constraint firstItem="F2G-7G-F4K" firstAttribute="bottom" secondItem="Z5V-0o-BVn" secondAttribute="bottom" id="sAI-Xm-szX"/>
                             <constraint firstItem="yFR-HV-Hh4" firstAttribute="leading" secondItem="Z5V-0o-BVn" secondAttribute="trailing" constant="10" id="u6B-ZD-xP6"/>
                             <constraint firstItem="t70-fo-hib" firstAttribute="leading" secondItem="KPK-No-GcO" secondAttribute="leading" id="ub5-XW-UBE"/>
@@ -954,6 +981,7 @@
                         <outlet property="btnFilter" destination="tqq-HW-W8a" id="p3K-vg-QXZ"/>
                         <outlet property="btnHumpBig" destination="90a-VU-mcn" id="yBH-8L-omb"/>
                         <outlet property="btnHumpSmall" destination="F2G-7G-F4K" id="LFH-gE-F0l"/>
+                        <outlet property="btnPrefix" destination="qDU-fc-N0c" id="vgq-LB-qQg"/>
                         <outlet property="btnUnderLineBig" destination="Z5V-0o-BVn" id="lvE-aU-Ele"/>
                         <outlet property="btnUnderLineSmall" destination="yFR-HV-Hh4" id="chm-xp-lTa"/>
                         <outlet property="clearButton" destination="0vy-7M-XmW" id="D2C-Qp-PbN"/>
@@ -963,6 +991,7 @@
                         <outlet property="outputTextViewBaidu" destination="V3l-po-6bn" id="H9A-ZD-fbE"/>
                         <outlet property="outputTextViewYoudao" destination="CnR-fp-FB6" id="XvV-W0-2yX"/>
                         <outlet property="tfFilter" destination="7nN-1r-cD3" id="0yH-Zo-b53"/>
+                        <outlet property="tfPrefix" destination="qib-UC-8On" id="Gwp-GB-bLy"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

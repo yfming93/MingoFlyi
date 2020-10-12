@@ -28,7 +28,7 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
 
 @implementation FMServiceManager
 
-+ (FMServiceManager *)sharedFMServiceManager {
++ (FMServiceManager *)shareInstance {
     static FMServiceManager *serviceManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
