@@ -44,9 +44,11 @@
     for (NSUInteger i = 0; i < length; i++) {
         NSRange range = NSMakeRange(i, 1);
         NSString *subString = [self substringWithRange:range];
-        const char *cString = [subString UTF8String];
-        if (strlen(cString) == 3) {
-            return YES;
+        if (subString.length) {
+            const char *cString = [subString UTF8String];
+            if (strlen(cString) == 3) {
+                return YES;
+            }
         }
     }
     return NO;

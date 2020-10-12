@@ -93,6 +93,9 @@
     [_clearButton setTarget:self];
     [_clearButton setAction:@selector(clearContent:)];
     
+    [_btnPrefix setTarget:self];
+    [_btnPrefix setAction:@selector(filterAction:)];
+    
     _btnAutoCopy = _btnAutoCopyBaidu;
     [_btnAutoCopyBaidu setTarget:self];
     [_btnAutoCopyBaidu setAction:@selector(autoCopyAction:)];
@@ -180,9 +183,12 @@
 //    if (!self.tfFilter.stringValue.length) return str;
     NSString * result = [str lowercaseStringWithLocale:NSLocale.currentLocale];
     NSString * smallfilter = [self.tfFilter.stringValue lowercaseStringWithLocale:NSLocale.currentLocale];
-    if ([smallfilter containsString:@"，"])  smallfilter = [smallfilter stringByReplacingOccurrencesOfString:@"，" withString:@","];
-    if ([smallfilter containsString:@";"])  smallfilter = [smallfilter stringByReplacingOccurrencesOfString:@";" withString:@","];
-    if ([smallfilter containsString:@"。"])  smallfilter = [smallfilter stringByReplacingOccurrencesOfString:@"。" withString:@","];
+    NSArray *outCharts = @[@"，",@";",@"；",@"。",@"、",@"/",@"|",@"\\"];
+    for (NSString *str in outCharts) {
+        if ([smallfilter containsString:str]) {
+            smallfilter = [smallfilter stringByReplacingOccurrencesOfString:str withString:@","];
+        }
+    }
     NSMutableArray *arrTitels = [result componentsSeparatedByString:@" "].mutableCopy;
     NSMutableArray *arrFilter = [smallfilter componentsSeparatedByString:@","].mutableCopy;
     for (NSString *str in arrFilter) {
@@ -246,7 +252,6 @@
 }
 
 - (void)fm_copyToPasteboard:(NSString *)result {
-    [self.view.window makeFirstResponder:nil];
     [_pasteboard declareTypes:[NSArray arrayWithObject:NSPasteboardTypeString] owner:self];
     [_pasteboard clearContents];
     [_pasteboard setString:result forType:NSPasteboardTypeString];
@@ -257,11 +262,17 @@
     NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:@""];
     [_inputTextView.textStorage setAttributedString:attrContent];
     [_outputTextViewBaidu.textStorage setAttributedString:attrContent];
+    [_outputTextViewYoudao.textStorage setAttributedString:attrContent];
+}
+
+- (void)filterAction:(NSButton *)sender {
+    [self fm_requetFanyi:_inputTextView.string];
+
 }
 
 // 自动复制
 - (void)autoCopyAction:(NSButton *)sender {
-
+    [self.view.window makeFirstResponder:nil];
     if (![sender isEqualTo:_btnAutoCopy]) {
         _btnAutoCopy.state = NO;
         sender.state = YES;
