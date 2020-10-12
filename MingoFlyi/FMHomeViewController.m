@@ -96,6 +96,9 @@
     [_btnPrefix setTarget:self];
     [_btnPrefix setAction:@selector(filterAction:)];
     
+    [_btnFilter setTarget:self];
+    [_btnFilter setAction:@selector(filterAction:)];
+    
     _btnAutoCopy = _btnAutoCopyBaidu;
     [_btnAutoCopyBaidu setTarget:self];
     [_btnAutoCopyBaidu setAction:@selector(autoCopyAction:)];
@@ -180,7 +183,8 @@
 
 /// 结果过滤
 - (NSString *)fm_filter:(NSString *)str {
-//    if (!self.tfFilter.stringValue.length) return str;
+    if (!self.tfFilter.stringValue.length) return str;
+    if (!self.btnFilter.state) return str;
     NSString * result = [str lowercaseStringWithLocale:NSLocale.currentLocale];
     NSString * smallfilter = [self.tfFilter.stringValue lowercaseStringWithLocale:NSLocale.currentLocale];
     NSArray *outCharts = @[@"，",@";",@"；",@"。",@"、",@"/",@"|",@"\\"];
@@ -197,18 +201,26 @@
             [arrTitels removeObject:tem];
         }
     }
-    if (self.btnPrefix.state) {
-       if (self.tfPrefix.stringValue.length) {
-           [arrTitels insertObject:self.tfPrefix.stringValue atIndex:0];
-       }
-   }
     result = [arrTitels componentsJoinedByString:@" "];
     return result;
+}
+
+- (NSString *)fm_addPrefix:(NSString *)result {
+    NSString *res = result.mutableCopy;
+    NSMutableArray *arrTitels = [res componentsSeparatedByString:@" "].mutableCopy;
+    if (self.btnPrefix.state) {
+        if (self.tfPrefix.stringValue.length) {
+            [arrTitels insertObject:self.tfPrefix.stringValue atIndex:0];
+        }
+    }
+    res = [arrTitels componentsJoinedByString:@" "];
+    return res;
 }
 
 - (void)fm_resultFormat:(NSString *)resultStr type:(FanyiType)type {
     if (!resultStr.length) return;
     NSString *result = [self fm_filter:resultStr];
+    result = [self fm_addPrefix:result];
     
     if (_btnHumpSmall.state) {
         result = [NSString commonStringToHumpString:result isCapitalized:NO];
