@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -691,15 +691,15 @@
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-No-GcO">
                                 <rect key="frame" x="20" y="392" width="660" height="140"/>
                                 <clipView key="contentView" drawsBackground="NO" id="K9u-zB-Bqr">
-                                    <rect key="frame" x="1" y="1" width="658" height="138"/>
+                                    <rect key="frame" x="1" y="1" width="643" height="138"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="xud-vI-AMn">
-                                            <rect key="frame" x="0.0" y="0.0" width="658" height="138"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="643" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="658" height="138"/>
+                                            <size key="minSize" width="643" height="138"/>
                                             <size key="maxSize" width="713" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
@@ -713,11 +713,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Rc7-cM-75q">
-                                    <rect key="frame" x="643" y="1" width="16" height="138"/>
+                                    <rect key="frame" x="644" y="1" width="15" height="138"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="F2G-7G-F4K">
+                            <button tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="F2G-7G-F4K">
                                 <rect key="frame" x="593" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="PWr-oI-jA1"/>
@@ -728,7 +728,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="yFR-HV-Hh4">
+                            <button tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="yFR-HV-Hh4">
                                 <rect key="frame" x="403" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="68A-oS-V4F"/>
@@ -739,7 +739,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="90a-VU-mcn">
+                            <button tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="90a-VU-mcn">
                                 <rect key="frame" x="498" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="1ax-Zc-pod"/>
@@ -750,7 +750,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-0o-BVn">
+                            <button tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-0o-BVn">
                                 <rect key="frame" x="308" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="ngx-ay-EdB"/>
@@ -825,7 +825,7 @@
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvl-XD-jqZ">
                                         <rect key="frame" x="589" y="69" width="73" height="72"/>
-                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" inset="2" id="Fgp-vl-qPb">
+                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="Fgp-vl-qPb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -886,7 +886,7 @@
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="2" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S31-7X-4dC">
                                         <rect key="frame" x="589" y="69" width="73" height="72"/>
-                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" inset="2" id="gVe-cn-FFA">
+                                        <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="gVe-cn-FFA">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>

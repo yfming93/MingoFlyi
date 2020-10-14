@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (FMAdd)
+/**
+ *  @brief  urlEncode
+ *
+ *  @return urlEncode 后的字符串
+ */
+- (NSString *)urlEncode;
 
 /**
  *  32位md5加密算法

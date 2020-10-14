@@ -12,6 +12,27 @@
 @implementation NSString (FMAdd)
 
 /**
+ *  @brief  urlEncode
+ *
+ *  @return urlEncode 后的字符串
+ */
+- (NSString *)urlEncode {
+    return [self urlEncodeUsingEncoding:NSUTF8StringEncoding];
+}
+/**
+ *  @brief  urlEncode
+ *
+ *  @param encoding encoding模式
+ *
+ *  @return urlEncode 后的字符串
+ */
+- (NSString *)urlEncodeUsingEncoding:(NSStringEncoding)encoding {
+    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+                (__bridge CFStringRef)self,NULL,(CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                 CFStringConvertNSStringEncodingToEncoding(encoding));
+}
+
+/**
  *  32位md5加密算法
  *  @param str 传入要加密的字符串
  *  @return NSString

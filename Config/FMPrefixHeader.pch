@@ -1,0 +1,17 @@
+//
+//  FMPrefixHeader.pch
+//  MingoFlyi
+//
+//  Created by iMac on 2020/10/14.
+//  Copyright © 2020 袁凤鸣. All rights reserved.
+//
+
+#ifndef FMPrefixHeader_pch
+#define FMPrefixHeader_pch
+
+#import "FMSetting.h"
+#import "Tools.h"
+#import "NSString+FMAdd.h"
+
+
+#endif /* FMPrefixHeader_pch */

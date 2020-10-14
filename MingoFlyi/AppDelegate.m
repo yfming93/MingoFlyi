@@ -32,7 +32,9 @@
 //    }];
     
     NSWindow *fyiWindow = [NSApplication sharedApplication].mainWindow;
-    fyiWindow.title = @"Flyi飞译 ———— 让你变量命名不在烦恼";
+    fyiWindow.title = @"Flyi飞译 ———— 让你变量命名不再烦恼";
+    User *user = FMSetting.fm_get;
+    kUser = user;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
@@ -47,6 +49,8 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    [FMSetting fm_save];
+
 }
 
 

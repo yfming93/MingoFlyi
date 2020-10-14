@@ -8,8 +8,7 @@
 
 #import "FMHomeViewController.h"
 #import "FMServiceManager.h"
-#import "NSString+FMAdd.h"
-#import "Tools.h"
+#import "YLGoogleTranslate.h"
 
 @interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate>
 
@@ -42,37 +41,33 @@
 {
     FMServiceManager *_serviceManager;
     NSPasteboard *_pasteboard;
-    NSButton *_btnSelected;
+    NSButton *_btnSelectedFanyi;
     NSButton *_btnAutoCopy;
     NSMutableArray *_arrBtns;
+    NSMutableArray *_arrAutoCopys;
+    NSMutableArray *_arrManuelCopys;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _serviceManager = FMServiceManager.shareInstance;
-
+    
     _arrBtns = NSMutableArray.array;
     [_arrBtns addObject:_btnHumpSmall];
     [_arrBtns addObject:_btnHumpBig];
     [_arrBtns addObject:_btnUnderLineSmall];
     [_arrBtns addObject:_btnUnderLineBig];
-    _btnSelected = _btnHumpSmall;
+    _btnSelectedFanyi = _btnHumpSmall;
     
-    NSMutableArray *arrCopys = NSMutableArray.array;
-    [arrCopys addObject:_btnAutoCopyBaidu];
-    [arrCopys addObject:_btnAutoCopyYoudao];
-    for (NSButton *btn in arrCopys) {
-        [btn setTarget:self];
-        [btn setAction:@selector(autoCopyAction:)];
-    }
+    _arrAutoCopys = NSMutableArray.array;
+    [_arrAutoCopys addObject:_btnAutoCopyBaidu];
+    [_arrAutoCopys addObject:_btnAutoCopyYoudao];
     
-    NSMutableArray *arrCopysManuel = NSMutableArray.array;
-    [arrCopysManuel addObject:_btnCopyBaidu];
-    [arrCopysManuel addObject:_btnCopyYoudao];
-    for (NSButton *btn in arrCopysManuel) {
-        [btn setTarget:self];
-        [btn setAction:@selector(clickCopyAction:)];
-    }
+    _arrManuelCopys = NSMutableArray.array;
+    [_arrManuelCopys addObject:_btnCopyBaidu];
+    [_arrManuelCopys addObject:_btnCopyYoudao];
+    
     
     _inputTextView.delegate = self;
     [_inputTextView setRichText:NO];
@@ -81,32 +76,68 @@
     
     _outputTextViewBaidu.editable = NO;
     _outputTextViewBaidu.delegate = self;
-
+    
     _outputTextViewYoudao.editable = NO;
     _outputTextViewYoudao.delegate = self;
-
-
-    _tfFilter.delegate = self;
     
+    
+    _tfFilter.delegate = self;
     _pasteboard = [NSPasteboard generalPasteboard];
     
     [_clearButton setTarget:self];
     [_clearButton setAction:@selector(clearContent:)];
     
     [_btnPrefix setTarget:self];
-    [_btnPrefix setAction:@selector(filterAction:)];
+    [_btnPrefix setAction:@selector(prefixAction:)];
     
     [_btnFilter setTarget:self];
     [_btnFilter setAction:@selector(filterAction:)];
     
-    _btnAutoCopy = _btnAutoCopyBaidu;
-    [_btnAutoCopyBaidu setTarget:self];
-    [_btnAutoCopyBaidu setAction:@selector(autoCopyAction:)];
+    
+    [self fm_initSetting];
+    
+}
 
+-(void)fm_initSetting {
+    User *user = FMSetting.fm_get;
+    kUser = user;
+    self.tfPrefix.stringValue = kUser.prefixText;
+    self.tfFilter.stringValue = kUser.filterText;
+    self.btnPrefix.state = kUser.isPrefix;
+    self.btnFilter.state = kUser.isFliter;
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
+        if (btn.tag == kUser.indexFanyi) {
+            btn.state = YES;
+            _btnSelectedFanyi = btn;
+        }else{
+            btn.state = NO;
+        }
     }
+    
+    for (NSButton *btn in _arrManuelCopys) {
+        [btn setTarget:self];
+        [btn setAction:@selector(clickCopyAction:)];
+        if (btn.tag == kUser.indexManuelCopy) {
+            btn.state = YES;
+        }else{
+            btn.state = NO;
+        }
+    }
+    
+    for (NSButton *btn in _arrAutoCopys) {
+          [btn setTarget:self];
+          [btn setAction:@selector(autoCopyAction:)];
+        
+        if (btn.tag == kUser.indexAutoCopy) {
+                   btn.state = YES;
+            _btnAutoCopy = btn;
+               }else{
+                   btn.state = NO;
+               }
+      }
+    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -116,6 +147,7 @@
 
 - (void)dealloc {
     NSLog(@"FMHomeViewController dealloc");
+    [FMSetting fm_save];
 }
 
 //- (NSTextField *)addTextViewPlaceholderWithString:(NSString *)placeholder textView:(NSTextView *)textView {
@@ -140,11 +172,13 @@
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
-
+    
     if (obj.object == _tfFilter) {
         [self fm_requetFanyi:_inputTextView.string];
+        kUser.filterText = _tfFilter.stringValue;
     }else  if (obj.object == _tfPrefix) {
-           [self fm_requetFanyi:_inputTextView.string];
+        [self fm_requetFanyi:_inputTextView.string];
+        kUser.prefixText = _tfPrefix.stringValue;
     }
     
 }
@@ -162,16 +196,30 @@
 }
 
 /// 翻译请求
+- (void)fm_requet {
+    NSString *content = @"控制变量法怎么样啊";
+    NSString *targetLanguage = @"zh-CN";
+    YLGoogleTranslate *googleTrans = [[YLGoogleTranslate alloc] init];
+    [googleTrans translateWithText:content targetLanguageCode:targetLanguage completion:^(NSString * _Nullable originalText, NSString * _Nullable originalLanguageCode, NSString * _Nullable translatedText, NSString * _Nullable targetLanguageCode, NSString * _Nullable error) {
+        if ([error length] > 0) {
+            NSLog(@"调用Google翻译接口返回错误：%@ ", error);
+        } else {
+            NSLog(@"调用Google翻译接口返回成功！");
+        }
+    }];
+}
+
+/// 翻译请求
 - (void)fm_requetFanyi:(NSString *)str {
     NSString *text = str;
     if (text.length <= 0) {
         return;
     }
-    
+    [self fm_requet];
     NSString *tempString = [self fm_formatForChinese:str];
     __weak typeof(self) weakSelf = self;
     [_serviceManager fm_requestWithString:tempString type:FanyiType_Baidu completedBlock:^(id response) {
-       NSLog(@"百度翻译结果-------------:%@",response);
+        NSLog(@"百度翻译结果-------------:%@",response);
         [weakSelf fm_resultFormat:response type:FanyiType_Baidu];
     }];
     
@@ -224,19 +272,19 @@
     
     if (_btnHumpSmall.state) {
         result = [NSString commonStringToHumpString:result isCapitalized:NO];
-
+        
     }else if (_btnHumpBig.state) {
         result = [NSString commonStringToHumpString:result isCapitalized:YES];
-
+        
     } else if (_btnUnderLineSmall.state) {
         result = [NSString fm_commonStringToUnderLineString:result isCapitalized:NO];
-
+        
     }else if (_btnUnderLineBig.state) {
         result = [NSString fm_commonStringToUnderLineString:result isCapitalized:YES];
     }
-   
+    
     [self writeDataToThePasteboardWithString:result type:type];
-
+    
 }
 
 
@@ -245,7 +293,7 @@
     switch (type) {
         case FanyiType_Baidu:{
             [self.outputTextViewBaidu.textStorage setAttributedString:attrContent];
-
+            
         }
             break;
         case FanyiType_Youdao:{
@@ -279,18 +327,31 @@
 
 - (void)filterAction:(NSButton *)sender {
     [self fm_requetFanyi:_inputTextView.string];
+    kUser.isFliter = sender.state;
+}
 
+- (void)prefixAction:(NSButton *)sender {
+    [self fm_requetFanyi:_inputTextView.string];
+    kUser.isPrefix = sender.state;
 }
 
 // 自动复制
 - (void)autoCopyAction:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
-    if (![sender isEqualTo:_btnAutoCopy]) {
-        _btnAutoCopy.state = NO;
-        sender.state = YES;
-        _btnAutoCopy = sender;
+    if (sender.tag == _btnAutoCopy.tag) {
+//        if (sender.state == NSControlStateValueOn) {
+//            sender.state = NSControlStateValueOff;
+//        }else{
+//            sender.state = NSControlStateValueOn;
+////        }
+//        _btnAutoCopy = sender;
+        kUser.indexAutoCopy = sender.state == NSControlStateValueOn ? sender.tag : 0;
     }else{
-        _btnAutoCopy.state = !_btnAutoCopy.state;
+        _btnAutoCopy.state = NO;
+         sender.state = YES;
+         _btnAutoCopy = sender;
+         kUser.indexAutoCopy = sender.tag;
+ 
     }
     switch (sender.tag) {
         case FanyiType_Baidu:
@@ -302,6 +363,8 @@
         default:
             break;
     }
+    [FMSetting fm_save];
+
 }
 
 // 手动点击复制
@@ -321,11 +384,14 @@
 // 选择翻译模式
 - (void)selectAction:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
-
-    if (![sender isEqualTo:_btnSelected]) {
-        _btnSelected.state = NO;
+    
+    if (![sender isEqualTo:_btnSelectedFanyi]) {
+        _btnSelectedFanyi.state = NO;
         sender.state = YES;
-        _btnSelected = sender;
+        _btnSelectedFanyi = sender;
+        kUser.indexFanyi = sender.tag;
+    }else{
+        kUser.indexFanyi = sender.state == NSControlStateValueOn ? sender.tag : 0;
     }
     [self fm_requetFanyi:_inputTextView.string];
 }

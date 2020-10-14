@@ -17,10 +17,12 @@
 		1E3265271E986B2700DF90FA /* PodFile in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265261E986B2700DF90FA /* PodFile */; };
 		1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3265291E98A73F00DF90FA /* FMServiceManager.m */; };
 		1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */; };
+		83BF6BBF84DDBFA65C0BE5AA /* libPods-MingoFlyi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8B1E1E3FEDC2BAB99CC133 /* libPods-MingoFlyi.a */; };
 		881ADD2E252F063100CC35AA /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 881ADD2D252F063100CC35AA /* Tools.m */; };
 		881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881ADD38252F095900CC35AA /* AppKit.framework */; };
 		88922A22252D706E009B1D69 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265011E97DEF300DF90FA /* Info.plist */; };
-		927F1B47485E50C0CDC5D1F1 /* libPods-MingoFlyi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FA3594D8199DEBEFD3811B5 /* libPods-MingoFlyi.a */; };
+		88D37EA42536BA740078C2FC /* FMSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D37EA32536BA740078C2FC /* FMSetting.m */; };
+		88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6691C25341978005D38B3 /* YLGoogleTranslate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,14 +63,19 @@
 		1E3265291E98A73F00DF90FA /* FMServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMServiceManager.m; sourceTree = "<group>"; };
 		1ED27FE11E9BCD2400E2287F /* NSString+FMAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FMAdd.h"; sourceTree = "<group>"; };
 		1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FMAdd.m"; sourceTree = "<group>"; };
-		2FA3594D8199DEBEFD3811B5 /* libPods-MingoFlyi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MingoFlyi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		504153C5BACB3B586B2B3230 /* Pods-JFFanYi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.debug.xcconfig"; sourceTree = "<group>"; };
+		5B8B1E1E3FEDC2BAB99CC133 /* libPods-MingoFlyi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MingoFlyi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		850DCF5B127C7F7C0E1D94C3 /* Pods-MingoFlyi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.release.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.release.xcconfig"; sourceTree = "<group>"; };
 		881ADD2C252F063100CC35AA /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		881ADD2D252F063100CC35AA /* Tools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		881ADD38252F095900CC35AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		92B9E6273A7DE482B1F3C929 /* Pods-MingoFlyi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.debug.xcconfig"; sourceTree = "<group>"; };
+		88D37EA22536BA740078C2FC /* FMSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMSetting.h; sourceTree = "<group>"; };
+		88D37EA32536BA740078C2FC /* FMSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMSetting.m; sourceTree = "<group>"; };
+		88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMPrefixHeader.pch; sourceTree = "<group>"; };
+		88F6691C25341978005D38B3 /* YLGoogleTranslate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGoogleTranslate.m; sourceTree = "<group>"; };
+		88F6691D25341978005D38B3 /* YLGoogleTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLGoogleTranslate.h; sourceTree = "<group>"; };
+		8F6933F1267D9BB619C096DF /* Pods-MingoFlyi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.debug.xcconfig"; sourceTree = "<group>"; };
 		98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.release.xcconfig"; sourceTree = "<group>"; };
-		CF9E7D4EA59C8DE7323D9B85 /* Pods-MingoFlyi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.release.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +84,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */,
-				927F1B47485E50C0CDC5D1F1 /* libPods-MingoFlyi.a in Frameworks */,
+				83BF6BBF84DDBFA65C0BE5AA /* libPods-MingoFlyi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +108,7 @@
 		1E3264E71E97DEF200DF90FA = {
 			isa = PBXGroup;
 			children = (
+				88D37EA62536C3B10078C2FC /* Config */,
 				1E3265261E986B2700DF90FA /* PodFile */,
 				1E3264F21E97DEF200DF90FA /* MingoFlyi */,
 				1E3265091E97DEF300DF90FA /* MingoFlyiTests */,
@@ -136,6 +144,8 @@
 				1E3264FE1E97DEF300DF90FA /* Main.storyboard */,
 				1E3265011E97DEF300DF90FA /* Info.plist */,
 				1E3264F61E97DEF200DF90FA /* Supporting Files */,
+				88D37EA22536BA740078C2FC /* FMSetting.h */,
+				88D37EA32536BA740078C2FC /* FMSetting.m */,
 			);
 			path = MingoFlyi;
 			sourceTree = "<group>";
@@ -169,6 +179,8 @@
 		881ADD14252F05F000CC35AA /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				88F6691D25341978005D38B3 /* YLGoogleTranslate.h */,
+				88F6691C25341978005D38B3 /* YLGoogleTranslate.m */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -184,13 +196,21 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
+		88D37EA62536C3B10078C2FC /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		A9C6CF0DCC466BBD46A30ABB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				504153C5BACB3B586B2B3230 /* Pods-JFFanYi.debug.xcconfig */,
 				98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */,
-				92B9E6273A7DE482B1F3C929 /* Pods-MingoFlyi.debug.xcconfig */,
-				CF9E7D4EA59C8DE7323D9B85 /* Pods-MingoFlyi.release.xcconfig */,
+				8F6933F1267D9BB619C096DF /* Pods-MingoFlyi.debug.xcconfig */,
+				850DCF5B127C7F7C0E1D94C3 /* Pods-MingoFlyi.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -199,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				881ADD38252F095900CC35AA /* AppKit.framework */,
-				2FA3594D8199DEBEFD3811B5 /* libPods-MingoFlyi.a */,
+				5B8B1E1E3FEDC2BAB99CC133 /* libPods-MingoFlyi.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -278,7 +298,7 @@
 					};
 					1E3265051E97DEF300DF90FA = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = SV98J7C3Y8;
+						DevelopmentTeam = PPTSL8JL9D;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1E3264EF1E97DEF200DF90FA;
 					};
@@ -366,11 +386,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3264FB1E97DEF300DF90FA /* FMHomeViewController.m in Sources */,
+				88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */,
 				1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */,
 				1E3264F81E97DEF300DF90FA /* main.m in Sources */,
 				881ADD2E252F063100CC35AA /* Tools.m in Sources */,
 				1E3264F51E97DEF200DF90FA /* AppDelegate.m in Sources */,
 				1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */,
+				88D37EA42536BA740078C2FC /* FMSetting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,13 +530,14 @@
 		};
 		1E32651B1E97DEF300DF90FA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92B9E6273A7DE482B1F3C929 /* Pods-MingoFlyi.debug.xcconfig */;
+			baseConfigurationReference = 8F6933F1267D9BB619C096DF /* Pods-MingoFlyi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20201008;
 				DEVELOPMENT_TEAM = SV98J7C3Y8;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Config/FMPrefixHeader.pch";
 				INFOPLIST_FILE = MingoFlyi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -525,13 +548,14 @@
 		};
 		1E32651C1E97DEF300DF90FA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF9E7D4EA59C8DE7323D9B85 /* Pods-MingoFlyi.release.xcconfig */;
+			baseConfigurationReference = 850DCF5B127C7F7C0E1D94C3 /* Pods-MingoFlyi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20201008;
 				DEVELOPMENT_TEAM = SV98J7C3Y8;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Config/FMPrefixHeader.pch";
 				INFOPLIST_FILE = MingoFlyi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
@@ -545,10 +569,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = SV98J7C3Y8;
+				DEVELOPMENT_TEAM = PPTSL8JL9D;
 				INFOPLIST_FILE = MingoFlyi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.JFFanYiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MingoFlyi.app/Contents/MacOS/MingoFlyi";
 			};
@@ -559,10 +583,10 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = SV98J7C3Y8;
+				DEVELOPMENT_TEAM = PPTSL8JL9D;
 				INFOPLIST_FILE = MingoFlyi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.JFFanYiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MingoFlyi.app/Contents/MacOS/MingoFlyi";
 			};
@@ -573,11 +597,11 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PPTSL8JL9D;
-				INFOPLIST_FILE = MingoFlyiUITests/Info.plist;
+				INFOPLIST_FILE = JFFanYiUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mingo.flyiUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.JFFanYiUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = MingoFlyi;
+				TEST_TARGET_NAME = JFFanYi;
 			};
 			name = Debug;
 		};
@@ -586,11 +610,11 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PPTSL8JL9D;
-				INFOPLIST_FILE = MingoFlyiUITests/Info.plist;
+				INFOPLIST_FILE = JFFanYiUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mingo.flyiUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhifenx.JFFanYiUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = MingoFlyi;
+				TEST_TARGET_NAME = JFFanYi;
 			};
 			name = Release;
 		};

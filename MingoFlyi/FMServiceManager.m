@@ -7,7 +7,6 @@
 //
 
 #import "FMServiceManager.h"
-#import "NSString+FMAdd.h"
 #import <AFNetworking.h>
 #import <CommonCrypto/CommonDigest.h>
 #define kTimeOutInterval 60
