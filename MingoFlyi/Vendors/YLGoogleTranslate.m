@@ -111,13 +111,13 @@
     dispatch_group_enter(_dispatchGroup);
     dispatch_group_async(_dispatchGroup, globalQueue, ^{
 //        TKK获取太慢了，容易超时
-//        [self getTKKInCompletion:^(NSString * _Nullable tkkData, NSString * _Nullable error) {
-//            WEAKSELF.TKK = tkkData;
+        [self getTKKInCompletion:^(NSString * _Nullable tkkData, NSString * _Nullable error) {
+            WEAKSELF.TKK = tkkData;
             [WEAKSELF getTokenWithText:text completion:^(NSString * _Nullable tokenData, NSString * _Nullable error) {
                 WEAKSELF.token = tokenData;
                 dispatch_group_leave(_dispatchGroup);
             }];
-//        }];
+        }];
     });
     
     dispatch_group_notify(_dispatchGroup, globalQueue, ^{

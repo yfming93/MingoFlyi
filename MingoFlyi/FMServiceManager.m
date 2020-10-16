@@ -66,6 +66,8 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         [self requestDataUseYoudao:text completedBlock:completedBlock];
     }else if (type == FanyiType_Baidu) {
         [self requestDataUseBaidu:text completedBlock:completedBlock];
+    }else if (type == FanyiType_Google) {
+        [self requestDataUseGoogle:text completedBlock:completedBlock];
     }
    
 }
@@ -118,6 +120,30 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
        
 }
 
+/// 谷歌翻译
+- (void)requestDataUseGoogle:(NSString *)text completedBlock:(CompletedBlock)completedBlock{
+    
+    //http://translate.google.cn/translate_a/single?client=at&sl=zh-CN&tl=en&dt=t&q=你还知道你在干啥吗
+    //http://translate.google.cn/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=你还知道你在干啥吗
+    //http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh_TW&q=calculate
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=%@&q=%@",text.isContainChinese ? @"en":@"zh_CN",text];
+    //将待翻译的文字机型urf-8转码
+    urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    //使用get请求
+    [FMServiceManager requestDataWihtMethodUrl:urlStr success:^(id response) {
+        NSError *err;
+        NSArray *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
+        NSString *resStr;
+        resStr = [[[dat firstObject] firstObject] firstObject];
+        
+        completedBlock(resStr);
+        
+    }failure:^(NSError *err) {
+        NSLog(@"error :%@",err);
+    }];
+    
+}
 
 
 @end

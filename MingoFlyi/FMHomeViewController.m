@@ -17,6 +17,7 @@
 @property (strong) IBOutlet NSScrollView *outputContentScrollView;
 @property (strong) IBOutlet NSTextView *outputTextViewBaidu;
 @property (strong) IBOutlet NSTextView *outputTextViewYoudao;
+@property (strong) IBOutlet NSTextView *outputTextViewGoogle;
 
 @property (strong) IBOutlet NSButton *btnHumpSmall;
 @property (strong) IBOutlet NSButton *btnUnderLineSmall;
@@ -28,8 +29,11 @@
 
 @property (strong) IBOutlet NSButton *btnAutoCopyBaidu;
 @property (strong) IBOutlet NSButton *btnAutoCopyYoudao;
+@property (strong) IBOutlet NSButton *btnAutoCopyGoogle;
+
 @property (strong) IBOutlet NSButton *btnCopyBaidu;
 @property (strong) IBOutlet NSButton *btnCopyYoudao;
+@property (strong) IBOutlet NSButton *btnCopyGoogle;
 
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
 @property (strong) IBOutlet NSButton *btnPrefix; //加前缀
@@ -63,11 +67,13 @@
     _arrAutoCopys = NSMutableArray.array;
     [_arrAutoCopys addObject:_btnAutoCopyBaidu];
     [_arrAutoCopys addObject:_btnAutoCopyYoudao];
-    
+    [_arrAutoCopys addObject:_btnAutoCopyGoogle];
+
     _arrManuelCopys = NSMutableArray.array;
     [_arrManuelCopys addObject:_btnCopyBaidu];
     [_arrManuelCopys addObject:_btnCopyYoudao];
-    
+    [_arrManuelCopys addObject:_btnCopyGoogle];
+
     
     _inputTextView.delegate = self;
     [_inputTextView setRichText:NO];
@@ -76,10 +82,10 @@
     
     _outputTextViewBaidu.editable = NO;
     _outputTextViewBaidu.delegate = self;
-    
     _outputTextViewYoudao.editable = NO;
     _outputTextViewYoudao.delegate = self;
-    
+    _outputTextViewGoogle.editable = NO;
+    _outputTextViewGoogle.delegate = self;
     
     _tfFilter.delegate = self;
     _pasteboard = [NSPasteboard generalPasteboard];
@@ -127,17 +133,16 @@
     }
     
     for (NSButton *btn in _arrAutoCopys) {
-          [btn setTarget:self];
-          [btn setAction:@selector(autoCopyAction:)];
+        [btn setTarget:self];
+        [btn setAction:@selector(autoCopyAction:)];
         
         if (btn.tag == kUser.indexAutoCopy) {
-                   btn.state = YES;
+            btn.state = YES;
             _btnAutoCopy = btn;
-               }else{
-                   btn.state = NO;
-               }
-      }
-    
+        }else{
+           btn.state = NO;
+       }
+    }
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -165,10 +170,16 @@
 //}
 
 - (void)textDidChange:(NSNotification *)notification {
+//    if (notification.object == _inputTextView) {
+//        [self fm_requetFanyi:_inputTextView.string];
+//    }
+//    
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification {
     if (notification.object == _inputTextView) {
         [self fm_requetFanyi:_inputTextView.string];
     }
-    
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
@@ -195,19 +206,19 @@
     
 }
 
-/// 翻译请求
-- (void)fm_requet {
-    NSString *content = @"控制变量法怎么样啊";
-    NSString *targetLanguage = @"zh-CN";
-    YLGoogleTranslate *googleTrans = [[YLGoogleTranslate alloc] init];
-    [googleTrans translateWithText:content targetLanguageCode:targetLanguage completion:^(NSString * _Nullable originalText, NSString * _Nullable originalLanguageCode, NSString * _Nullable translatedText, NSString * _Nullable targetLanguageCode, NSString * _Nullable error) {
-        if ([error length] > 0) {
-            NSLog(@"调用Google翻译接口返回错误：%@ ", error);
-        } else {
-            NSLog(@"调用Google翻译接口返回成功！");
-        }
-    }];
-}
+///// 翻译请求
+//- (void)fm_requet {
+//    NSString *content = @"控制变量法怎么样啊";
+//    NSString *targetLanguage = @"zh-CN";
+//    YLGoogleTranslate *googleTrans = [[YLGoogleTranslate alloc] init];
+//    [googleTrans translateWithText:content targetLanguageCode:targetLanguage completion:^(NSString * _Nullable originalText, NSString * _Nullable originalLanguageCode, NSString * _Nullable translatedText, NSString * _Nullable targetLanguageCode, NSString * _Nullable error) {
+//        if ([error length] > 0) {
+//            NSLog(@"调用Google翻译接口返回错误：%@ ", error);
+//        } else {
+//            NSLog(@"调用Google翻译接口返回成功！");
+//        }
+//    }];
+//}
 
 /// 翻译请求
 - (void)fm_requetFanyi:(NSString *)str {
@@ -215,7 +226,7 @@
     if (text.length <= 0) {
         return;
     }
-    [self fm_requet];
+//    [self fm_requet];
     NSString *tempString = [self fm_formatForChinese:str];
     __weak typeof(self) weakSelf = self;
     [_serviceManager fm_requestWithString:tempString type:FanyiType_Baidu completedBlock:^(id response) {
@@ -227,6 +238,11 @@
         [weakSelf fm_resultFormat:response type:FanyiType_Youdao];
         NSLog(@"有道翻译结果-------------:%@",response);
     }];
+//    
+//    [_serviceManager fm_requestWithString:tempString type:FanyiType_Google completedBlock:^(id response) {
+//        [weakSelf fm_resultFormat:response type:FanyiType_Google];
+//        NSLog(@"谷歌翻译结果-------------:%@",response);
+//    }];
 }
 
 /// 结果过滤
@@ -300,13 +316,19 @@
             [self.outputTextViewYoudao.textStorage setAttributedString:attrContent];
         }
             break;
+        case FanyiType_Google:{
+            [self.outputTextViewGoogle.textStorage setAttributedString:attrContent];
+        }
+            break;
     }
     [self.outputTextViewBaidu.textStorage setFont:[NSFont systemFontOfSize:14]];
     [self.outputTextViewBaidu.textStorage setForegroundColor:[NSColor redColor]];
     [self.outputTextViewYoudao.textStorage setFont:[NSFont systemFontOfSize:14]];
     [self.outputTextViewYoudao.textStorage setForegroundColor:[NSColor redColor]];
+    [self.outputTextViewGoogle.textStorage setFont:[NSFont systemFontOfSize:14]];
+    [self.outputTextViewGoogle.textStorage setForegroundColor:[NSColor redColor]];
     
-    if (type == FanyiType_Baidu ? _btnAutoCopyBaidu.state : type == FanyiType_Youdao ? _btnAutoCopyYoudao.state : NO) {
+    if (type == _btnAutoCopy.tag) {
         [self fm_copyToPasteboard:result];
     }
 }
