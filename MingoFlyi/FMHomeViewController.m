@@ -36,9 +36,11 @@
 @property (strong) IBOutlet NSButton *btnCopyYoudao;
 @property (strong) IBOutlet NSButton *btnCopyGoogle;
 
+@property (strong) IBOutlet NSButton *btnMore;
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
 @property (strong) IBOutlet NSButton *btnPrefix; //加前缀
 @property (strong) IBOutlet WKWebView *webView;
+@property (weak) IBOutlet NSLayoutConstraint *webGoogle_w;
 
 
 @end
@@ -102,6 +104,9 @@
     [_btnFilter setAction:@selector(filterAction:)];
     
     
+    [_btnMore setTarget:self];
+    [_btnMore setAction:@selector(moreAction:)];
+    
     [self fm_initSetting];
     
 }
@@ -112,45 +117,58 @@
 }
 
 - (void)fm_webView {
-//    注意： #import <WebKit/WebKit.h>
-    // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
     _webView.allowsBackForwardNavigationGestures = YES;
-    
-    //以下代码适配大小
-    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
-    
-    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-    [wkUController addUserScript:wkUScript];
-    
-    WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
-    webConfig.userContentController = wkUController;
-    
-    _webView = [[WKWebView alloc] initWithFrame:self.webView.frame configuration:webConfig];
-    
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
-    
-    //可返回的页面列表, 存储已打开过的网页
-    WKBackForwardList * backForwardList = [_webView backForwardList];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
-//    [request addValue:[self readCurrentCookieWithDomain:@"http://www.chinadaily.com.cn"] forHTTPHeaderField:@"Cookie"];
+    NSString *text = [self fm_formatForChinese:self.inputTextView.string];
+	//将待翻译的文字机型urf-8转码
+    NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/en/%@",qEncoding];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [_webView loadRequest:request];
-//    //页面后退
-//    [_webView goBack];
-//    //页面前进
-//    [_webView goForward];
-//    //刷新当前页面
-//    [_webView reload];
-    
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"JStoOC.html" ofType:nil];
-//    NSString *htmlString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-//    //加载本地html文件
-//    [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
-    
-
 }
+
+- (void)scrollWheel:(NSEvent *)event {
+        // pass web view scroll events to the next responder. comment
+        // this line out if you just want to disable scrolling
+        // altogether.
+        //
+    [[self nextResponder] scrollWheel:event];
+}
+
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    
+}
+
+    // 页面开始加载时调用
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    
+}
+    // 当内容开始返回时调用
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
+    
+}
+    // 页面加载完成之后调用
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+        //showAlert()是js里面的方法,这样就可以实现调用js方法
+    [self.webView evaluateJavaScript:@"showAlert('奏是一个弹框')" completionHandler:^(id item, NSError * _Nullable error) {
+            // Block中处理是否通过了或者执行JS错误的代码
+    }];
+    if (webView.subviews){
+//        NSScrollView* scrollView = [[self.webView subviews] objectAtIndex:0];
+//        if ([scrollView hasVerticalScroller]) {
+//            scrollView.verticalScroller.floatValue = 0;
+//        }
+//            // Scroll the contentView to top
+//        [scrollView.contentView scrollToPoint:NSMakePoint(0, ((NSView*)scrollView.documentView).frame.size.height - scrollView.contentSize.height)];
+    }
+    
+}
+    // 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
+    
+}
+
 
 -(void)fm_initSetting {
     User *user = FMSetting.fm_get;
@@ -218,16 +236,16 @@
 //}
 
 - (void)textDidChange:(NSNotification *)notification {
-//    if (notification.object == _inputTextView) {
-//        [self fm_requetFanyi:_inputTextView.string];
-//    }
-//    
-}
-
-- (void)textDidEndEditing:(NSNotification *)notification {
     if (notification.object == _inputTextView) {
         [self fm_requetFanyi:_inputTextView.string];
     }
+    
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification {
+//    if (notification.object == _inputTextView) {
+//        [self fm_requetFanyi:_inputTextView.string];
+//    }
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
@@ -291,6 +309,8 @@
         [weakSelf fm_resultFormat:response type:FanyiType_Google];
         NSLog(@"谷歌翻译结果-------------:%@",response);
     }];
+    
+    [self fm_webView];
 }
 
 /// 结果过滤
@@ -465,5 +485,20 @@
     }
     [self fm_requetFanyi:_inputTextView.string];
 }
+
+
+- (void)moreAction:(NSButton *)sender {
+    [self.view.window makeFirstResponder:nil];
+    
+    if (self.webGoogle_w.constant > 0) {
+        self.webGoogle_w.constant = 0;
+    }else{
+        self.webGoogle_w.constant = 320;
+    }
+    [self fm_webView];
+}
+    
+
+    
 
 @end
