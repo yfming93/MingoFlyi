@@ -126,17 +126,19 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
     //http://translate.google.cn/translate_a/single?client=at&sl=zh-CN&tl=en&dt=t&q=你还知道你在干啥吗
     //http://translate.google.cn/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=你还知道你在干啥吗
     //http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh_TW&q=calculate
-    
+    // https://translate.google.cn/#auto/en/控制变量法
     NSString *urlStr = [NSString stringWithFormat:@"http://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=%@&q=%@",text.isContainChinese ? @"en":@"zh_CN",text];
     //将待翻译的文字机型urf-8转码
     urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     //使用get请求
     [FMServiceManager requestDataWihtMethodUrl:urlStr success:^(id response) {
         NSError *err;
-        NSArray *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
-        NSString *resStr;
-        resStr = [[[dat firstObject] firstObject] firstObject];
-        
+        NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
+        NSString *resStr = @"";
+        if (dat != nil) {
+//            resStr = [[[dat firstObject] firstObject] firstObject];
+            resStr = [[[dat objectForKey:@"sentences"] firstObject] objectForKey:@"trans"];
+        };
         completedBlock(resStr);
         
     }failure:^(NSError *err) {

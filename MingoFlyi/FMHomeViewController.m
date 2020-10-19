@@ -9,8 +9,9 @@
 #import "FMHomeViewController.h"
 #import "FMServiceManager.h"
 #import "YLGoogleTranslate.h"
+#import <WebKit/WebKit.h>
 
-@interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate>
+@interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 
 @property (strong) IBOutlet NSScrollView *inputContentScrollView;
 @property (strong) IBOutlet NSTextView *inputTextView;
@@ -37,6 +38,7 @@
 
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
 @property (strong) IBOutlet NSButton *btnPrefix; //加前缀
+@property (strong) IBOutlet WKWebView *webView;
 
 
 @end
@@ -102,6 +104,52 @@
     
     [self fm_initSetting];
     
+}
+
+- (void)viewDidLayout {
+    [self fm_webView];
+
+}
+
+- (void)fm_webView {
+//    注意： #import <WebKit/WebKit.h>
+    // 是否允许手势左滑返回上一级, 类似导航控制的左滑返回
+    _webView.allowsBackForwardNavigationGestures = YES;
+    
+    //以下代码适配大小
+    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
+    
+    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
+    [wkUController addUserScript:wkUScript];
+    
+    WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
+    webConfig.userContentController = wkUController;
+    
+    _webView = [[WKWebView alloc] initWithFrame:self.webView.frame configuration:webConfig];
+    
+    _webView.navigationDelegate = self;
+    _webView.UIDelegate = self;
+    
+    //可返回的页面列表, 存储已打开过的网页
+    WKBackForwardList * backForwardList = [_webView backForwardList];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
+//    [request addValue:[self readCurrentCookieWithDomain:@"http://www.chinadaily.com.cn"] forHTTPHeaderField:@"Cookie"];
+    [_webView loadRequest:request];
+//    //页面后退
+//    [_webView goBack];
+//    //页面前进
+//    [_webView goForward];
+//    //刷新当前页面
+//    [_webView reload];
+    
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"JStoOC.html" ofType:nil];
+//    NSString *htmlString = [[NSString alloc]initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    //加载本地html文件
+//    [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    
+
 }
 
 -(void)fm_initSetting {
@@ -238,11 +286,11 @@
         [weakSelf fm_resultFormat:response type:FanyiType_Youdao];
         NSLog(@"有道翻译结果-------------:%@",response);
     }];
-//    
-//    [_serviceManager fm_requestWithString:tempString type:FanyiType_Google completedBlock:^(id response) {
-//        [weakSelf fm_resultFormat:response type:FanyiType_Google];
-//        NSLog(@"谷歌翻译结果-------------:%@",response);
-//    }];
+    
+    [_serviceManager fm_requestWithString:tempString type:FanyiType_Google completedBlock:^(id response) {
+        [weakSelf fm_resultFormat:response type:FanyiType_Google];
+        NSLog(@"谷歌翻译结果-------------:%@",response);
+    }];
 }
 
 /// 结果过滤

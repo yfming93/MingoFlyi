@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -685,11 +686,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="FMHomeViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="820" height="694"/>
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="1274"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-No-GcO">
-                                <rect key="frame" x="20" y="545" width="780" height="140"/>
+                                <rect key="frame" x="20" y="1125" width="780" height="140"/>
                                 <clipView key="contentView" drawsBackground="NO" id="K9u-zB-Bqr">
                                     <rect key="frame" x="1" y="1" width="763" height="138"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -700,7 +701,7 @@
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="763" height="138"/>
-                                            <size key="maxSize" width="763" height="10000000"/>
+                                            <size key="maxSize" width="780" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
@@ -762,7 +763,7 @@
                                 </buttonCell>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="tqq-HW-W8a">
-                                <rect key="frame" x="18" y="511" width="76" height="18"/>
+                                <rect key="frame" x="18" y="1091" width="76" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="6NU-op-UGZ"/>
                                     <constraint firstAttribute="height" constant="14" id="sIf-Gf-rLr"/>
@@ -773,7 +774,7 @@
                                 </buttonCell>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-1r-cD3">
-                                <rect key="frame" x="102" y="508" width="618" height="25"/>
+                                <rect key="frame" x="102" y="1088" width="618" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="vzR-hc-SDj"/>
                                 </constraints>
@@ -784,7 +785,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0vy-7M-XmW">
-                                <rect key="frame" x="724" y="498" width="82" height="41"/>
+                                <rect key="frame" x="724" y="1078" width="82" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="fk3-2f-gPi"/>
                                     <constraint firstAttribute="height" constant="30" id="foB-4S-3U1"/>
@@ -819,7 +820,7 @@
                                 </buttonCell>
                             </button>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="t70-fo-hib">
-                                <rect key="frame" x="20" y="358" width="780" height="140"/>
+                                <rect key="frame" x="20" y="938" width="780" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2R-tS-Cit">
                                         <rect key="frame" x="708" y="-3" width="74" height="75"/>
@@ -880,7 +881,7 @@
                                 </constraints>
                             </customView>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="Pa8-Kz-cIx">
-                                <rect key="frame" x="20" y="208" width="780" height="140"/>
+                                <rect key="frame" x="20" y="788" width="780" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="2" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83M-IH-sDH">
                                         <rect key="frame" x="708" y="-3" width="74" height="75"/>
@@ -942,7 +943,7 @@
                                 </constraints>
                             </customView>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="xSC-Ea-o6j">
-                                <rect key="frame" x="20" y="58" width="780" height="140"/>
+                                <rect key="frame" x="20" y="638" width="780" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="3" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-xJ-3kc">
                                         <rect key="frame" x="708" y="-3" width="74" height="75"/>
@@ -1003,8 +1004,16 @@
                                     <constraint firstAttribute="trailing" secondItem="3X9-IZ-g83" secondAttribute="trailing" id="q0d-4C-8YS"/>
                                 </constraints>
                             </customView>
+                            <wkWebView wantsLayer="YES" allowsBackForwardNavigationGestures="YES" allowsMagnification="YES" magnification="2" translatesAutoresizingMaskIntoConstraints="NO" id="Vdr-kd-XcX">
+                                <rect key="frame" x="20" y="58" width="780" height="570"/>
+                                <wkWebViewConfiguration key="configuration" applicationNameForUserAgent="Flyi飞译">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Vdr-kd-XcX" firstAttribute="trailing" secondItem="xSC-Ea-o6j" secondAttribute="trailing" id="0M7-5V-krA"/>
                             <constraint firstItem="90a-VU-mcn" firstAttribute="bottom" secondItem="Z5V-0o-BVn" secondAttribute="bottom" id="1cO-xI-JUo"/>
                             <constraint firstItem="t70-fo-hib" firstAttribute="trailing" secondItem="KPK-No-GcO" secondAttribute="trailing" id="1wP-8R-eNt"/>
                             <constraint firstItem="xSC-Ea-o6j" firstAttribute="leading" secondItem="Pa8-Kz-cIx" secondAttribute="leading" id="2b5-k4-aNB"/>
@@ -1013,7 +1022,7 @@
                             <constraint firstItem="F2G-7G-F4K" firstAttribute="top" secondItem="Z5V-0o-BVn" secondAttribute="top" id="83d-iw-Ghj"/>
                             <constraint firstItem="yFR-HV-Hh4" firstAttribute="centerY" secondItem="Z5V-0o-BVn" secondAttribute="centerY" id="BtL-2z-Tkh"/>
                             <constraint firstAttribute="bottom" secondItem="F2G-7G-F4K" secondAttribute="bottom" constant="20" id="Fmi-Ut-khV"/>
-                            <constraint firstItem="qib-UC-8On" firstAttribute="top" secondItem="xSC-Ea-o6j" secondAttribute="bottom" constant="20" id="GVl-fb-UVn"/>
+                            <constraint firstItem="qib-UC-8On" firstAttribute="top" secondItem="xSC-Ea-o6j" secondAttribute="bottom" constant="600" id="GVl-fb-UVn"/>
                             <constraint firstItem="xSC-Ea-o6j" firstAttribute="top" secondItem="Pa8-Kz-cIx" secondAttribute="bottom" constant="10" id="IRg-GR-jIG"/>
                             <constraint firstItem="KPK-No-GcO" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="NhY-ZO-TWH"/>
                             <constraint firstItem="qib-UC-8On" firstAttribute="leading" secondItem="qDU-fc-N0c" secondAttribute="trailing" constant="5" id="Nyu-MD-QVM"/>
@@ -1021,11 +1030,14 @@
                             <constraint firstItem="Z5V-0o-BVn" firstAttribute="centerY" secondItem="qib-UC-8On" secondAttribute="centerY" id="Q7g-xi-NfG"/>
                             <constraint firstItem="Pa8-Kz-cIx" firstAttribute="trailing" secondItem="t70-fo-hib" secondAttribute="trailing" id="Qgl-7E-VZr"/>
                             <constraint firstItem="0vy-7M-XmW" firstAttribute="trailing" secondItem="KPK-No-GcO" secondAttribute="trailing" id="R3a-iB-Ior"/>
+                            <constraint firstItem="qib-UC-8On" firstAttribute="top" secondItem="Vdr-kd-XcX" secondAttribute="bottom" constant="20" id="S8V-a7-B04"/>
                             <constraint firstItem="0vy-7M-XmW" firstAttribute="centerY" secondItem="7nN-1r-cD3" secondAttribute="centerY" id="SWF-nX-kXh"/>
                             <constraint firstItem="tqq-HW-W8a" firstAttribute="leading" secondItem="KPK-No-GcO" secondAttribute="leading" id="UbN-vs-DWb"/>
                             <constraint firstAttribute="trailing" secondItem="KPK-No-GcO" secondAttribute="trailing" constant="20" id="Uea-Ky-Hl0"/>
                             <constraint firstItem="Pa8-Kz-cIx" firstAttribute="height" secondItem="t70-fo-hib" secondAttribute="height" id="VFp-c7-TgV"/>
+                            <constraint firstItem="Vdr-kd-XcX" firstAttribute="top" secondItem="xSC-Ea-o6j" secondAttribute="bottom" constant="10" id="VfN-hb-3Kt"/>
                             <constraint firstItem="Z5V-0o-BVn" firstAttribute="leading" secondItem="qib-UC-8On" secondAttribute="trailing" constant="10" id="VqK-Cc-YLA"/>
+                            <constraint firstItem="Vdr-kd-XcX" firstAttribute="leading" secondItem="xSC-Ea-o6j" secondAttribute="leading" id="Yop-ju-PqM"/>
                             <constraint firstItem="t70-fo-hib" firstAttribute="top" secondItem="7nN-1r-cD3" secondAttribute="bottom" constant="10" id="Zdi-xM-Rdc"/>
                             <constraint firstItem="tqq-HW-W8a" firstAttribute="top" secondItem="KPK-No-GcO" secondAttribute="bottom" constant="18" id="dDM-Jg-ryh"/>
                             <constraint firstItem="F2G-7G-F4K" firstAttribute="leading" secondItem="90a-VU-mcn" secondAttribute="trailing" constant="10" id="gp5-l2-U6I"/>
@@ -1065,6 +1077,7 @@
                         <outlet property="outputTextViewYoudao" destination="CnR-fp-FB6" id="XvV-W0-2yX"/>
                         <outlet property="tfFilter" destination="7nN-1r-cD3" id="0yH-Zo-b53"/>
                         <outlet property="tfPrefix" destination="qib-UC-8On" id="Gwp-GB-bLy"/>
+                        <outlet property="webView" destination="Vdr-kd-XcX" id="eAY-9Q-j10"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
