@@ -28,10 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isFliter;
 @property (nonatomic, strong) NSString *filterText;
 @property (nonatomic, assign) BOOL isPrefix;
+@property (nonatomic, assign) BOOL isWebShow; //打开了网页翻译
 @property (nonatomic, strong) NSString *prefixText;
 @property (nonatomic, assign) NSInteger indexAutoCopy;
 @property (nonatomic, assign) NSInteger indexManuelCopy;
 @property (nonatomic, assign) NSInteger indexFanyi;
+@property (nonatomic, assign) CGFloat windowWidth;
 
 @end
 

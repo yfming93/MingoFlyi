@@ -11,6 +11,8 @@
 #import "YLGoogleTranslate.h"
 #import <WebKit/WebKit.h>
 
+#define kWebWidth 320
+
 @interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 
 @property (strong) IBOutlet NSScrollView *inputContentScrollView;
@@ -113,17 +115,24 @@
 
 - (void)viewDidLayout {
     [self fm_webView];
+    kUser.windowWidth = self.view.frame.size.width;
 
+}
+
+
+- (void)viewDidAppear {
+    [super viewDidAppear];
 }
 
 - (void)fm_webView {
     _webView.allowsBackForwardNavigationGestures = YES;
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
+    BOOL isChinese = self.inputTextView.string.isContainChinese;
     NSString *text = [self fm_formatForChinese:self.inputTextView.string];
 	//将待翻译的文字机型urf-8转码
     NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/en/%@",qEncoding];
+    NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/%@/%@",isChinese ? @"en":@"zh-CN",qEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [_webView loadRequest:request];
 }
@@ -177,6 +186,10 @@
     self.tfFilter.stringValue = kUser.filterText;
     self.btnPrefix.state = kUser.isPrefix;
     self.btnFilter.state = kUser.isFliter;
+    self.btnMore.state = kUser.isWebShow;
+    self.webGoogle_w.constant = kUser.isWebShow ? kWebWidth : 0;
+    self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
+    
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
@@ -309,7 +322,6 @@
         [weakSelf fm_resultFormat:response type:FanyiType_Google];
         NSLog(@"谷歌翻译结果-------------:%@",response);
     }];
-    
     [self fm_webView];
 }
 
@@ -429,12 +441,6 @@
 - (void)autoCopyAction:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
     if (sender.tag == _btnAutoCopy.tag) {
-//        if (sender.state == NSControlStateValueOn) {
-//            sender.state = NSControlStateValueOff;
-//        }else{
-//            sender.state = NSControlStateValueOn;
-////        }
-//        _btnAutoCopy = sender;
         kUser.indexAutoCopy = sender.state == NSControlStateValueOn ? sender.tag : 0;
     }else{
         _btnAutoCopy.state = NO;
@@ -488,12 +494,13 @@
 
 
 - (void)moreAction:(NSButton *)sender {
+    kUser.isWebShow = !kUser.isWebShow;
     [self.view.window makeFirstResponder:nil];
     
     if (self.webGoogle_w.constant > 0) {
         self.webGoogle_w.constant = 0;
     }else{
-        self.webGoogle_w.constant = 320;
+        self.webGoogle_w.constant = kWebWidth;
     }
     [self fm_webView];
 }
