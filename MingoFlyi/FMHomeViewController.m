@@ -38,12 +38,16 @@
 @property (strong) IBOutlet NSButton *btnCopyYoudao;
 @property (strong) IBOutlet NSButton *btnCopyCiba;
 
-@property (strong) IBOutlet NSButton *btnMore;
+@property (strong) IBOutlet NSButton *btnWebGoogle;
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
 @property (strong) IBOutlet NSButton *btnPrefix; //加前缀
-@property (strong) IBOutlet WKWebView *webView;
+
+@property (strong) IBOutlet WKWebView *webGoogle;
 @property (weak) IBOutlet NSLayoutConstraint *webGoogle_w;
 
+@property (strong) IBOutlet NSButton *btnWebSougou;
+@property (strong) IBOutlet WKWebView *webSougou;
+@property (weak) IBOutlet NSLayoutConstraint *webSougou_w;
 
 @end
 
@@ -105,10 +109,6 @@
     [_btnFilter setTarget:self];
     [_btnFilter setAction:@selector(filterAction:)];
     
-    
-    [_btnMore setTarget:self];
-    [_btnMore setAction:@selector(moreAction:)];
-    
     [self fm_initSetting];
     
 }
@@ -124,19 +124,40 @@
     [super viewDidAppear];
 }
 
-- (void)fm_webView {
+-(void)fm_webGoogle {
+    if (!kUser.isWebShowGoogle) return;
+    _webGoogle.allowsBackForwardNavigationGestures = YES;
+     _webGoogle.navigationDelegate = self;
+     _webGoogle.UIDelegate = self;
     NSString *tem = self.inputTextView.string;
-//    if (!tem.length) return;
-    _webView.allowsBackForwardNavigationGestures = YES;
-    _webView.navigationDelegate = self;
-    _webView.UIDelegate = self;
     BOOL isChinese = tem.isContainChinese;
     NSString *text = [self fm_formatForChinese:tem];
-	//将待翻译的文字机型urf-8转码
+    //将待翻译的文字机型urf-8转码
     NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/%@/%@",isChinese ? @"en":@"zh-CN",qEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [_webView loadRequest:request];
+    [_webGoogle loadRequest:request];
+}
+
+-(void)fm_webSougou {
+    if (!kUser.isWebShowSougou) return;
+    _webSougou.allowsBackForwardNavigationGestures = YES;
+     _webSougou.navigationDelegate = self;
+     _webSougou.UIDelegate = self;
+    NSString *tem = self.inputTextView.string;
+    BOOL isChinese = tem.isContainChinese;
+    NSString *text = [self fm_formatForChinese:tem];
+    //将待翻译的文字机型urf-8转码
+    NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *url = [NSString stringWithFormat:@"https://fanyi.sogou.com/?transfrom=auto&transto=%@&model=general&keyword=%@",isChinese ? @"en":@"zh-CN",qEncoding];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [_webSougou loadRequest:request];
+}
+
+
+- (void)fm_webView {
+    [self fm_webGoogle];
+    [self fm_webSougou];
 }
 
 - (void)scrollWheel:(NSEvent *)event {
@@ -181,8 +202,10 @@
     self.tfFilter.stringValue = kUser.filterText;
     self.btnPrefix.state = kUser.isPrefix;
     self.btnFilter.state = kUser.isFliter;
-    self.btnMore.state = kUser.isWebShow;
-    self.webGoogle_w.constant = kUser.isWebShow ? kWebWidth : 0;
+    self.btnWebGoogle.state = kUser.isWebShowGoogle;
+    self.btnWebSougou.state = kUser.isWebShowSougou;
+    self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
+    self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
     self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
@@ -499,18 +522,30 @@
 }
 
 
-- (void)moreAction:(NSButton *)sender {
-    kUser.isWebShow = !kUser.isWebShow;
+- (IBAction)btnWebShowActions:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
-    
-    if (self.webGoogle_w.constant > 0) {
-        self.webGoogle_w.constant = 0;
-    }else{
-        self.webGoogle_w.constant = kWebWidth;
+
+    if (sender.tag  == 1) {
+        kUser.isWebShowSougou = !kUser.isWebShowSougou;
+        if (self.webSougou_w.constant > 0) {
+            self.webSougou_w.constant = 0;
+        }else{
+            self.webSougou_w.constant = kWebWidth;
+        }
+    }else if (sender.tag  == 2) {
+        kUser.isWebShowGoogle = !kUser.isWebShowGoogle;
+        if (self.webGoogle_w.constant > 0) {
+            self.webGoogle_w.constant = 0;
+        }else{
+            self.webGoogle_w.constant = kWebWidth;
+        }
+    }else {
+        
     }
-    [self fm_webView];
+   
+   	[self fm_webView];
 }
-    
+
 
     
 

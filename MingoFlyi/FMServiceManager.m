@@ -163,11 +163,17 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
         NSString *resStr = @"";
         if (dat != nil) {
-            resStr = [[dat objectForKey:@"content"] objectForKey:@"out"];
-            if ([resStr hasPrefix:@" "]) {
-                resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            resStr = [dat objectForKey:@"content"];
+            if ((resStr != nil) || (![resStr isEqualToString:@""])) {
+               resStr =  [dat objectForKey:@"out"];
             }
+            resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         };
+        
+        if ([dat.allKeys containsObject:@"isSensitive"]) {
+            resStr = @"FLYI_WARNING：由于金山词霸接口被平凡请求暂时被禁";
+        }
+        
         completedBlock(resStr);
         
     }failure:^(NSError *err) {

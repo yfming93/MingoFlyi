@@ -28,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isFliter;
 @property (nonatomic, strong) NSString *filterText;
 @property (nonatomic, assign) BOOL isPrefix;
-@property (nonatomic, assign) BOOL isWebShow; //打开了网页翻译
+@property (nonatomic, assign) BOOL isWebShowGoogle; //打开了谷歌网页翻译
+@property (nonatomic, assign) BOOL isWebShowSougou; //打开了搜狗网页翻译
 @property (nonatomic, strong) NSString *prefixText;
 @property (nonatomic, assign) NSInteger indexAutoCopy;
 @property (nonatomic, assign) NSInteger indexManuelCopy;

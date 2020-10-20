@@ -8,7 +8,7 @@
 
 #import "FMSetting.h"
 #import <objc/runtime.h>
-#define kSettingPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"setting"]
+#define kSettingPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@".flyi_setting"]
 
 @implementation User
 - (instancetype)init
@@ -19,6 +19,7 @@
         _isPrefix = NO;
         _filterText = @"";
         _prefixText = @"";
+        _indexAutoCopy = 1;
     }
     return self;
 }
@@ -49,6 +50,9 @@
             NSString *strName = [NSString stringWithUTF8String:name];
             //进行解档取值
             id value = [aDecoder decodeObjectForKey:strName];
+            if (value == nil) {
+                [self deleteFileWithFileName:@"" filePath:kSettingPath];
+            }
             //利用KVC对属性赋值
             [self setValue:value forKey:strName];
         }
@@ -56,6 +60,38 @@
     }
     return self;
 }
+
+
+-(void)deleteFileWithFileName:(NSString *)fileName filePath:(NSString *)filePath {
+    //创建文件管理对象
+    NSFileManager* fileManager=[NSFileManager defaultManager];
+    //获取文件目录
+    if (!filePath) {
+        //如果文件目录设置有空,默认删除Cache目录下的文件
+        filePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    }
+    //拼接文件名
+    NSString *uniquePath=[filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",fileName]];
+    //文件是否存在
+    BOOL blHave=[[NSFileManager defaultManager] fileExistsAtPath:uniquePath];
+    //进行逻辑判断
+    if (!blHave) {
+        NSLog(@"文件不存在");
+        return ;
+    }else {
+        //文件是否被删除
+        BOOL blDele= [fileManager removeItemAtPath:uniquePath error:nil];
+        //进行逻辑判断
+        if (blDele) {
+            NSLog(@"删除成功");
+        }else {
+            
+            NSLog(@"删除失败");
+        }
+    }
+}
+
+
 @end
 
 @implementation FMSetting
@@ -92,34 +128,5 @@
     return _user;
 }
 
-
--(void)deleteFileWithFileName:(NSString *)fileName filePath:(NSString *)filePath {
-    //创建文件管理对象
-    NSFileManager* fileManager=[NSFileManager defaultManager];
-    //获取文件目录
-    if (!filePath) {
-        //如果文件目录设置有空,默认删除Cache目录下的文件
-        filePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-    }
-    //拼接文件名
-    NSString *uniquePath=[filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",fileName]];
-    //文件是否存在
-    BOOL blHave=[[NSFileManager defaultManager] fileExistsAtPath:uniquePath];
-    //进行逻辑判断
-    if (!blHave) {
-        NSLog(@"文件不存在");
-        return ;
-    }else {
-        //文件是否被删除
-        BOOL blDele= [fileManager removeItemAtPath:uniquePath error:nil];
-        //进行逻辑判断
-        if (blDele) {
-            NSLog(@"删除成功");
-        }else {
-            
-            NSLog(@"删除失败");
-        }
-    }
-}
 
 @end
