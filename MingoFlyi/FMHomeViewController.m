@@ -206,7 +206,7 @@
     self.btnWebSougou.state = kUser.isWebShowSougou;
     self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
     self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
-    self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
+    self.view.frame = NSMakeRect(0, 20, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
@@ -485,6 +485,9 @@
         case FanyiType_Youdao:
             [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
             break;
+        case FanyiType_Ciba:
+            [self fm_copyToPasteboard:self.outputTextViewCiba.string];
+            break;
         default:
             break;
     }
@@ -500,6 +503,9 @@
             break;
         case FanyiType_Youdao:
             [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
+            break;
+        case FanyiType_Ciba:
+            [self fm_copyToPasteboard:self.outputTextViewCiba.string];
             break;
         default:
             break;
@@ -524,24 +530,32 @@
 
 - (IBAction)btnWebShowActions:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
-
+    CGFloat w  = kUser.windowWidth;
     if (sender.tag  == 1) {
         kUser.isWebShowSougou = !kUser.isWebShowSougou;
         if (self.webSougou_w.constant > 0) {
             self.webSougou_w.constant = 0;
+//            self.view.frame = NSMakeRect(0, 100, w - kWebWidth , CGRectMinYEdge);
+
         }else{
             self.webSougou_w.constant = kWebWidth;
+//            self.view.frame = NSMakeRect(0, 0, w + kWebWidth , CGRectMinYEdge);
         }
+
     }else if (sender.tag  == 2) {
         kUser.isWebShowGoogle = !kUser.isWebShowGoogle;
         if (self.webGoogle_w.constant > 0) {
             self.webGoogle_w.constant = 0;
+//            self.view.frame = NSMakeRect(0, 0, w - kWebWidth , CGRectMinYEdge);
+
         }else{
             self.webGoogle_w.constant = kWebWidth;
+//            self.view.frame = NSMakeRect(0, 0, w + kWebWidth , CGRectMinYEdge);
         }
     }else {
         
     }
+    [self viewDidLayout];
    
    	[self fm_webView];
 }

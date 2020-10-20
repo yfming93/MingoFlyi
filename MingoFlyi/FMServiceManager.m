@@ -81,11 +81,11 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
     NSString *url = [NSString stringWithFormat:@"http://fanyi.youdao.com/openapi.do?keyfrom=%@&key=%@&type=data&doctype=json&version=1.1&q=%@",keyfrom,key,encoded];
     [FMServiceManager requestDataWihtMethodUrl:url success:^(id response) {
         NSString *result = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-        NSLog(@"翻译：%@",result);
         NSError *err;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
-        NSString *resStr = [[dic valueForKey:@"translation"] firstObject];
+        NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
+        NSString *resStr = [[dat valueForKey:@"translation"] firstObject];
         resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSLog(@"youdao接口-- :%@",dat);
         completedBlock(resStr);
         
     }failure:^(NSError *err) {
@@ -110,11 +110,11 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
     
     [FMServiceManager requestDataWihtMethodUrl:urlStr success:^(id response) {
         NSError *err;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
+        NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
         NSString *resStr;
-        resStr = [[dic objectForKey:@"trans_result"] firstObject][@"dst"];
+        resStr = [[dat objectForKey:@"trans_result"] firstObject][@"dst"];
         resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
+        NSLog(@"baidu接口-- :%@",dat);
         completedBlock(resStr);
         
     }failure:^(NSError *err) {
@@ -143,6 +143,7 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
             resStr = [[[dat objectForKey:@"sentences"] firstObject] objectForKey:@"trans"];
             resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         };
+        NSLog(@"google接口-- :%@",dat);
         completedBlock(resStr);
         
     }failure:^(NSError *err) {
@@ -173,7 +174,8 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         if ([dat.allKeys containsObject:@"isSensitive"]) {
             resStr = @"FLYI_WARNING：由于金山词霸接口被平凡请求暂时被禁";
         }
-        
+        NSLog(@"金山词霸接口-- :%@",dat);
+
         completedBlock(resStr);
         
     }failure:^(NSError *err) {
