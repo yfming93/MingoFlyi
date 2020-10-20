@@ -154,7 +154,19 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
 /// 金山词霸翻译
 - (void)requestDataUseCiba:(NSString *)text completedBlock:(CompletedBlock)completedBlock{
 //    http://fy.iciba.com/ajax.php?a=fy&f=auto&t=auto&w=%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F
-    
+    /*
+    content =     {
+        "ph_am" = "";
+        "ph_am_mp3" = "";
+        "ph_en" = "";
+        "ph_en_mp3" = "http://res.iciba.com/resource/amp3/0/0/8f/a1/8fa14cdd754f91cc6554c9e71929cce7.mp3";
+        "ph_tts_mp3" = "http://res-tts.iciba.com/8/f/a/8fa14cdd754f91cc6554c9e71929cce7.mp3";
+        "word_mean" =         (
+                               "n. \U82f1\U8bed\U5b57\U6bcd\U8868\U7684\U7b2c6\U4e2a\U5b57\U6bcd;C \U5927\U8c03\U97f3\U9636\U4e2d\U7684\U7b2c\U56db\U4e2a\U97f3;"
+                               );
+    };
+    status = 0;
+     */
     NSString *urlStr = [NSString stringWithFormat:@"http://fy.iciba.com/ajax.php?a=fy&f=auto&t=%@&w=%@",text.isContainChinese ? @"en":@"zh",text];
     //将待翻译的文字机型urf-8转码
     urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -164,9 +176,16 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
         NSString *resStr = @"";
         if (dat != nil) {
-            resStr = [dat objectForKey:@"content"];
-            if ((resStr != nil) || (![resStr isEqualToString:@""])) {
-               resStr =  [dat objectForKey:@"out"];
+            id dicStr  = [dat objectForKey:@"content"];
+            if ([dicStr isKindOfClass:NSDictionary.class]) {
+                NSDictionary *dc = dicStr;
+                if ([dc.allKeys containsObject:@"word_mean"]) {
+                    resStr =  [dc objectForKey:@"word_mean"];
+                }else  if ([dc.allKeys containsObject:@"out"]) {
+                    resStr =  [dc objectForKey:@"out"];
+                }
+            }else{
+                resStr = dicStr;
             }
             resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         };

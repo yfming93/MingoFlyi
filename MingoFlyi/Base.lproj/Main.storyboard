@@ -694,7 +694,7 @@
                                 <subviews>
                                     <scrollView verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-No-GcO">
                                         <rect key="frame" x="0.0" y="0.0" width="328" height="140"/>
-                                        <clipView key="contentView" drawsBackground="NO" id="K9u-zB-Bqr">
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="K9u-zB-Bqr">
                                             <rect key="frame" x="1" y="1" width="326" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -708,6 +708,7 @@
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.4431372549" green="0.30588235289999999" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="PsR-Or-dew">
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
@@ -814,6 +815,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="filterAction:" target="XfG-lQ-9wD" id="Gqt-5u-2sb"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-1r-cD3">
                                 <rect key="frame" x="102" y="508" width="246" height="25"/>
@@ -834,8 +838,11 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="message" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
+                                </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qib-UC-8On">
                                 <rect key="frame" x="620" y="17" width="70" height="21"/>
@@ -860,6 +867,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="prefixAction:" target="XfG-lQ-9wD" id="ZrB-2X-ZiQ"/>
+                                </connections>
                             </button>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="t70-fo-hib" userLabel="BaiduView">
                                 <rect key="frame" x="20" y="358" width="408" height="140"/>

@@ -100,15 +100,6 @@
     _tfFilter.delegate = self;
     _pasteboard = [NSPasteboard generalPasteboard];
     
-    [_clearButton setTarget:self];
-    [_clearButton setAction:@selector(clearContent:)];
-    
-    [_btnPrefix setTarget:self];
-    [_btnPrefix setAction:@selector(prefixAction:)];
-    
-    [_btnFilter setTarget:self];
-    [_btnFilter setAction:@selector(filterAction:)];
-    
     [self fm_initSetting];
     
 }
@@ -132,6 +123,8 @@
     NSString *tem = self.inputTextView.string;
     BOOL isChinese = tem.isContainChinese;
     NSString *text = [self fm_formatForChinese:tem];
+    text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
+//    text =
     //将待翻译的文字机型urf-8转码
     NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/%@/%@",isChinese ? @"en":@"zh-CN",qEncoding];
@@ -147,9 +140,10 @@
     NSString *tem = self.inputTextView.string;
     BOOL isChinese = tem.isContainChinese;
     NSString *text = [self fm_formatForChinese:tem];
+    text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
     //将待翻译的文字机型urf-8转码
     NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *url = [NSString stringWithFormat:@"https://fanyi.sogou.com/?transfrom=auto&transto=%@&model=general&keyword=%@",isChinese ? @"en":@"zh-CN",qEncoding];
+    NSString *url = [NSString stringWithFormat:@"https://fanyi.sogou.com/?transfrom=auto&transto=%@&model=general&keyword=%@",isChinese ? @"en":@"zh",qEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [_webSougou loadRequest:request];
 }
@@ -292,14 +286,13 @@
 
 // 将各种翻译的结果 转换 为 分割 空格的字符串
 - (NSString *)fm_formatForChinese:(NSString *)text {
-    NSString *tempString;
+    NSString *tempString = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if ([text containsString:@"_"]) { /// 下划线拼接的英文
         tempString = [NSString fm_underLineStringToCommonString:text];
     }else if ([text componentsSeparatedByString:@" "].count > 1) { /// 空格符拼接的英文
-        tempString = text;
+
     }else {
         tempString = [NSString fm_humpStringToCommonString:text]; // 驼峰拼接的英文
-        tempString = text;
     }
     return tempString;
     
@@ -414,7 +407,6 @@
     switch (type) {
         case FanyiType_Baidu:{
             [self.outputTextViewBaidu.textStorage setAttributedString:attrContent];
-            
         }
             break;
         case FanyiType_Youdao:{
@@ -448,20 +440,20 @@
     [_pasteboard setString:result forType:NSPasteboardTypeString];
 }
 
-
-- (void)clearContent:(NSButton *)sender {
+- (IBAction)clearContent:(NSButton *)sender {
     NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:@""];
     [_inputTextView.textStorage setAttributedString:attrContent];
     [_outputTextViewBaidu.textStorage setAttributedString:attrContent];
     [_outputTextViewYoudao.textStorage setAttributedString:attrContent];
 }
 
-- (void)filterAction:(NSButton *)sender {
+
+- (IBAction)filterAction:(NSButton *)sender {
     [self fm_requetFanyi:_inputTextView.string];
     kUser.isFliter = sender.state;
 }
 
-- (void)prefixAction:(NSButton *)sender {
+- (IBAction)prefixAction:(NSButton *)sender {
     [self fm_requetFanyi:_inputTextView.string];
     kUser.isPrefix = sender.state;
 }
