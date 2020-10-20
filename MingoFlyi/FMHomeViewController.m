@@ -531,26 +531,27 @@
 - (IBAction)btnWebShowActions:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
     CGFloat w  = kUser.windowWidth;
+    self.view.window.restorable = NO;
+
     if (sender.tag  == 1) {
         kUser.isWebShowSougou = !kUser.isWebShowSougou;
         if (self.webSougou_w.constant > 0) {
             self.webSougou_w.constant = 0;
-//            self.view.frame = NSMakeRect(0, 100, w - kWebWidth , CGRectMinYEdge);
-
+            [self.view.window setContentSize:NSMakeSize(w - kWebWidth , CGRectMinYEdge)];
         }else{
             self.webSougou_w.constant = kWebWidth;
-//            self.view.frame = NSMakeRect(0, 0, w + kWebWidth , CGRectMinYEdge);
+            [self.view.window setContentSize:NSMakeSize(w + kWebWidth , CGRectMinYEdge)];
         }
 
     }else if (sender.tag  == 2) {
         kUser.isWebShowGoogle = !kUser.isWebShowGoogle;
         if (self.webGoogle_w.constant > 0) {
             self.webGoogle_w.constant = 0;
-//            self.view.frame = NSMakeRect(0, 0, w - kWebWidth , CGRectMinYEdge);
+            [self.view.window setContentSize:NSMakeSize(w - kWebWidth , CGRectMinYEdge)];
 
         }else{
             self.webGoogle_w.constant = kWebWidth;
-//            self.view.frame = NSMakeRect(0, 0, w + kWebWidth , CGRectMinYEdge);
+            [self.view.window setContentSize:NSMakeSize(w + kWebWidth , CGRectMinYEdge)];
         }
     }else {
         
