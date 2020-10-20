@@ -44,7 +44,7 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
     manager.requestSerializer.timeoutInterval = kTimeOutInterval;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //设置相应内容类
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",
                                                          nil];
     [manager GET:url
       parameters:nil
@@ -68,6 +68,8 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         [self requestDataUseBaidu:text completedBlock:completedBlock];
     }else if (type == FanyiType_Google) {
         [self requestDataUseGoogle:text completedBlock:completedBlock];
+    }else if (type == FanyiType_Ciba) {
+        [self requestDataUseCiba:text completedBlock:completedBlock];
     }
    
 }
@@ -82,8 +84,9 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         NSLog(@"翻译：%@",result);
         NSError *err;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
-        NSString *translation = [[dic valueForKey:@"translation"] firstObject];
-        completedBlock(translation);
+        NSString *resStr = [[dic valueForKey:@"translation"] firstObject];
+        resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        completedBlock(resStr);
         
     }failure:^(NSError *err) {
         NSLog(@"error :%@",err);
@@ -110,7 +113,7 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
         NSString *resStr;
         resStr = [[dic objectForKey:@"trans_result"] firstObject][@"dst"];
-
+        resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         completedBlock(resStr);
         
@@ -138,14 +141,40 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
         if (dat != nil) {
 //            resStr = [[[dat firstObject] firstObject] firstObject];
             resStr = [[[dat objectForKey:@"sentences"] firstObject] objectForKey:@"trans"];
+            resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         };
         completedBlock(resStr);
         
     }failure:^(NSError *err) {
         NSLog(@"error :%@",err);
     }];
+}
+
+/// 金山词霸翻译
+- (void)requestDataUseCiba:(NSString *)text completedBlock:(CompletedBlock)completedBlock{
+//    http://fy.iciba.com/ajax.php?a=fy&f=auto&t=auto&w=%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F
     
+    NSString *urlStr = [NSString stringWithFormat:@"http://fy.iciba.com/ajax.php?a=fy&f=auto&t=%@&w=%@",text.isContainChinese ? @"en":@"zh",text];
+    //将待翻译的文字机型urf-8转码
+    urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    //使用get请求
+    [FMServiceManager requestDataWihtMethodUrl:urlStr success:^(id response) {
+        NSError *err;
+        NSDictionary *dat = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers  error:&err];
+        NSString *resStr = @"";
+        if (dat != nil) {
+            resStr = [[dat objectForKey:@"content"] objectForKey:@"out"];
+            if ([resStr hasPrefix:@" "]) {
+                resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            }
+        };
+        completedBlock(resStr);
+        
+    }failure:^(NSError *err) {
+        NSLog(@"error :%@",err);
+    }];
 }
 
 
 @end
+

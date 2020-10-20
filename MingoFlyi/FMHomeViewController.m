@@ -20,7 +20,7 @@
 @property (strong) IBOutlet NSScrollView *outputContentScrollView;
 @property (strong) IBOutlet NSTextView *outputTextViewBaidu;
 @property (strong) IBOutlet NSTextView *outputTextViewYoudao;
-@property (strong) IBOutlet NSTextView *outputTextViewGoogle;
+@property (strong) IBOutlet NSTextView *outputTextViewCiba;
 
 @property (strong) IBOutlet NSButton *btnHumpSmall;
 @property (strong) IBOutlet NSButton *btnUnderLineSmall;
@@ -32,11 +32,11 @@
 
 @property (strong) IBOutlet NSButton *btnAutoCopyBaidu;
 @property (strong) IBOutlet NSButton *btnAutoCopyYoudao;
-@property (strong) IBOutlet NSButton *btnAutoCopyGoogle;
+@property (strong) IBOutlet NSButton *btnAutoCopyCiba;
 
 @property (strong) IBOutlet NSButton *btnCopyBaidu;
 @property (strong) IBOutlet NSButton *btnCopyYoudao;
-@property (strong) IBOutlet NSButton *btnCopyGoogle;
+@property (strong) IBOutlet NSButton *btnCopyCiba;
 
 @property (strong) IBOutlet NSButton *btnMore;
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
@@ -73,12 +73,12 @@
     _arrAutoCopys = NSMutableArray.array;
     [_arrAutoCopys addObject:_btnAutoCopyBaidu];
     [_arrAutoCopys addObject:_btnAutoCopyYoudao];
-    [_arrAutoCopys addObject:_btnAutoCopyGoogle];
+    [_arrAutoCopys addObject:_btnAutoCopyCiba];
 
     _arrManuelCopys = NSMutableArray.array;
     [_arrManuelCopys addObject:_btnCopyBaidu];
     [_arrManuelCopys addObject:_btnCopyYoudao];
-    [_arrManuelCopys addObject:_btnCopyGoogle];
+    [_arrManuelCopys addObject:_btnCopyCiba];
 
     
     _inputTextView.delegate = self;
@@ -90,8 +90,8 @@
     _outputTextViewBaidu.delegate = self;
     _outputTextViewYoudao.editable = NO;
     _outputTextViewYoudao.delegate = self;
-    _outputTextViewGoogle.editable = NO;
-    _outputTextViewGoogle.delegate = self;
+    _outputTextViewCiba.editable = NO;
+    _outputTextViewCiba.delegate = self;
     
     _tfFilter.delegate = self;
     _pasteboard = [NSPasteboard generalPasteboard];
@@ -125,11 +125,13 @@
 }
 
 - (void)fm_webView {
+    NSString *tem = self.inputTextView.string;
+//    if (!tem.length) return;
     _webView.allowsBackForwardNavigationGestures = YES;
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
-    BOOL isChinese = self.inputTextView.string.isContainChinese;
-    NSString *text = [self fm_formatForChinese:self.inputTextView.string];
+    BOOL isChinese = tem.isContainChinese;
+    NSString *text = [self fm_formatForChinese:tem];
 	//将待翻译的文字机型urf-8转码
     NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/%@/%@",isChinese ? @"en":@"zh-CN",qEncoding];
@@ -138,10 +140,6 @@
 }
 
 - (void)scrollWheel:(NSEvent *)event {
-        // pass web view scroll events to the next responder. comment
-        // this line out if you just want to disable scrolling
-        // altogether.
-        //
     [[self nextResponder] scrollWheel:event];
 }
 
@@ -160,9 +158,6 @@
     // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
         //showAlert()是js里面的方法,这样就可以实现调用js方法
-    [self.webView evaluateJavaScript:@"showAlert('奏是一个弹框')" completionHandler:^(id item, NSError * _Nullable error) {
-            // Block中处理是否通过了或者执行JS错误的代码
-    }];
     if (webView.subviews){
 //        NSScrollView* scrollView = [[self.webView subviews] objectAtIndex:0];
 //        if ([scrollView hasVerticalScroller]) {
@@ -189,7 +184,6 @@
     self.btnMore.state = kUser.isWebShow;
     self.webGoogle_w.constant = kUser.isWebShow ? kWebWidth : 0;
     self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
-    
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
@@ -276,10 +270,13 @@
 // 将各种翻译的结果 转换 为 分割 空格的字符串
 - (NSString *)fm_formatForChinese:(NSString *)text {
     NSString *tempString;
-    if ([text containsString:@"_"]) {
+    if ([text containsString:@"_"]) { /// 下划线拼接的英文
         tempString = [NSString fm_underLineStringToCommonString:text];
+    }else if ([text componentsSeparatedByString:@" "].count > 1) { /// 空格符拼接的英文
+        tempString = text;
     }else {
-        tempString = [NSString fm_humpStringToCommonString:text];
+        tempString = [NSString fm_humpStringToCommonString:text]; // 驼峰拼接的英文
+        tempString = text;
     }
     return tempString;
     
@@ -318,10 +315,15 @@
         NSLog(@"有道翻译结果-------------:%@",response);
     }];
     
-    [_serviceManager fm_requestWithString:tempString type:FanyiType_Google completedBlock:^(id response) {
-        [weakSelf fm_resultFormat:response type:FanyiType_Google];
-        NSLog(@"谷歌翻译结果-------------:%@",response);
+    [_serviceManager fm_requestWithString:tempString type:FanyiType_Ciba completedBlock:^(id response) {
+        [weakSelf fm_resultFormat:response type:FanyiType_Ciba];
+        NSLog(@"金山词霸翻译结果-------------:%@",response);
     }];
+    
+//    [_serviceManager fm_requestWithString:tempString type:FanyiType_Google completedBlock:^(id response) {
+//        [weakSelf fm_resultFormat:response type:FanyiType_Google];
+//        NSLog(@"谷歌翻译结果-------------:%@",response);
+//    }];
     [self fm_webView];
 }
 
@@ -396,8 +398,12 @@
             [self.outputTextViewYoudao.textStorage setAttributedString:attrContent];
         }
             break;
+        case FanyiType_Ciba:{
+            [self.outputTextViewCiba.textStorage setAttributedString:attrContent];
+        }
+            break;
         case FanyiType_Google:{
-            [self.outputTextViewGoogle.textStorage setAttributedString:attrContent];
+            
         }
             break;
     }
@@ -405,8 +411,8 @@
     [self.outputTextViewBaidu.textStorage setForegroundColor:[NSColor redColor]];
     [self.outputTextViewYoudao.textStorage setFont:[NSFont systemFontOfSize:14]];
     [self.outputTextViewYoudao.textStorage setForegroundColor:[NSColor redColor]];
-    [self.outputTextViewGoogle.textStorage setFont:[NSFont systemFontOfSize:14]];
-    [self.outputTextViewGoogle.textStorage setForegroundColor:[NSColor redColor]];
+    [self.outputTextViewCiba.textStorage setFont:[NSFont systemFontOfSize:14]];
+    [self.outputTextViewCiba.textStorage setForegroundColor:[NSColor redColor]];
     
     if (type == _btnAutoCopy.tag) {
         [self fm_copyToPasteboard:result];

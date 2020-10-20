@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, FanyiType) {
     FanyiType_Youdao = 2,
     /// 谷歌
     FanyiType_Google = 3,
+    /// 金山词霸
+    FanyiType_Ciba = 4,
 };
 
 @interface FMServiceManager : NSObject
