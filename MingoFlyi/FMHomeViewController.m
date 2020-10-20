@@ -200,7 +200,7 @@
     self.btnWebSougou.state = kUser.isWebShowSougou;
     self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
     self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
-    self.view.frame = NSMakeRect(0, 20, kUser.windowWidth >0 ? kUser.windowWidth: 500 , 600);
+    self.view.frame = NSMakeRect(0, 20, kUser.windowWidth >0 ? kUser.windowWidth: 600 , 600);
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
