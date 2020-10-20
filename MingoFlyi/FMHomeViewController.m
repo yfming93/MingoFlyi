@@ -437,7 +437,7 @@
     [self.outputTextViewCiba.textStorage setFont:[NSFont systemFontOfSize:14]];
     [self.outputTextViewCiba.textStorage setForegroundColor:[NSColor redColor]];
     
-    if (type == _btnAutoCopy.tag) {
+    if (type == _btnAutoCopy.tag) { //自动复制
         [self fm_copyToPasteboard:result];
     }
 }
