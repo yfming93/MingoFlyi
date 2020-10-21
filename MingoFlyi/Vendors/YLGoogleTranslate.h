@@ -20,6 +20,21 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSString * _Nullable targetLanguageCode,
                                     NSString * _Nullable error))completionHandler;
 
+
+///// 翻译请求
+//- (void)fm_requet {
+//    NSString *content = @"控制变量法怎么样啊";
+//    NSString *targetLanguage = @"zh-CN";
+//    YLGoogleTranslate *googleTrans = [[YLGoogleTranslate alloc] init];
+//    [googleTrans translateWithText:content targetLanguageCode:targetLanguage completion:^(NSString * _Nullable originalText, NSString * _Nullable originalLanguageCode, NSString * _Nullable translatedText, NSString * _Nullable targetLanguageCode, NSString * _Nullable error) {
+//        if ([error length] > 0) {
+//            NSLog(@"调用Google翻译接口返回错误：%@ ", error);
+//        } else {
+//            NSLog(@"调用Google翻译接口返回成功！");
+//        }
+//    }];
+//}
+
 @end
 
 NS_ASSUME_NONNULL_END

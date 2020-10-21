@@ -12,6 +12,7 @@
 #import "FMSetting.h"
 #import "Tools.h"
 #import "NSString+FMAdd.h"
-
+#import "AppTools.h"
+#import "NSTextView+FMPlaceHolder.h"
 
 #endif /* FMPrefixHeader_pch */

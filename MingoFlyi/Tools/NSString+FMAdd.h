@@ -11,6 +11,10 @@
 @interface NSString (FMAdd)
 //过滤表情
 - (NSString *)fm_filterEmoji;
+
+//是否含有表情
+- (BOOL)fm_stringContainsEmoji;
+
 /**
  *  @brief  urlEncode
  *

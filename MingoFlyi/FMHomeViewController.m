@@ -10,6 +10,7 @@
 #import "FMServiceManager.h"
 #import "YLGoogleTranslate.h"
 #import <WebKit/WebKit.h>
+#import "NSTextView+FMPlaceHolder.h"
 
 #define kWebWidth 320
 
@@ -84,7 +85,6 @@
     [_arrManuelCopys addObject:_btnCopyYoudao];
     [_arrManuelCopys addObject:_btnCopyCiba];
 
-    
     _pasteboard = [NSPasteboard generalPasteboard];
     
     [self fm_initSetting];
@@ -97,10 +97,14 @@
 }
 
 - (void)fm_reload {
+    if (self.inputTextView.string.fm_stringContainsEmoji) {
+        self.inputTextView.string = self.inputTextView.string.fm_filterEmoji;
+    }
     if (self.inputTextView.string.length) {
         kUser.windowWidth = self.view.window.frame.size.width;
         [self fm_requetFanyi:_inputTextView.string];
-
+    }else{
+        
     }
 }
 
@@ -166,15 +170,6 @@
 }
     // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-        //showAlert()是js里面的方法,这样就可以实现调用js方法
-    if (webView.subviews){
-//        NSScrollView* scrollView = [[self.webView subviews] objectAtIndex:0];
-//        if ([scrollView hasVerticalScroller]) {
-//            scrollView.verticalScroller.floatValue = 0;
-//        }
-//            // Scroll the contentView to top
-//        [scrollView.contentView scrollToPoint:NSMakePoint(0, ((NSView*)scrollView.documentView).frame.size.height - scrollView.contentSize.height)];
-    }
     
 }
     // 页面加载失败时调用
@@ -235,7 +230,6 @@
 }
 
 - (void)dealloc {
-    NSLog(@"FMHomeViewController dealloc");
     [FMSetting fm_save];
 }
 
@@ -257,13 +251,13 @@
     if (notification.object == _inputTextView) {
         [self fm_reload];
     }
+    if ([notification.object isKindOfClass:NSTextView.class]) {
+        [((NSTextView *)(notification.object)) fm_placeHolder];
+    }
     
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification {
-//    if (notification.object == _inputTextView) {
-//        [self fm_requetFanyi:_inputTextView.string];
-//    }
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
@@ -275,7 +269,6 @@
         [self fm_requetFanyi:_inputTextView.string];
         kUser.prefixText = _tfPrefix.stringValue;
     }
-    
 }
 
 // 将各种翻译的结果 转换 为 分割 空格的字符串
@@ -292,19 +285,6 @@
     
 }
 
-///// 翻译请求
-//- (void)fm_requet {
-//    NSString *content = @"控制变量法怎么样啊";
-//    NSString *targetLanguage = @"zh-CN";
-//    YLGoogleTranslate *googleTrans = [[YLGoogleTranslate alloc] init];
-//    [googleTrans translateWithText:content targetLanguageCode:targetLanguage completion:^(NSString * _Nullable originalText, NSString * _Nullable originalLanguageCode, NSString * _Nullable translatedText, NSString * _Nullable targetLanguageCode, NSString * _Nullable error) {
-//        if ([error length] > 0) {
-//            NSLog(@"调用Google翻译接口返回错误：%@ ", error);
-//        } else {
-//            NSLog(@"调用Google翻译接口返回成功！");
-//        }
-//    }];
-//}
 
 /// 翻译请求
 - (void)fm_requetFanyi:(NSString *)str {
@@ -312,7 +292,6 @@
     if (text.length <= 0) {
         return;
     }
-//    [self fm_requet];
     NSString *tempString = [self fm_formatForChinese:str];
     __weak typeof(self) weakSelf = self;
     [_serviceManager fm_requestWithString:tempString type:FanyiType_Baidu completedBlock:^(id response) {
@@ -337,29 +316,6 @@
     [self fm_webView];
 }
 
-/// 结果过滤
-- (NSString *)fm_filter:(NSString *)str {
-    if (!self.tfFilter.stringValue.length) return str;
-    if (!self.btnFilter.state) return str;
-    NSString * result = [str lowercaseStringWithLocale:NSLocale.currentLocale];
-    NSString * smallfilter = [self.tfFilter.stringValue lowercaseStringWithLocale:NSLocale.currentLocale];
-    NSArray *outCharts = @[@"，",@";",@"；",@"。",@"、",@"/",@"|",@"\\"];
-    for (NSString *str in outCharts) {
-        if ([smallfilter containsString:str]) {
-            smallfilter = [smallfilter stringByReplacingOccurrencesOfString:str withString:@","];
-        }
-    }
-    NSMutableArray *arrTitels = [result componentsSeparatedByString:@" "].mutableCopy;
-    NSMutableArray *arrFilter = [smallfilter componentsSeparatedByString:@","].mutableCopy;
-    for (NSString *str in arrFilter) {
-        NSString *tem = [NSString stringWithFormat:@"%@",str];
-        if ([result containsString:tem] && (![tem isEqualToString:@" "]) && (![tem isEqualToString:@""])) {
-            [arrTitels removeObject:tem];
-        }
-    }
-    result = [arrTitels componentsJoinedByString:@" "];
-    return result;
-}
 
 - (NSString *)fm_addPrefix:(NSString *)result {
     NSString *res = result.mutableCopy;
@@ -375,7 +331,7 @@
 
 - (void)fm_resultFormat:(NSString *)resultStr type:(FanyiType)type {
     if (!resultStr.length) return;
-    NSString *result = [self fm_filter:resultStr];
+    NSString *result = [AppTools fm_filter:resultStr isFilter:self.btnFilter.state tfFilter:self.tfFilter.stringValue];
     result = [self fm_addPrefix:result];
     
     if (_btnHumpSmall.state) {
@@ -428,11 +384,11 @@
 }
 
 - (IBAction)clearContent:(NSButton *)sender {
-    NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:@""];
-    [_inputTextView.textStorage setAttributedString:attrContent];
-    [_outputTextViewBaidu.textStorage setAttributedString:attrContent];
-    [_outputTextViewYoudao.textStorage setAttributedString:attrContent];
-    [_outputTextViewCiba.textStorage setAttributedString:attrContent];
+    NSString *tem = @"";
+    self.inputTextView.string = tem;
+    self.outputTextViewBaidu.string = tem;
+    self.outputTextViewYoudao.string = tem;
+    self.outputTextViewCiba.string = tem;
 }
 
 

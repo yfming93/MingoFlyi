@@ -28,4 +28,5 @@ typedef NS_ENUM(NSInteger, FanyiType) {
 
 - (void)fm_requestWithString:(NSString *)text type:(FanyiType)type
                 completedBlock:(CompletedBlock)completedBlock ;
+
 @end

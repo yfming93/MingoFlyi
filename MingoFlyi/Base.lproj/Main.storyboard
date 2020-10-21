@@ -698,7 +698,7 @@
                                             <rect key="frame" x="2" y="2" width="425" height="136"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" incrementalSearchingEnabled="YES" continuousSpellChecking="YES" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="xud-vI-AMn">
+                                                <textView canDrawConcurrently="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" incrementalSearchingEnabled="YES" continuousSpellChecking="YES" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="xud-vI-AMn">
                                                     <rect key="frame" x="0.0" y="0.0" width="425" height="136"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -706,6 +706,9 @@
                                                     <size key="minSize" width="425" height="136"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
                                                     <color key="insertionPointColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="请输要入翻译文字"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outlet property="delegate" destination="XfG-lQ-9wD" id="1FY-5s-pWi"/>
                                                     </connections>
@@ -844,7 +847,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="message" size="11"/>
+                                    <font key="font" metaFont="label" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
@@ -890,29 +893,23 @@
                                             <font key="font" size="12" name="HelveticaNeue"/>
                                         </buttonCell>
                                     </button>
-                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-aa-ZUP">
+                                    <scrollView canDrawConcurrently="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-aa-ZUP">
                                         <rect key="frame" x="0.0" y="0.0" width="429" height="140"/>
-                                        <clipView key="contentView" drawsBackground="NO" id="gsJ-Fu-fuJ">
+                                        <clipView key="contentView" canDrawConcurrently="YES" drawsBackground="NO" id="gsJ-Fu-fuJ">
                                             <rect key="frame" x="1" y="1" width="427" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="V3l-po-6bn">
+                                                <textView canDrawConcurrently="YES" editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="V3l-po-6bn">
                                                     <rect key="frame" x="0.0" y="0.0" width="427" height="138"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
-                                                    <attributedString key="textStorage">
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" size="14" name="Helvetica"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
                                                     <color key="insertionPointColor" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="百度翻译结果"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outlet property="delegate" destination="XfG-lQ-9wD" id="V3N-hY-Amh"/>
                                                     </connections>
@@ -976,16 +973,10 @@
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
-                                                    <attributedString key="textStorage">
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" size="14" name="Helvetica"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="有道翻译结果"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outlet property="delegate" destination="XfG-lQ-9wD" id="UW7-D5-ytf"/>
                                                     </connections>
@@ -1050,16 +1041,10 @@
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
-                                                    <attributedString key="textStorage">
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" size="14" name="Helvetica"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="金山词霸翻译结果"/>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outlet property="delegate" destination="XfG-lQ-9wD" id="iJA-aI-rMN"/>
                                                     </connections>
