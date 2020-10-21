@@ -21,11 +21,12 @@
 		881ADD2E252F063100CC35AA /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 881ADD2D252F063100CC35AA /* Tools.m */; };
 		881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881ADD38252F095900CC35AA /* AppKit.framework */; };
 		88922A22252D706E009B1D69 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265011E97DEF300DF90FA /* Info.plist */; };
-		88D37EA42536BA740078C2FC /* FMSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D37EA32536BA740078C2FC /* FMSetting.m */; };
 		88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6691C25341978005D38B3 /* YLGoogleTranslate.m */; };
 		88F89443253FE08900410447 /* AppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89442253FE08900410447 /* AppTools.m */; };
 		88F89446253FE31E00410447 /* FMWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89445253FE31E00410447 /* FMWebManager.m */; };
 		88F8944C2540015100410447 /* NSTextView+FMPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */; };
+		DAFF309D2540AC0C008E1A8C /* FMHud.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309C2540AC0C008E1A8C /* FMHud.m */; };
+		DAFF30A02540AE80008E1A8C /* FMSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309E2540AE80008E1A8C /* FMSetting.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +73,6 @@
 		881ADD2C252F063100CC35AA /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		881ADD2D252F063100CC35AA /* Tools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		881ADD38252F095900CC35AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		88D37EA22536BA740078C2FC /* FMSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMSetting.h; sourceTree = "<group>"; };
-		88D37EA32536BA740078C2FC /* FMSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMSetting.m; sourceTree = "<group>"; };
 		88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMPrefixHeader.pch; sourceTree = "<group>"; };
 		88F6691C25341978005D38B3 /* YLGoogleTranslate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGoogleTranslate.m; sourceTree = "<group>"; };
 		88F6691D25341978005D38B3 /* YLGoogleTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLGoogleTranslate.h; sourceTree = "<group>"; };
@@ -85,6 +84,10 @@
 		88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+FMPlaceHolder.m"; sourceTree = "<group>"; };
 		8F6933F1267D9BB619C096DF /* Pods-MingoFlyi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.debug.xcconfig"; sourceTree = "<group>"; };
 		98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.release.xcconfig"; sourceTree = "<group>"; };
+		DAFF309B2540AC0C008E1A8C /* FMHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHud.h; sourceTree = "<group>"; };
+		DAFF309C2540AC0C008E1A8C /* FMHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMHud.m; sourceTree = "<group>"; };
+		DAFF309E2540AE80008E1A8C /* FMSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSetting.m; path = MingoFlyi/FMSetting.m; sourceTree = SOURCE_ROOT; };
+		DAFF309F2540AE80008E1A8C /* FMSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMSetting.h; path = MingoFlyi/FMSetting.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +158,6 @@
 				1E3264FE1E97DEF300DF90FA /* Main.storyboard */,
 				1E3265011E97DEF300DF90FA /* Info.plist */,
 				1E3264F61E97DEF200DF90FA /* Supporting Files */,
-				88D37EA22536BA740078C2FC /* FMSetting.h */,
-				88D37EA32536BA740078C2FC /* FMSetting.m */,
 				88F8944A2540015100410447 /* NSTextView+FMPlaceHolder.h */,
 				88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */,
 			);
@@ -207,6 +208,8 @@
 				1ED27FE21E9BCD2400E2287F /* NSString+FMAdd.m */,
 				881ADD2C252F063100CC35AA /* Tools.h */,
 				881ADD2D252F063100CC35AA /* Tools.m */,
+				DAFF309B2540AC0C008E1A8C /* FMHud.h */,
+				DAFF309C2540AC0C008E1A8C /* FMHud.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -214,6 +217,8 @@
 		88D37EA62536C3B10078C2FC /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				DAFF309F2540AE80008E1A8C /* FMSetting.h */,
+				DAFF309E2540AE80008E1A8C /* FMSetting.m */,
 				88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */,
 			);
 			path = Config;
@@ -403,13 +408,14 @@
 				1E3264FB1E97DEF300DF90FA /* FMHomeViewController.m in Sources */,
 				88F89446253FE31E00410447 /* FMWebManager.m in Sources */,
 				88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */,
+				DAFF30A02540AE80008E1A8C /* FMSetting.m in Sources */,
 				1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */,
 				1E3264F81E97DEF300DF90FA /* main.m in Sources */,
 				881ADD2E252F063100CC35AA /* Tools.m in Sources */,
+				DAFF309D2540AC0C008E1A8C /* FMHud.m in Sources */,
 				88F8944C2540015100410447 /* NSTextView+FMPlaceHolder.m in Sources */,
 				1E3264F51E97DEF200DF90FA /* AppDelegate.m in Sources */,
 				1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */,
-				88D37EA42536BA740078C2FC /* FMSetting.m in Sources */,
 				88F89443253FE08900410447 /* AppTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

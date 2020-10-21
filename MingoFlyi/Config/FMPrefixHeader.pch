@@ -9,10 +9,26 @@
 #ifndef FMPrefixHeader_pch
 #define FMPrefixHeader_pch
 
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
+
+#pragma mark - Macros for DEBUG
+#ifdef DEBUG
+
+#define NSLog(...) NSLog(__VA_ARGS__)
+
+#else
+#define NSLog(...)
+#endif //DEBUG
+
+
 #import "FMSetting.h"
+#import "FMHud.h"
 #import "Tools.h"
 #import "NSString+FMAdd.h"
 #import "AppTools.h"
 #import "NSTextView+FMPlaceHolder.h"
+
 
 #endif /* FMPrefixHeader_pch */

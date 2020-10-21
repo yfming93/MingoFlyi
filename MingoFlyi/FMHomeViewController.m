@@ -355,17 +355,22 @@
     if (!self.inputTextView.string.length) {
         return;
     }
+    NSString *tem = @"";
     switch (type) {
         case FanyiType_Baidu:{
             self.outputTextViewBaidu.string = result;
+            tem = [NSString stringWithFormat:@"自动复制百度翻译结果\n%@",result];
         }
             break;
         case FanyiType_Youdao:{
             self.outputTextViewYoudao.string = result;
+            tem = [NSString stringWithFormat:@"自动复制有道翻译结果\n%@",result];
         }
             break;
         case FanyiType_Ciba:{
             self.outputTextViewCiba.string = result;
+            tem = [NSString stringWithFormat:@"自动复制金山词霸翻译结果\n%@",result];
+
         }
             break;
         case FanyiType_Google:{
@@ -376,6 +381,7 @@
     
     if (type == _btnAutoCopy.tag) { //自动复制
         [self fm_copyToPasteboard:result];
+        [self performSelector:@selector(fm_fadeInHudWithMsg:type:) withObject:tem afterDelay:2];
     }
 }
 
@@ -391,6 +397,8 @@
     self.outputTextViewBaidu.string = tem;
     self.outputTextViewYoudao.string = tem;
     self.outputTextViewCiba.string = tem;
+    [self fm_fadeInHudWithMsg:@"清除所有翻译" type:sender.tag];
+
 }
 
 
@@ -430,6 +438,7 @@
             break;
     }
     [FMSetting fm_save];
+    [self fm_fadeInHudWithMsg:nil type:sender.tag];
 
 }
 
@@ -448,7 +457,32 @@
         default:
             break;
     }
+    [self fm_fadeInHudWithMsg:nil type:sender.tag];
 }
+
+/// 界面文字提示管理
+- (void)fm_fadeInHudWithMsg:(NSString *)message type:(FanyiType)type  {
+    NSString *msg = @"暂无翻译内容";
+    
+    switch (type) {
+        case FanyiType_Baidu:
+            if (self.outputTextViewBaidu.string.length) msg = [NSString stringWithFormat:@"已复制百度翻译结果\n%@",self.outputTextViewBaidu.string];
+            break;
+        case FanyiType_Youdao:
+            if (self.outputTextViewYoudao.string.length) msg = [NSString stringWithFormat:@"已复制有道翻译结果\n%@",self.outputTextViewYoudao.string];
+            break;
+        case FanyiType_Ciba:
+            if (self.outputTextViewCiba.string.length) msg = [NSString stringWithFormat:@"已复制词霸翻译结果\n%@",self.outputTextViewCiba.string];
+            break;
+        case FanyiType_Google:
+            if (self.outputTextViewCiba.string.length) msg = @"已复制谷歌翻译结果";
+            break;
+        default:
+            break;
+    }
+    [kHud fm_fadeInHud:message.length ? message: msg];
+}
+
 
 // 选择翻译模式
 - (void)selectAction:(NSButton *)sender {
