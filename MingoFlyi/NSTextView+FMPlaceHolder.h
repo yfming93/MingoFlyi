@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 占位符字体
 @property (nonatomic, assign) IBInspectable NSInteger holderFont;
 
-- (void)fm_placeHolder;
+//- (void)fm_placeHolder;
 
 @end
 

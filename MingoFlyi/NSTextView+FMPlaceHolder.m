@@ -9,89 +9,50 @@
 #import "NSTextView+FMPlaceHolder.h"
 #import <objc/runtime.h>
 
-//static NSTextField *placeHolderTextField;
-
 @interface NSTextView ()
-
 @property (nonatomic, strong) NSTextField *placeHolderTextField;
 @end
 
 @implementation NSTextView (FMPlaceHolder)
+
 @dynamic placeHolder,holderColor,holderFont;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-//    [self fm_initPlaceHolder];
+    [self fm_initPlaceHolder];
 }
-+ (void)initialize
+
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
-    if (self == [NSTextView class]) {
-//    [self.placeHolderTextField.placeholderAttributedString drawAtPoint:NSMakePoint(0,0)];
-        [NSTextView.new fm_initPlaceHolder];
-
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self fm_initPlaceHolder];
     }
+    return self;
 }
-
-
 
 - (void)fm_initPlaceHolder {
-    [self fm_removePlaceholder:self.placeHolderTextField];
-    self.placeHolderTextField = [self fm_addTextViewPlaceholderWithString:self.placeHolder textView:self];
-    [self addSubview:self.placeHolderTextField];
+    if (self.placeHolderTextField == nil) {
+        [self fm_removePlaceholder:self.placeHolderTextField];
+        self.placeHolderTextField = [self fm_addTextViewPlaceholderWithString:self.placeHolder textView:self];
+        [self addSubview:self.placeHolderTextField];
+    }
 }
 
 - (void)fm_placeHolder {
     dispatch_async(dispatch_get_main_queue(), ^{
-
         if (self.string.length){
             self.placeHolderTextField.hidden = YES;
-            NSLog(@"placeHolderTextField:%@",self.placeHolderTextField.description);
-
         }else{
             self.placeHolderTextField.hidden = NO;
-
         }
     });
-    
-//    if ([[self string] isEqualToString:@""] && self != [[self window] firstResponder])
-//        [self.placeHolderTextField.placeholderAttributedString drawAtPoint:NSMakePoint(0,0)];
 }
-
-- (void)controlTextDidChange:(NSNotification *)note {
-
-}
-
-
-//- (void)drawRect:(NSRect)rect {
-//    [super drawRect:rect];
-//    NSLog(@"placeHolder1:%@",self.placeHolder);
-//    [self fm_placeHolder];
-//
-//}
-
 
 - (void)viewWillDraw {
-     NSLog(@"placeHolder:%@",self.placeHolder);
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        static dispatch_once_t onceToken;
-//        dispatch_once(&onceToken, ^{
-//        });
-//    });
-
+//     NSLog(@"placeHolder:%@",self.placeHolder);
     [self fm_placeHolder];
 
-}
-
-
-- (BOOL)becomeFirstResponder {
-    [self setNeedsDisplay:YES];
-    return [super becomeFirstResponder];
-}
-
-- (BOOL)resignFirstResponder {
-    [self setNeedsDisplay:YES];
-    return [super resignFirstResponder];
 }
 
 - (void)setHolderColor:(NSColor *)holderColor

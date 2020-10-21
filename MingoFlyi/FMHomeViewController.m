@@ -86,25 +86,75 @@
     [_arrManuelCopys addObject:_btnCopyCiba];
 
     _pasteboard = [NSPasteboard generalPasteboard];
-    
+    NSInteger fontSize = 16;
+    self.inputTextView.font = [NSFont systemFontOfSize:fontSize];
+    self.outputTextViewBaidu.font = [NSFont systemFontOfSize:fontSize];
+    self.outputTextViewYoudao.font = [NSFont systemFontOfSize:fontSize];
+    self.outputTextViewCiba.font = [NSFont systemFontOfSize:fontSize];
+
     [self fm_initSetting];
     
 }
 
+-(void)fm_initSetting {
+    User *user = FMSetting.fm_get;
+    kUser = user;
+    self.tfPrefix.stringValue = kUser.prefixText;
+    self.tfFilter.stringValue = kUser.filterText;
+    self.btnPrefix.state = kUser.isPrefix;
+    self.btnFilter.state = kUser.isFliter;
+    self.btnWebGoogle.state = kUser.isWebShowGoogle;
+    self.btnWebSougou.state = kUser.isWebShowSougou;
+    self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
+    self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
+    self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 555 , CGRectMinYEdge);
+    for (NSButton *btn in _arrBtns) {
+        [btn setTarget:self];
+        [btn setAction:@selector(selectAction:)];
+        if (btn.tag == kUser.indexFanyi) {
+            btn.state = YES;
+            _btnSelectedFanyi = btn;
+        }else{
+            btn.state = NO;
+        }
+    }
+    
+    for (NSButton *btn in _arrManuelCopys) {
+        [btn setTarget:self];
+        [btn setAction:@selector(clickCopyAction:)];
+        if (btn.tag == kUser.indexManuelCopy) {
+            btn.state = YES;
+        }else{
+            btn.state = NO;
+        }
+    }
+    
+    for (NSButton *btn in _arrAutoCopys) {
+        [btn setTarget:self];
+        [btn setAction:@selector(autoCopyAction:)];
+        
+        if (btn.tag == kUser.indexAutoCopy) {
+            btn.state = YES;
+            _btnAutoCopy = btn;
+        }else{
+            btn.state = NO;
+        }
+    }
+}
+
 - (void)viewDidLayout {
-    [self performSelector:@selector(fm_reload) withObject:nil afterDelay:2];
 
 }
 
 - (void)fm_reload {
-    if (self.inputTextView.string.fm_stringContainsEmoji) {
-        self.inputTextView.string = self.inputTextView.string.fm_filterEmoji;
-    }
+//    if (self.inputTextView.string.fm_stringContainsEmoji) {
+//        self.inputTextView.string = self.inputTextView.string.fm_filterEmoji;
+//    }
     if (self.inputTextView.string.length) {
         kUser.windowWidth = self.view.window.frame.size.width;
         [self fm_requetFanyi:_inputTextView.string];
     }else{
-        
+        [self clearContent:nil];
     }
 }
 
@@ -177,53 +227,6 @@
     
 }
 
-
--(void)fm_initSetting {
-    User *user = FMSetting.fm_get;
-    kUser = user;
-    self.tfPrefix.stringValue = kUser.prefixText;
-    self.tfFilter.stringValue = kUser.filterText;
-    self.btnPrefix.state = kUser.isPrefix;
-    self.btnFilter.state = kUser.isFliter;
-    self.btnWebGoogle.state = kUser.isWebShowGoogle;
-    self.btnWebSougou.state = kUser.isWebShowSougou;
-    self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
-    self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
-    self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 555 , CGRectMinYEdge);
-    for (NSButton *btn in _arrBtns) {
-        [btn setTarget:self];
-        [btn setAction:@selector(selectAction:)];
-        if (btn.tag == kUser.indexFanyi) {
-            btn.state = YES;
-            _btnSelectedFanyi = btn;
-        }else{
-            btn.state = NO;
-        }
-    }
-    
-    for (NSButton *btn in _arrManuelCopys) {
-        [btn setTarget:self];
-        [btn setAction:@selector(clickCopyAction:)];
-        if (btn.tag == kUser.indexManuelCopy) {
-            btn.state = YES;
-        }else{
-            btn.state = NO;
-        }
-    }
-    
-    for (NSButton *btn in _arrAutoCopys) {
-        [btn setTarget:self];
-        [btn setAction:@selector(autoCopyAction:)];
-        
-        if (btn.tag == kUser.indexAutoCopy) {
-            btn.state = YES;
-            _btnAutoCopy = btn;
-        }else{
-           btn.state = NO;
-       }
-    }
-}
-
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
     
@@ -249,12 +252,8 @@
 
 - (void)textDidChange:(NSNotification *)notification {
     if (notification.object == _inputTextView) {
-        [self fm_reload];
+        [self performSelector:@selector(fm_reload) withObject:nil afterDelay:0.8];
     }
-    if ([notification.object isKindOfClass:NSTextView.class]) {
-        [((NSTextView *)(notification.object)) fm_placeHolder];
-    }
-    
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification {
@@ -353,6 +352,9 @@
 
 
 - (void)outputTextAndWriteDataToThePasteboard:(NSString *)result type:(FanyiType)type  {
+    if (!self.inputTextView.string.length) {
+        return;
+    }
     switch (type) {
         case FanyiType_Baidu:{
             self.outputTextViewBaidu.string = result;

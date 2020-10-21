@@ -847,7 +847,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
@@ -929,7 +929,7 @@
                                         <rect key="frame" x="438" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="Fgp-vl-qPb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="12"/>
+                                            <font key="font" metaFont="controlContent"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>
@@ -957,7 +957,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_youdao" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="YmL-Uf-DMR">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="12"/>
+                                            <font key="font" metaFont="controlContent"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tl-Iu-64e">
@@ -1025,7 +1025,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_ciba" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="eJe-Ac-y6f">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="label" size="12"/>
+                                            <font key="font" metaFont="controlContent"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daf-Zh-wIC">
@@ -1064,7 +1064,7 @@
                                         <rect key="frame" x="438" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="VUp-99-oT7">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="label" size="12"/>
+                                            <font key="font" metaFont="controlContent"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>
