@@ -359,17 +359,17 @@
     switch (type) {
         case FanyiType_Baidu:{
             self.outputTextViewBaidu.string = result;
-            tem = [NSString stringWithFormat:@"自动复制百度翻译结果\n%@",result];
+            tem = [NSString stringWithFormat:@"智能复制百度翻译结果\n%@",result];
         }
             break;
         case FanyiType_Youdao:{
             self.outputTextViewYoudao.string = result;
-            tem = [NSString stringWithFormat:@"自动复制有道翻译结果\n%@",result];
+            tem = [NSString stringWithFormat:@"智能复制有道翻译结果\n%@",result];
         }
             break;
         case FanyiType_Ciba:{
             self.outputTextViewCiba.string = result;
-            tem = [NSString stringWithFormat:@"自动复制金山词霸翻译结果\n%@",result];
+            tem = [NSString stringWithFormat:@"智能复制金山词霸翻译结果\n%@",result];
 
         }
             break;
@@ -379,9 +379,9 @@
             break;
     }
     
-    if (type == _btnAutoCopy.tag) { //自动复制
+    if (type == _btnAutoCopy.tag) { //智能复制
         [self fm_copyToPasteboard:result];
-        [self performSelector:@selector(fm_fadeInHudWithMsg:type:) withObject:tem afterDelay:2];
+        [self performSelector:@selector(fm_fadeInHudWithMsg:type:) withObject:tem afterDelay:1];
     }
 }
 
@@ -412,7 +412,7 @@
     kUser.isPrefix = sender.state;
 }
 
-// 自动复制
+// 智能复制
 - (void)autoCopyAction:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
     if (sender.tag == _btnAutoCopy.tag) {
