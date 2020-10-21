@@ -40,6 +40,8 @@
 - (NSString *)md5_32bit{
     const char *cStr = self.UTF8String;
     unsigned char result[16];
+    if (cStr == NULL) return self;
+    
     CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
     return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
             result[0], result[1], result[2], result[3],
@@ -67,8 +69,10 @@
         NSString *subString = [self substringWithRange:range];
         if (subString.length) {
             const char *cString = [subString UTF8String];
-            if (strlen(cString) == 3) {
-                return YES;
+            if (cString != NULL) {
+                if (strlen(cString) == 3) {
+                    return YES;
+                }
             }
         }
     }
@@ -173,5 +177,49 @@
 }
 
 
+//过滤表情
+- (NSString *)fm_filterEmoji {
+    NSUInteger len = [self lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    const char *utf8 = [self UTF8String];
+    char *newUTF8 = malloc( sizeof(char) * len );
+    int j = 0;
+    
+    //0xF0(4) 0xE2(3) 0xE3(3) 0xC2(2) 0x30---0x39(4)
+    for ( int i = 0; i < len; i++ ) {
+        unsigned int c = utf8;
+        BOOL isControlChar = NO;
+        if ( c == 4294967280 ||
+            c == 4294967089 ||
+            c == 4294967090 ||
+            c == 4294967091 ||
+            c == 4294967092 ||
+            c == 4294967093 ||
+            c == 4294967094 ||
+            c == 4294967095 ||
+            c == 4294967096 ||
+            c == 4294967097 ||
+            c == 4294967088 ) {
+            i = i + 3;
+            isControlChar = YES;
+        }
+        if ( c == 4294967266 || c == 4294967267 ) {
+            i = i + 2;
+            isControlChar = YES;
+        }
+        if ( c == 4294967234 ) {
+            i = i + 1;
+            isControlChar = YES;
+        }
+        if ( !isControlChar ) {
+            newUTF8[j] = utf8;
+            j++;
+        }
+    }
+    newUTF8[j] = '\0';
+    NSString *encrypted = [NSString stringWithCString:(const char*)newUTF8
+                                             encoding:NSUTF8StringEncoding];
+    free( newUTF8 );
+    return encrypted;
+}
 
 @end

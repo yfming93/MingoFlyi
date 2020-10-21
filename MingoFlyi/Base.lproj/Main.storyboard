@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -686,41 +686,44 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="FMHomeViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1090" height="703"/>
+                        <rect key="frame" x="0.0" y="0.0" width="551" height="703"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="27s-nc-cHq">
-                                <rect key="frame" x="20" y="543" width="408" height="140"/>
+                                <rect key="frame" x="20" y="543" width="509" height="140"/>
                                 <subviews>
-                                    <scrollView verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-No-GcO">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="140"/>
+                                    <scrollView verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" borderType="groove" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPK-No-GcO">
+                                        <rect key="frame" x="0.0" y="0.0" width="429" height="140"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="K9u-zB-Bqr">
-                                            <rect key="frame" x="1" y="1" width="326" height="138"/>
+                                            <rect key="frame" x="2" y="2" width="425" height="136"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="xud-vI-AMn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="138"/>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" incrementalSearchingEnabled="YES" continuousSpellChecking="YES" allowsDocumentBackgroundColorChange="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="xud-vI-AMn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="425" height="136"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="326" height="138"/>
+                                                    <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="425" height="136"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
-                                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="insertionPointColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="XfG-lQ-9wD" id="1FY-5s-pWi"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.4431372549" green="0.30588235289999999" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.52371731170000002" green="0.57266029789999995" blue="0.3640049823" alpha="0.11627970949999999" colorSpace="custom" customColorSpace="sRGB"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="PsR-Or-dew">
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Rc7-cM-75q">
-                                            <rect key="frame" x="311" y="1" width="16" height="138"/>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Rc7-cM-75q">
+                                            <rect key="frame" x="-100" y="-100" width="15" height="138"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="2" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LsT-Dv-Kiu">
-                                        <rect key="frame" x="336" y="-3" width="74" height="75"/>
+                                        <rect key="frame" x="437" y="-3" width="74" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="LsT-Dv-Kiu" secondAttribute="height" multiplier="1:1" id="ND2-5W-Ym0"/>
                                         </constraints>
@@ -734,7 +737,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4f-xF-7GF">
-                                        <rect key="frame" x="336" y="67" width="74" height="75"/>
+                                        <rect key="frame" x="437" y="67" width="74" height="75"/>
                                         <buttonCell key="cell" type="bevel" title="WebSougou" alternateTitle="Close" bezelStyle="regularSquare" image="ic_sougou" imagePosition="above" alignment="center" alternateImage="ic_sougou" borderStyle="border" inset="2" id="4ot-gp-ORO">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system" size="10"/>
@@ -762,7 +765,7 @@
                                 </constraints>
                             </customView>
                             <button tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="F2G-7G-F4K">
-                                <rect key="frame" x="983" y="18" width="89" height="18"/>
+                                <rect key="frame" x="444" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="PWr-oI-jA1"/>
                                     <constraint firstAttribute="height" constant="14" id="XL4-bu-GmX"/>
@@ -773,7 +776,7 @@
                                 </buttonCell>
                             </button>
                             <button tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="yFR-HV-Hh4">
-                                <rect key="frame" x="793" y="18" width="89" height="18"/>
+                                <rect key="frame" x="254" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="68A-oS-V4F"/>
                                     <constraint firstAttribute="height" constant="14" id="ONg-Sb-EPN"/>
@@ -784,7 +787,7 @@
                                 </buttonCell>
                             </button>
                             <button tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="90a-VU-mcn">
-                                <rect key="frame" x="888" y="18" width="89" height="18"/>
+                                <rect key="frame" x="349" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="1ax-Zc-pod"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="ooh-bs-GzP"/>
@@ -795,7 +798,7 @@
                                 </buttonCell>
                             </button>
                             <button tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="Z5V-0o-BVn">
-                                <rect key="frame" x="698" y="18" width="89" height="18"/>
+                                <rect key="frame" x="159" y="18" width="89" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="ngx-ay-EdB"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="orM-Go-pVF"/>
@@ -820,7 +823,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-1r-cD3">
-                                <rect key="frame" x="102" y="508" width="246" height="25"/>
+                                <rect key="frame" x="102" y="508" width="347" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="vzR-hc-SDj"/>
                                 </constraints>
@@ -829,23 +832,26 @@
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="R5d-FN-dvl"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0vy-7M-XmW">
-                                <rect key="frame" x="357" y="503" width="72" height="33"/>
+                                <rect key="frame" x="458" y="503" width="72" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="Drx-C4-p2L"/>
                                     <constraint firstAttribute="height" constant="30" id="foB-4S-3U1"/>
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qib-UC-8On">
-                                <rect key="frame" x="620" y="17" width="70" height="21"/>
+                                <rect key="frame" x="81" y="17" width="70" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="wPF-Wc-rrn"/>
                                 </constraints>
@@ -859,7 +865,7 @@
                                 </connections>
                             </textField>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="qDU-fc-N0c">
-                                <rect key="frame" x="555" y="18" width="62" height="18"/>
+                                <rect key="frame" x="16" y="18" width="62" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="eXp-2p-Lxx"/>
                                 </constraints>
@@ -872,10 +878,10 @@
                                 </connections>
                             </button>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="t70-fo-hib" userLabel="BaiduView">
-                                <rect key="frame" x="20" y="358" width="408" height="140"/>
+                                <rect key="frame" x="20" y="358" width="509" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2R-tS-Cit">
-                                        <rect key="frame" x="336" y="-3" width="74" height="75"/>
+                                        <rect key="frame" x="437" y="-3" width="74" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="N2R-tS-Cit" secondAttribute="height" multiplier="1:1" id="5xh-fp-vJ9"/>
                                         </constraints>
@@ -884,20 +890,32 @@
                                             <font key="font" size="12" name="HelveticaNeue"/>
                                         </buttonCell>
                                     </button>
-                                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-aa-ZUP">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="140"/>
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCi-aa-ZUP">
+                                        <rect key="frame" x="0.0" y="0.0" width="429" height="140"/>
                                         <clipView key="contentView" drawsBackground="NO" id="gsJ-Fu-fuJ">
-                                            <rect key="frame" x="1" y="1" width="326" height="138"/>
+                                            <rect key="frame" x="1" y="1" width="427" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="V3l-po-6bn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="138"/>
+                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="V3l-po-6bn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="427" height="138"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="326" height="138"/>
+                                                    <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
-                                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <attributedString key="textStorage">
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                    <color key="insertionPointColor" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="XfG-lQ-9wD" id="V3N-hY-Amh"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                         </clipView>
@@ -905,16 +923,16 @@
                                             <rect key="frame" x="-100" y="-100" width="578" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Nc3-ij-cYo">
-                                            <rect key="frame" x="311" y="1" width="16" height="138"/>
+                                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Nc3-ij-cYo">
+                                            <rect key="frame" x="-100" y="-100" width="15" height="138"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvl-XD-jqZ">
-                                        <rect key="frame" x="337" y="69" width="73" height="72"/>
+                                        <rect key="frame" x="438" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="Fgp-vl-qPb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="label" size="12"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>
@@ -933,32 +951,44 @@
                                 </constraints>
                             </customView>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="Pa8-Kz-cIx" userLabel="YoudaoView">
-                                <rect key="frame" x="20" y="208" width="408" height="140"/>
+                                <rect key="frame" x="20" y="208" width="509" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="83M-IH-sDH">
-                                        <rect key="frame" x="336" y="-3" width="74" height="75"/>
+                                        <rect key="frame" x="437" y="-3" width="74" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="83M-IH-sDH" secondAttribute="height" multiplier="1:1" id="Vbb-wq-q0E"/>
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_youdao" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="YmL-Uf-DMR">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="label" size="12"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tl-Iu-64e">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="429" height="140"/>
                                         <clipView key="contentView" drawsBackground="NO" id="oKk-Om-zYz">
-                                            <rect key="frame" x="1" y="1" width="326" height="138"/>
+                                            <rect key="frame" x="1" y="1" width="427" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="CnR-fp-FB6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="138"/>
+                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="CnR-fp-FB6">
+                                                    <rect key="frame" x="0.0" y="0.0" width="427" height="138"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="326" height="138"/>
+                                                    <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
+                                                    <attributedString key="textStorage">
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="XfG-lQ-9wD" id="UW7-D5-ytf"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                         </clipView>
@@ -972,7 +1002,7 @@
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="2" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S31-7X-4dC">
-                                        <rect key="frame" x="337" y="69" width="73" height="72"/>
+                                        <rect key="frame" x="438" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="gVe-cn-FFA">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="HelveticaNeue"/>
@@ -995,32 +1025,44 @@
                                 </constraints>
                             </customView>
                             <customView wantsLayer="YES" appearanceType="aqua" translatesAutoresizingMaskIntoConstraints="NO" id="rz1-jP-7EL" userLabel="CibaView">
-                                <rect key="frame" x="20" y="58" width="408" height="140"/>
+                                <rect key="frame" x="20" y="58" width="509" height="140"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" tag="3" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fa6-fh-WMC">
-                                        <rect key="frame" x="336" y="-3" width="74" height="75"/>
+                                        <rect key="frame" x="437" y="-3" width="74" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Fa6-fh-WMC" secondAttribute="height" multiplier="1:1" id="G6d-9v-qvn"/>
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_ciba" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="eJe-Ac-y6f">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="label" size="12"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daf-Zh-wIC">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="429" height="140"/>
                                         <clipView key="contentView" drawsBackground="NO" id="LNs-br-s8w">
-                                            <rect key="frame" x="1" y="1" width="326" height="138"/>
+                                            <rect key="frame" x="1" y="1" width="427" height="138"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="VHy-Oe-Mpu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="138"/>
+                                                <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" linkDetection="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="VHy-Oe-Mpu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="427" height="138"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="326" height="138"/>
+                                                    <size key="minSize" width="427" height="138"/>
                                                     <size key="maxSize" width="1148" height="10000000"/>
+                                                    <attributedString key="textStorage">
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <color key="NSColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                                <font key="NSFont" size="14" name="Helvetica"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="XfG-lQ-9wD" id="iJA-aI-rMN"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                         </clipView>
@@ -1034,10 +1076,10 @@
                                         </scroller>
                                     </scrollView>
                                     <button verticalHuggingPriority="750" tag="3" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="st1-pJ-8Is">
-                                        <rect key="frame" x="337" y="69" width="73" height="72"/>
+                                        <rect key="frame" x="438" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="VUp-99-oT7">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="label" size="12"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>
@@ -1056,12 +1098,12 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="7sV-4j-Auq" userLabel="WebCustomView">
-                                <rect key="frame" x="428" y="58" width="662" height="625"/>
+                                <rect key="frame" x="529" y="58" width="22" height="625"/>
                                 <subviews>
                                     <wkWebView wantsLayer="YES" canDrawConcurrently="YES" allowsBackForwardNavigationGestures="YES" magnification="2" translatesAutoresizingMaskIntoConstraints="NO" id="Vdr-kd-XcX">
-                                        <rect key="frame" x="10" y="10" width="320" height="615"/>
+                                        <rect key="frame" x="10" y="10" width="0.0" height="615"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="320" id="zhq-W5-tkQ"/>
+                                            <constraint firstAttribute="width" id="zhq-W5-tkQ"/>
                                         </constraints>
                                         <wkWebViewConfiguration key="configuration" applicationNameForUserAgent="Flyi飞译" userInterfaceDirectionPolicy="system">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" audio="YES" video="YES"/>
@@ -1069,9 +1111,9 @@
                                         </wkWebViewConfiguration>
                                     </wkWebView>
                                     <wkWebView wantsLayer="YES" allowsBackForwardNavigationGestures="YES" magnification="2" translatesAutoresizingMaskIntoConstraints="NO" id="8Gb-M9-hU3">
-                                        <rect key="frame" x="332" y="10" width="320" height="615"/>
+                                        <rect key="frame" x="12" y="10" width="0.0" height="615"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="320" id="t79-nG-Vyh"/>
+                                            <constraint firstAttribute="width" id="t79-nG-Vyh"/>
                                         </constraints>
                                         <wkWebViewConfiguration key="configuration" applicationNameForUserAgent="Flyi飞译">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" audio="YES" video="YES"/>
@@ -1167,7 +1209,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="108" y="883.5"/>
+            <point key="canvasLocation" x="-161.5" y="883.5"/>
         </scene>
     </scenes>
     <resources>

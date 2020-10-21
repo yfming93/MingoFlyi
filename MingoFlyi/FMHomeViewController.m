@@ -85,19 +85,6 @@
     [_arrManuelCopys addObject:_btnCopyCiba];
 
     
-    _inputTextView.delegate = self;
-    [_inputTextView setRichText:NO];
-    [_inputTextView setFont:[NSFont systemFontOfSize:14]];
-    [_inputTextView setTextColor:[NSColor blackColor]];
-    
-    _outputTextViewBaidu.editable = NO;
-    _outputTextViewBaidu.delegate = self;
-    _outputTextViewYoudao.editable = NO;
-    _outputTextViewYoudao.delegate = self;
-    _outputTextViewCiba.editable = NO;
-    _outputTextViewCiba.delegate = self;
-    
-    _tfFilter.delegate = self;
     _pasteboard = [NSPasteboard generalPasteboard];
     
     [self fm_initSetting];
@@ -105,9 +92,16 @@
 }
 
 - (void)viewDidLayout {
-    [self fm_webView];
-    kUser.windowWidth = self.view.frame.size.width;
+    [self performSelector:@selector(fm_reload) withObject:nil afterDelay:2];
 
+}
+
+- (void)fm_reload {
+    if (self.inputTextView.string.length) {
+        kUser.windowWidth = self.view.window.frame.size.width;
+        [self fm_requetFanyi:_inputTextView.string];
+
+    }
 }
 
 
@@ -200,7 +194,7 @@
     self.btnWebSougou.state = kUser.isWebShowSougou;
     self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
     self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
-    self.view.frame = NSMakeRect(0, 20, kUser.windowWidth >0 ? kUser.windowWidth: 600 , 600);
+    self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 555 , CGRectMinYEdge);
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
         [btn setAction:@selector(selectAction:)];
@@ -261,7 +255,7 @@
 
 - (void)textDidChange:(NSNotification *)notification {
     if (notification.object == _inputTextView) {
-        [self fm_requetFanyi:_inputTextView.string];
+        [self fm_reload];
     }
     
 }
@@ -397,24 +391,23 @@
         result = [NSString fm_commonStringToUnderLineString:result isCapitalized:YES];
     }
     
-    [self writeDataToThePasteboardWithString:result type:type];
+    [self outputTextAndWriteDataToThePasteboard:result type:type];
     
 }
 
 
-- (void)writeDataToThePasteboardWithString:(NSString *)result type:(FanyiType)type  {
-    NSMutableAttributedString * attrContent = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",result]];
+- (void)outputTextAndWriteDataToThePasteboard:(NSString *)result type:(FanyiType)type  {
     switch (type) {
         case FanyiType_Baidu:{
-            [self.outputTextViewBaidu.textStorage setAttributedString:attrContent];
+            self.outputTextViewBaidu.string = result;
         }
             break;
         case FanyiType_Youdao:{
-            [self.outputTextViewYoudao.textStorage setAttributedString:attrContent];
+            self.outputTextViewYoudao.string = result;
         }
             break;
         case FanyiType_Ciba:{
-            [self.outputTextViewCiba.textStorage setAttributedString:attrContent];
+            self.outputTextViewCiba.string = result;
         }
             break;
         case FanyiType_Google:{
@@ -422,12 +415,6 @@
         }
             break;
     }
-    [self.outputTextViewBaidu.textStorage setFont:[NSFont systemFontOfSize:14]];
-    [self.outputTextViewBaidu.textStorage setForegroundColor:[NSColor redColor]];
-    [self.outputTextViewYoudao.textStorage setFont:[NSFont systemFontOfSize:14]];
-    [self.outputTextViewYoudao.textStorage setForegroundColor:[NSColor redColor]];
-    [self.outputTextViewCiba.textStorage setFont:[NSFont systemFontOfSize:14]];
-    [self.outputTextViewCiba.textStorage setForegroundColor:[NSColor redColor]];
     
     if (type == _btnAutoCopy.tag) { //自动复制
         [self fm_copyToPasteboard:result];
@@ -445,6 +432,7 @@
     [_inputTextView.textStorage setAttributedString:attrContent];
     [_outputTextViewBaidu.textStorage setAttributedString:attrContent];
     [_outputTextViewYoudao.textStorage setAttributedString:attrContent];
+    [_outputTextViewCiba.textStorage setAttributedString:attrContent];
 }
 
 
@@ -522,7 +510,7 @@
 
 - (IBAction)btnWebShowActions:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
-    CGFloat w  = kUser.windowWidth;
+    CGFloat w  = self.view.window.frame.size.width;
     self.view.window.restorable = NO;
 
     if (sender.tag  == 1) {
@@ -548,9 +536,9 @@
     }else {
         
     }
-    [self viewDidLayout];
-   
    	[self fm_webView];
+    kUser.windowWidth = self.view.window.frame.size.width;
+
 }
 
 

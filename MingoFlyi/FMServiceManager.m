@@ -39,7 +39,7 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
 + (void)requestDataWihtMethodUrl:(NSString *)url
                          success:(void (^)(id response))success
                          failure:(void (^)(NSError *err))failure {
-    
+    if (!url.length)  return;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer.timeoutInterval = kTimeOutInterval;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -187,7 +187,11 @@ static NSString *kBaiduTranslationKey = @"FOKH4Xod7bekmS3cRtVw";
             }else{
                 resStr = dicStr;
             }
-            resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if ([resStr isKindOfClass:NSString.class]) {
+                resStr = [resStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            }else if ([resStr isKindOfClass:NSArray.class]) {
+                resStr = ((NSArray *)resStr.mutableCopy).firstObject;
+            }
         };
         
         if ([dat.allKeys containsObject:@"isSensitive"]) {

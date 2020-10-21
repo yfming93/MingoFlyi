@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (FMAdd)
+//过滤表情
+- (NSString *)fm_filterEmoji;
 /**
  *  @brief  urlEncode
  *
