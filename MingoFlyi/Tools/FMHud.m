@@ -49,7 +49,7 @@
     [self.window orderFrontRegardless];
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:HUD_FADE_IN_DURATION] forKey:kCATransactionAnimationDuration];
-    [CATransaction setValue:^{ [self didFadeIn]; } forKey:kCATransactionCompletionBlock];
+    [CATransaction setValue:^{ [self fm_didFadeIn]; } forKey:kCATransactionCompletionBlock];
     [[self.panelView layer] setOpacity:1.0];
     [CATransaction commit];
     
@@ -57,7 +57,7 @@
 
 }
 
-- (void) didFadeIn {
+- (void) fm_didFadeIn {
     self.timerToFadeOut = [NSTimer scheduledTimerWithTimeInterval:HUD_DISPLAY_DURATION target:self selector:@selector(fm_fadeOutHud) userInfo:nil repeats:NO];
 }
 
@@ -65,12 +65,12 @@
     self.fadingOut = YES;
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:HUD_FADE_OUT_DURATION] forKey:kCATransactionAnimationDuration];
-    [CATransaction setValue:^{ [self didFadeOut]; } forKey:kCATransactionCompletionBlock];
+    [CATransaction setValue:^{ [self fm_didFadeOut]; } forKey:kCATransactionCompletionBlock];
     [[self.panelView layer] setOpacity:0.0];
     [CATransaction commit];
 }
 
-- (void)didFadeOut {
+- (void)fm_didFadeOut {
     if (self.fadingOut) {
         NSLog(@"Did fade out!");
         [self.window orderOut:nil];
