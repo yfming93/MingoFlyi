@@ -11,6 +11,37 @@
 
 @implementation NSString (FMAdd)
 
+// 将各种翻译的结果 转换 为 分割 空格的字符串
+- (NSString *)fm_formatForChinese:(NSString *)text {
+    NSString *tempString = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([text containsString:@"_"]) { /// 下划线拼接的英文
+        tempString = [NSString fm_underLineStringToCommonString:text];
+    }else if ([text componentsSeparatedByString:@" "].count > 1) { /// 空格符拼接的英文
+        
+    }else {
+        tempString = [NSString fm_humpStringToCommonString:text]; // 驼峰拼接的英文
+    }
+    return tempString;
+    
+}
+
+
+- (NSMutableArray *)fm_fotmatUrlHost {
+    NSString *str = self;
+    NSString *str2 = @"zh";
+    if ([str containsString:@"zh-CN"]) {
+        str = [str stringByReplacingOccurrencesOfString:@"zh-CN" withString:@"%@"];
+        str2 = @"zh-CN";
+    }else if ([str containsString:@"zh"]) {
+        str = [str stringByReplacingOccurrencesOfString:@"zh" withString:@"%@"];
+        str2 = @"zh";
+    }
+    NSMutableArray *arr = NSMutableArray.array;
+    [arr addObject:str];
+    [arr addObject:str2];
+    return arr;
+}
+
 /**
  *  @brief  urlEncode
  *

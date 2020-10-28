@@ -22,7 +22,8 @@
 #define NSLog(...)
 #endif //DEBUG
 
-
+#import "AppMacroHeader.h"
+#import "NSView+FMFrame.h"
 #import "FMSetting.h"
 #import "FMHud.h"
 #import "Tools.h"

@@ -11,8 +11,7 @@
 #import "YLGoogleTranslate.h"
 #import <WebKit/WebKit.h>
 #import "NSTextView+FMPlaceHolder.h"
-
-#define kWebWidth 320
+#import "FMWebManager.h"
 
 @interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 
@@ -39,16 +38,15 @@
 @property (strong) IBOutlet NSButton *btnCopyYoudao;
 @property (strong) IBOutlet NSButton *btnCopyCiba;
 
-@property (strong) IBOutlet NSButton *btnWebGoogle;
 @property (strong) IBOutlet NSTextField *tfPrefix; //前缀
 @property (strong) IBOutlet NSButton *btnPrefix; //加前缀
 
-@property (strong) IBOutlet WKWebView *webGoogle;
-@property (weak) IBOutlet NSLayoutConstraint *webGoogle_w;
 
-@property (strong) IBOutlet NSButton *btnWebSougou;
-@property (strong) IBOutlet WKWebView *webSougou;
-@property (weak) IBOutlet NSLayoutConstraint *webSougou_w;
+@property (strong) IBOutlet NSView *webBack;
+@property (weak) IBOutlet NSLayoutConstraint *webBack_w;
+
+@property (strong) IBOutlet NSView *webActionsBack;
+@property (strong) IBOutlet NSLayoutConstraint *webActionsBack_h;
 
 @end
 
@@ -103,10 +101,10 @@
     self.tfFilter.stringValue = kUser.filterText;
     self.btnPrefix.state = kUser.isPrefix;
     self.btnFilter.state = kUser.isFliter;
-    self.btnWebGoogle.state = kUser.isWebShowGoogle;
-    self.btnWebSougou.state = kUser.isWebShowSougou;
-    self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
-    self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
+//    self.btnWebGoogle.state = kUser.isWebShowGoogle;
+//    self.btnWebSougou.state = kUser.isWebShowSougou;
+//    self.webGoogle_w.constant = kUser.isWebShowGoogle ? kWebWidth : 0;
+//    self.webSougou_w.constant = kUser.isWebShowSougou ? kWebWidth : 0;
     self.view.frame = NSMakeRect(0, 0, kUser.windowWidth >0 ? kUser.windowWidth: 555 , CGRectMinYEdge);
     for (NSButton *btn in _arrBtns) {
         [btn setTarget:self];
@@ -161,70 +159,16 @@
 
 - (void)viewDidAppear {
     [super viewDidAppear];
-}
+    [self fm_webView];
 
--(void)fm_webGoogle {
-    if (!kUser.isWebShowGoogle) return;
-    _webGoogle.allowsBackForwardNavigationGestures = YES;
-     _webGoogle.navigationDelegate = self;
-     _webGoogle.UIDelegate = self;
-    NSString *tem = self.inputTextView.string;
-    BOOL isChinese = tem.isContainChinese;
-    NSString *text = [self fm_formatForChinese:tem];
-    text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
-//    text =
-    //将待翻译的文字机型urf-8转码
-    NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *url = [NSString stringWithFormat:@"https://translate.google.cn/#auto/%@/%@",isChinese ? @"en":@"zh-CN",qEncoding];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [_webGoogle loadRequest:request];
 }
-
--(void)fm_webSougou {
-    if (!kUser.isWebShowSougou) return;
-    _webSougou.allowsBackForwardNavigationGestures = YES;
-     _webSougou.navigationDelegate = self;
-     _webSougou.UIDelegate = self;
-    NSString *tem = self.inputTextView.string;
-    BOOL isChinese = tem.isContainChinese;
-    NSString *text = [self fm_formatForChinese:tem];
-    text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
-    //将待翻译的文字机型urf-8转码
-    NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *url = [NSString stringWithFormat:@"https://fanyi.sogou.com/?transfrom=auto&transto=%@&model=general&keyword=%@",isChinese ? @"en":@"zh",qEncoding];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [_webSougou loadRequest:request];
-}
-
 
 - (void)fm_webView {
-    [self fm_webGoogle];
-    [self fm_webSougou];
+    [FMWebManager.shareInstance fm_layoutvWebback:self.webBack webBackWidth:self.webBack_w webActionsBack:self.webActionsBack webActionsBackHight:self.webActionsBack_h requestText:self.inputTextView.string];
 }
 
 - (void)scrollWheel:(NSEvent *)event {
     [[self nextResponder] scrollWheel:event];
-}
-
-- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
-    
-}
-
-    // 页面开始加载时调用
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    
-}
-    // 当内容开始返回时调用
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
-    
-}
-    // 页面加载完成之后调用
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    
-}
-    // 页面加载失败时调用
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation {
-    
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -236,19 +180,6 @@
     [FMSetting fm_save];
 }
 
-//- (NSTextField *)addTextViewPlaceholderWithString:(NSString *)placeholder textView:(NSTextView *)textView {
-//    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(15, 0, 220, 40)];
-//    [textField setEnabled:NO];
-//    [textField setBordered:NO];
-//    textField.placeholderString = placeholder;
-//    [textView addSubview:textField];
-//    return textField;
-//}
-
-//- (void)removePlaceholder:(NSTextField *)textField {
-//    [textField removeFromSuperview];
-//    textField = nil;
-//}
 
 - (void)textDidChange:(NSNotification *)notification {
     if (notification.object == _inputTextView) {
@@ -270,20 +201,6 @@
     }
 }
 
-// 将各种翻译的结果 转换 为 分割 空格的字符串
-- (NSString *)fm_formatForChinese:(NSString *)text {
-    NSString *tempString = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if ([text containsString:@"_"]) { /// 下划线拼接的英文
-        tempString = [NSString fm_underLineStringToCommonString:text];
-    }else if ([text componentsSeparatedByString:@" "].count > 1) { /// 空格符拼接的英文
-
-    }else {
-        tempString = [NSString fm_humpStringToCommonString:text]; // 驼峰拼接的英文
-    }
-    return tempString;
-    
-}
-
 
 /// 翻译请求
 - (void)fm_requetFanyi:(NSString *)str {
@@ -291,7 +208,7 @@
     if (text.length <= 0) {
         return;
     }
-    NSString *tempString = [self fm_formatForChinese:str];
+    NSString *tempString = [str fm_formatForChinese:str];
     __weak typeof(self) weakSelf = self;
     [_serviceManager fm_requestWithString:tempString type:FanyiType_Baidu completedBlock:^(id response) {
         NSLog(@"百度翻译结果-------------:%@",response);
@@ -499,7 +416,7 @@
     [self fm_requetFanyi:_inputTextView.string];
 }
 
-
+/*
 - (IBAction)btnWebShowActions:(NSButton *)sender {
     [self.view.window makeFirstResponder:nil];
     CGFloat w  = self.view.window.frame.size.width;
@@ -532,7 +449,7 @@
     kUser.windowWidth = self.view.window.frame.size.width;
 
 }
-
+*/
 
     
 

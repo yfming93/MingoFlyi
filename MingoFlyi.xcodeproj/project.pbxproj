@@ -21,6 +21,7 @@
 		881ADD2E252F063100CC35AA /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 881ADD2D252F063100CC35AA /* Tools.m */; };
 		881ADD39252F095900CC35AA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881ADD38252F095900CC35AA /* AppKit.framework */; };
 		88922A22252D706E009B1D69 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E3265011E97DEF300DF90FA /* Info.plist */; };
+		889C73B325496FB7009250FD /* NSView+FMFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 889C73B225496FB7009250FD /* NSView+FMFrame.m */; };
 		88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6691C25341978005D38B3 /* YLGoogleTranslate.m */; };
 		88F89443253FE08900410447 /* AppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89442253FE08900410447 /* AppTools.m */; };
 		88F89446253FE31E00410447 /* FMWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89445253FE31E00410447 /* FMWebManager.m */; };
@@ -73,6 +74,9 @@
 		881ADD2C252F063100CC35AA /* Tools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		881ADD2D252F063100CC35AA /* Tools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
 		881ADD38252F095900CC35AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		889C73B125496FB7009250FD /* NSView+FMFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+FMFrame.h"; sourceTree = "<group>"; };
+		889C73B225496FB7009250FD /* NSView+FMFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+FMFrame.m"; sourceTree = "<group>"; };
+		889C73B425497164009250FD /* AppMacroHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMacroHeader.h; sourceTree = "<group>"; };
 		88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMPrefixHeader.pch; sourceTree = "<group>"; };
 		88F6691C25341978005D38B3 /* YLGoogleTranslate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLGoogleTranslate.m; sourceTree = "<group>"; };
 		88F6691D25341978005D38B3 /* YLGoogleTranslate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLGoogleTranslate.h; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				881ADD2D252F063100CC35AA /* Tools.m */,
 				DAFF309B2540AC0C008E1A8C /* FMHud.h */,
 				DAFF309C2540AC0C008E1A8C /* FMHud.m */,
+				889C73B125496FB7009250FD /* NSView+FMFrame.h */,
+				889C73B225496FB7009250FD /* NSView+FMFrame.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -220,6 +226,7 @@
 				DAFF309F2540AE80008E1A8C /* FMSetting.h */,
 				DAFF309E2540AE80008E1A8C /* FMSetting.m */,
 				88D37EA52536C3A70078C2FC /* FMPrefixHeader.pch */,
+				889C73B425497164009250FD /* AppMacroHeader.h */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -417,6 +424,7 @@
 				1E3264F51E97DEF200DF90FA /* AppDelegate.m in Sources */,
 				1ED27FE31E9BCD2400E2287F /* NSString+FMAdd.m in Sources */,
 				88F89443253FE08900410447 /* AppTools.m in Sources */,
+				889C73B325496FB7009250FD /* NSView+FMFrame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

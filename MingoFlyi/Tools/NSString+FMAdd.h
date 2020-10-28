@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (FMAdd)
+// 将各种翻译的结果 转换 为 分割 空格的字符串
+- (NSString *)fm_formatForChinese:(NSString *)text;
+
+/// 格式化录入的网页url
+- (NSMutableArray *)fm_fotmatUrlHost;
 //过滤表情
 - (NSString *)fm_filterEmoji;
 

@@ -23,6 +23,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@interface FMWebModel : NSObject <NSCoding>
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *urlIcon;
+@property (nonatomic, strong) NSString *chineseTag;
+@property (nonatomic, strong) NSString *urlHost;
+@property (nonatomic, strong) NSString *urlHostInput;
+@property (nonatomic, assign) BOOL isUsed;
+@property (nonatomic, assign) BOOL isShow;
+
+@end
+
 @interface User : NSObject<NSCoding>
 
 @property (nonatomic, assign) BOOL isFliter;
@@ -35,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger indexManuelCopy;
 @property (nonatomic, assign) NSInteger indexFanyi;
 @property (nonatomic, assign) CGFloat windowWidth;
+@property (nonatomic, strong) NSMutableArray <FMWebModel *> *webModels;
 
 @end
 
@@ -46,5 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)fm_save;
 + (User *)fm_get;
 @end
+
+
 
 NS_ASSUME_NONNULL_END

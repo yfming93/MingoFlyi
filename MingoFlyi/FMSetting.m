@@ -11,6 +11,45 @@
 #import <objc/runtime.h>
 #define kSettingPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@".flyi_setting"]
 
+@implementation FMWebModel
+
+//归档
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    unsigned int count;
+    Ivar *ivar = class_copyIvarList([self class], &count);
+    for (int i=0; i<count; i++) {
+        Ivar iva = ivar[i];
+        const char *name = ivar_getName(iva);
+        NSString *strName = [NSString stringWithUTF8String:name];
+        //利用KVC取值
+        id value = [self valueForKey:strName];
+        [aCoder encodeObject:value forKey:strName];
+    }
+    free(ivar);
+}
+
+//解档
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super init]) {
+        unsigned int count = 0;
+        Ivar *ivar = class_copyIvarList([self class], &count);
+        for (int i = 0; i < count; i++) {
+            Ivar iva = ivar[i];
+            const char *name = ivar_getName(iva);
+            NSString *strName = [NSString stringWithUTF8String:name];
+            //进行解档取值
+            id value = [aDecoder decodeObjectForKey:strName];
+            //利用KVC对属性赋值
+            [self setValue:value forKey:strName];
+        }
+        free(ivar);
+    }
+    return self;
+}
+
+@end
+
+
 @implementation User
 - (instancetype)init
 {
@@ -23,6 +62,31 @@
         _indexAutoCopy = 1;
     }
     return self;
+}
+
+- (NSMutableArray<FMWebModel *> *)webModels {
+    if (!_webModels.count) {
+        _webModels = NSMutableArray.array;
+        FMWebModel *mo = FMWebModel.new;
+        mo.name = @"Google";
+        mo.urlHostInput = @"https://translate.google.cn/#auto/zh-CN/%@";
+        mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
+        mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo.isUsed = YES;
+        mo.isShow = YES;
+
+        FMWebModel *mo2 = FMWebModel.new;
+        mo2.name = @"Sougou";
+        mo2.urlHostInput = @"https://fanyi.sogou.com/?transfrom=auto&transto=zh&model=general&keyword=%@";
+        mo2.urlHost = mo2.urlHostInput.fm_fotmatUrlHost.firstObject;
+        mo2.chineseTag = mo2.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo2.isUsed = YES;
+        mo2.isShow = YES;
+        
+        [_webModels addObject:mo];
+        [_webModels addObject:mo2];
+    }
+    return _webModels;
 }
 
 //归档
