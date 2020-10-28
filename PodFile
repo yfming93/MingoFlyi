@@ -1,3 +1,4 @@
 target 'MingoFlyi' do
 pod 'AFNetworking'
+pod 'SDWebImage', '~> 5.0'
 end

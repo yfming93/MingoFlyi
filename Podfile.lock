@@ -12,17 +12,23 @@ PODS:
   - AFNetworking/Reachability (3.1.0)
   - AFNetworking/Security (3.1.0)
   - AFNetworking/Serialization (3.1.0)
+  - SDWebImage (5.9.4):
+    - SDWebImage/Core (= 5.9.4)
+  - SDWebImage/Core (5.9.4)
 
 DEPENDENCIES:
   - AFNetworking
+  - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
 
-PODFILE CHECKSUM: 77823d42e5607f614d23fdc69d366378bfa2ab09
+PODFILE CHECKSUM: 944e6bf5a52a9485e50150a7f77fed67123aa50c
 
 COCOAPODS: 1.10.0.rc.1

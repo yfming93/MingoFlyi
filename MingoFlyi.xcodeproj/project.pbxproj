@@ -26,6 +26,7 @@
 		88F89443253FE08900410447 /* AppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89442253FE08900410447 /* AppTools.m */; };
 		88F89446253FE31E00410447 /* FMWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89445253FE31E00410447 /* FMWebManager.m */; };
 		88F8944C2540015100410447 /* NSTextView+FMPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */; };
+		DA3AF26B2549BC2B0073E817 /* FMPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3AF26A2549BC2B0073E817 /* FMPreferenceViewController.m */; };
 		DAFF309D2540AC0C008E1A8C /* FMHud.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309C2540AC0C008E1A8C /* FMHud.m */; };
 		DAFF30A02540AE80008E1A8C /* FMSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309E2540AE80008E1A8C /* FMSetting.m */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,8 @@
 		88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+FMPlaceHolder.m"; sourceTree = "<group>"; };
 		8F6933F1267D9BB619C096DF /* Pods-MingoFlyi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MingoFlyi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MingoFlyi/Pods-MingoFlyi.debug.xcconfig"; sourceTree = "<group>"; };
 		98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.release.xcconfig"; sourceTree = "<group>"; };
+		DA3AF2692549BC2B0073E817 /* FMPreferenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMPreferenceViewController.h; sourceTree = "<group>"; };
+		DA3AF26A2549BC2B0073E817 /* FMPreferenceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMPreferenceViewController.m; sourceTree = "<group>"; };
 		DAFF309B2540AC0C008E1A8C /* FMHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHud.h; sourceTree = "<group>"; };
 		DAFF309C2540AC0C008E1A8C /* FMHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMHud.m; sourceTree = "<group>"; };
 		DAFF309E2540AE80008E1A8C /* FMSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSetting.m; path = MingoFlyi/FMSetting.m; sourceTree = SOURCE_ROOT; };
@@ -164,6 +167,8 @@
 				1E3264F61E97DEF200DF90FA /* Supporting Files */,
 				88F8944A2540015100410447 /* NSTextView+FMPlaceHolder.h */,
 				88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */,
+				DA3AF2692549BC2B0073E817 /* FMPreferenceViewController.h */,
+				DA3AF26A2549BC2B0073E817 /* FMPreferenceViewController.m */,
 			);
 			path = MingoFlyi;
 			sourceTree = "<group>";
@@ -416,6 +421,7 @@
 				88F89446253FE31E00410447 /* FMWebManager.m in Sources */,
 				88F6691E25341978005D38B3 /* YLGoogleTranslate.m in Sources */,
 				DAFF30A02540AE80008E1A8C /* FMSetting.m in Sources */,
+				DA3AF26B2549BC2B0073E817 /* FMPreferenceViewController.m in Sources */,
 				1E32652A1E98A73F00DF90FA /* FMServiceManager.m in Sources */,
 				1E3264F81E97DEF300DF90FA /* main.m in Sources */,
 				881ADD2E252F063100CC35AA /* Tools.m in Sources */,

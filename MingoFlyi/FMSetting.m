@@ -72,6 +72,7 @@
         mo.urlHostInput = @"https://translate.google.cn/#auto/zh-CN/%@";
         mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo.urlIcon = @"https://yfmingo.oss-cn-beijing.aliyuncs.com/images/ic_google.png";
         mo.isUsed = YES;
         mo.isShow = YES;
 
@@ -80,6 +81,7 @@
         mo2.urlHostInput = @"https://fanyi.sogou.com/?transfrom=auto&transto=zh&model=general&keyword=%@";
         mo2.urlHost = mo2.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo2.chineseTag = mo2.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo2.urlIcon = @"https://yfmingo.oss-cn-beijing.aliyuncs.com/images/ic_google.png";
         mo2.isUsed = YES;
         mo2.isShow = YES;
         

@@ -7,7 +7,8 @@
 //
 
 #import "FMWebManager.h"
-
+#import <SDWebImage/SDImageCache.h>
+#import <SDWebImage/SDWebImage.h>
 
 @interface FMWebManager () <WKNavigationDelegate,WKUIDelegate>
 @property (strong)  NSView *webBack;
@@ -48,7 +49,6 @@
     [self fm_initWebs];
 }
 
-
 -(void)fm_initWebs {
     [self.arrWebs removeAllObjects];
     [self.arrWebActions removeAllObjects];
@@ -71,26 +71,10 @@
         
         [self.arrWebs addObject:web];
         
-        
         NSButton *btn = [NSButton buttonWithTitle:mo.name image:[NSImage imageNamed:@"ic_btn"] target:self action:@selector(fm_webActios:)];
         btn.state = kUser.webModels[i].isShow;
         btn.alternateTitle = [NSString stringWithFormat:@"%@\n%@",mo.name,@"Close"];
         
-        /*
-        NSBezelStyleRounded           = 1,
-        NSBezelStyleRegularSquare     = 2,
-        NSBezelStyleDisclosure        = 5,
-        NSBezelStyleShadowlessSquare  = 6,
-        NSBezelStyleCircular          = 7,
-        NSBezelStyleTexturedSquare    = 8,
-        NSBezelStyleHelpButton        = 9,
-        NSBezelStyleSmallSquare       = 10,
-        NSBezelStyleTexturedRounded   = 11,
-        NSBezelStyleRoundRect         = 12,
-        NSBezelStyleRecessed          = 13,
-        NSBezelStyleRoundedDisclosure = 14,
-        NSBezelStyleInline API_AVAILABLE(macos(10.
-                                               */
         btn.bezelStyle = NSBezelStyleRegularSquare;
         [btn setButtonType:NSButtonTypeSwitch];
         btn.bordered = YES;
@@ -111,8 +95,8 @@
 //    sender.state = !sender.state;
     kUser.webModels[sender.tag].isShow = !kUser.webModels[sender.tag].isShow;
     [self fm_webLayout];
-    
 }
+
 
 - (void)fm_webLayout {
     [self.webBack removeAllSubviews];
