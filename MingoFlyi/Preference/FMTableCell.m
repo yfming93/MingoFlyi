@@ -30,7 +30,6 @@
     self = [super initWithCoder:coder];
     if (self) {
        
-        
     }
     return self;
 }
@@ -46,6 +45,10 @@
 }
 
 - (IBAction)fm_changeImageIcon:(NSButton *)sender {
+    if (self.btnEditor.state != NSControlStateValueOn) {
+        [FMHud fm_fadeInHud:@"编辑模式开启后才能操作"];
+        return;
+    }
     NSOpenPanel *op = NSOpenPanel.openPanel;
     op.message = @"选择图标";
     op.prompt = @"选择该图";
@@ -92,22 +95,51 @@
 - (void)fm_btnStopUse{
     self.btnDelete.superview.wantsLayer = YES; // make the cell layer-backed
     if (self.btnStopUse.state == NSControlStateValueOn ) {
-        self.btnDelete.superview.layer.backgroundColor = NSColor.whiteColor.CGColor;
+        [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已启用\n%@",_model.name]];
+        self.btnDelete.superview.layer.backgroundColor = NSColor.systemGrayColor.CGColor;
+
     }else{
-        self.btnDelete.superview.layer.backgroundColor = NSColor.darkGrayColor.CGColor; //或任何你喜欢的颜色
+        self.btnDelete.superview.layer.backgroundColor = NSColor.gridColor.CGColor;
+        [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已禁用\n%@",_model.name]];
     }
 }
 
 - (IBAction)fm_btnStopUseAction:(NSButton *)sender {
-    [self performSelector:@selector(fm_btnStopUseAction02) withObject:nil afterDelay:1];
-}
-
-
-- (void)fm_btnStopUseAction02{
     kWeakSelf
     [weakSelf fm_btnStopUse];
     kUser.webModels[_model.index].isUsed = !kUser.webModels[_model.index].isUsed;
     [weakSelf fm_save];
+}
+
+- (IBAction)fm_btnDeleteAction:(NSButton *)sender {
+    [self fm_alertDelete];
+}
+
+-(void)fm_alertDelete {
+    NSAlert *alert = [[NSAlert alloc]init];
+    //可以设置产品的icon
+    alert.icon = [NSImage imageNamed:@"ic_cat"];//your logo
+    //添加两个按钮吧
+    [alert addButtonWithTitle:@"删除"];
+    [alert addButtonWithTitle:@"取消"];
+    //正文
+    alert.messageText = @"提示";
+    //描述文字
+    alert.informativeText = @"你真的要删除这个翻译网站吗？";
+    //弹窗类型 默认类型 NSAlertStyleWarning
+    [alert setAlertStyle:NSAlertStyleWarning];
+    //回调Block
+    [alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSAlertFirstButtonReturn) {
+            [kUser.webModels removeObject:self.model];
+            if (self.relaodBlock) {
+                self.relaodBlock();
+                [FMNotifyManager fm_postIdentifier:kNotifyNameReloadSetting object:nil];
+
+            }
+        }
+    }];
+    
 }
 
 

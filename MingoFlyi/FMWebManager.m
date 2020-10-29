@@ -14,6 +14,7 @@
 
 @property (strong)  NSView *webActionsBack;
 @property (strong)  NSLayoutConstraint *webActionsBack_h;
+@property (strong)  NSLayoutConstraint *webActionsBack_w;
 @property (strong)  NSString *requestText;
 
 @end
@@ -34,19 +35,21 @@
     if (self) {
         self.arrWebActions = NSMutableArray.array;
         self.arrWebs = NSMutableArray.array;
+        kWeakSelf
         [FMNotifyManager fm_addObserver:self identifier:kNotifyNameReloadSetting mainThread:YES actionBlock:^(id observer, id object) {
             NSLog(@"kNotifyNameReloadSetting--");
-            [self fm_initWebs];
+            [weakSelf fm_initWebs];
         }];
     }
     return self;
 }
 
-- (void)fm_layoutvWebback:(NSView *)webBack  webBackWidth:(NSLayoutConstraint *)webBack_w webActionsBack:(NSView *)webActionsBack  webActionsBackHight:(NSLayoutConstraint *)webActionsBack_h requestText:(NSString *)requestText {
+- (void)fm_layoutvWebback:(NSView *)webBack webBackWidth:(NSLayoutConstraint *)webBack_w webActionsBack:(NSView *)webActionsBack webActionsBackHight:(NSLayoutConstraint *)webActionsBack_h webActionsBackWidth:(NSLayoutConstraint *)webActionsBack_w requestText:(NSString *)requestText {
     self.webBack = webBack;
     self.webBack_w = webBack_w;
     self.webActionsBack = webActionsBack;
     self.webActionsBack_h = webActionsBack_h;
+    self.webActionsBack_w = webActionsBack_w;
     self.requestText = requestText;
     [self fm_initWebs];
 }
@@ -54,6 +57,14 @@
 -(void)fm_initWebs {
     [self.arrWebs removeAllObjects];
     [self.arrWebActions removeAllObjects];
+    [self.webBack removeAllSubviews];
+    [self.webActionsBack removeAllSubviews];
+    
+//    NSLog(@"self.webBack:%ld",self.webBack.subviews.count);
+//    NSLog(@"self.webActionsBack:%ld",self.webActionsBack.subviews.count);
+//    NSLog(@"self.arrWebs:%ld",self.arrWebs.count);
+//    NSLog(@"self.arrWebActions:%ld",self.arrWebActions.count);
+
     for (NSInteger i = 0; i < kUser.webModels.count; i++) {
         FMWebModel *mo = kUser.webModels[i];
         WKWebView *web = WKWebView.alloc.init;
@@ -72,6 +83,11 @@
         
         [self.arrWebs addObject:web];
         
+        
+        if (!mo.isUsed) {
+            continue;
+        }
+        
         NSButton *btn = [NSButton buttonWithTitle:mo.name image: mo.imaIcon ?  mo.imaIcon : [NSImage imageNamed:@"ic_btn"] target:self action:@selector(fm_webActios:)];
         btn.state = kUser.webModels[i].isShow;
         btn.alternateTitle = [NSString stringWithFormat:@"%@\n%@",mo.name,@"Close"];
@@ -83,7 +99,8 @@
         btn.font = [NSFont systemFontOfSize:9];
         btn.tag = i;
         btn.imageHugsTitle = YES;
-        NSLog(@"btn.state:%ld",btn.state);
+//        NSLog(@"btn.state:%ld",btn.state);
+        
         [self.arrWebActions addObject:btn];
         
     }
@@ -100,18 +117,12 @@
 
 
 - (void)fm_webLayout {
-    [self.webBack removeAllSubviews];
-    [self.webActionsBack removeAllSubviews];
-    NSLog(@"self.webBack:%ld",self.webBack.subviews.count);
-    NSLog(@"self.webActionsBack:%ld",self.webActionsBack.subviews.count);
     NSWindow *webBackWindow = self.webBack.window;
-    
     CGFloat w  = webBackWindow.frame.size.width;
     webBackWindow.restorable = NO;
     NSInteger webShowNum = 0,webUsedNum = 0;
     NSMutableArray <NSNumber *>*temWidth = NSMutableArray.array;
-    for (NSInteger i = 0; i < self.arrWebActions.count; i++) {
-        NSButton *btn = self.arrWebActions[i];
+    for (NSInteger i = 0; i < kUser.webModels.count; i++) {
         if (kUser.webModels[i].isShow && kUser.webModels[i].isUsed) {
             self.arrWebs[i].width = kWebWidth;
             webShowNum ++;
@@ -122,21 +133,22 @@
         if (kUser.webModels[i].isUsed) {
 //            btn.width = kWebActionsWH;
             [temWidth addObject:@(kWebActionsWH)];
-            btn.hidden = NO;
             webUsedNum++;
         }else{
             [temWidth addObject:@(0)];
-            btn.hidden = YES;
         }
     }
     CGFloat webX = 10 , btnX = 0;
     
     for (NSInteger i = 0; i < kUser.webModels.count; i++) {
-        self.arrWebActions[i].frame = CGRectMake(btnX, 10, temWidth[i].intValue, kWebActionsWH);
         self.arrWebs[i].frame = CGRectMake(webX, 0, self.arrWebs[i].width, self.webBack.height);
-        [self.webActionsBack addSubview:self.arrWebActions[i]];
         [self.webBack addSubview:self.arrWebs[i]];
         webX = CGRectGetMaxX(self.arrWebs[i].frame) + 1;
+    }
+    
+    for (NSInteger i = 0; i < self.arrWebActions.count; i++) {
+        self.arrWebActions[i].frame = CGRectMake(btnX, 10, kWebActionsWH, kWebActionsWH);
+        [self.webActionsBack addSubview:self.arrWebActions[i]];
         btnX = CGRectGetMaxX(self.arrWebActions[i].frame) + 1;
     }
     
@@ -147,6 +159,13 @@
     }
     [webBackWindow setContentSize:NSMakeSize(550 +  (kWebWidth + 1) * webShowNum, CGRectMinYEdge)];
     self.webBack_w.constant = 20 + (kWebWidth + 1) * webShowNum;
+    self.webActionsBack_w.constant =  (kWebActionsWH) * webUsedNum;
+
+    
+//    NSLog(@"----self.webBack:%ld",self.webBack.subviews.count);
+//    NSLog(@"----self.webActionsBack:%ld",self.webActionsBack.subviews.count);
+//    NSLog(@"----self.arrWebs:%ld",self.arrWebs.count);
+//    NSLog(@"----self.arrWebActions:%ld",self.arrWebActions.count);
 }
 
 

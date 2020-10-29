@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
+typedef  void(^RelaodBlock)();
 
 @interface FMTableCell : NSTableCellView
 @property (strong,nonatomic) FMWebModel *model;
+@property (copy,nonatomic) RelaodBlock relaodBlock;
 
 @end
 

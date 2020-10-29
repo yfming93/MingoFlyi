@@ -690,20 +690,20 @@
                 <customObject id="3qw-Py-34c" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController title="设置" id="aeK-6h-1fO" customClass="FMPreferenceViewController" sceneMemberID="viewController">
                     <view key="view" id="Rq2-d9-NZq">
-                        <rect key="frame" x="0.0" y="0.0" width="714" height="633"/>
+                        <rect key="frame" x="0.0" y="0.0" width="930" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="QPp-E7-Vh8">
-                                <rect key="frame" x="10" y="10" width="694" height="613"/>
+                                <rect key="frame" x="10" y="10" width="910" height="613"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="lhK-pH-X6J">
-                                        <rect key="frame" x="10" y="503" width="674" height="100"/>
+                                        <rect key="frame" x="10" y="503" width="890" height="100"/>
                                         <subviews>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="yEn-nr-dzY">
-                                                <rect key="frame" x="100" y="10" width="404" height="30"/>
+                                                <rect key="frame" x="100" y="10" width="620" height="30"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xwA-xu-QOg">
-                                                        <rect key="frame" x="37" y="4" width="367" height="22"/>
+                                                        <rect key="frame" x="37" y="4" width="583" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="ila-NV-Yyl"/>
                                                         </constraints>
@@ -731,7 +731,7 @@
                                                 </constraints>
                                             </customView>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jA1-aM-ACX">
-                                                <rect key="frame" x="516" y="37" width="56" height="56"/>
+                                                <rect key="frame" x="732" y="37" width="56" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="jA1-aM-ACX" secondAttribute="height" multiplier="1:1" id="2ax-Zi-BgF"/>
                                                 </constraints>
@@ -747,17 +747,17 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PJR-Se-51I">
-                                                <rect key="frame" x="508" y="-7" width="72" height="51"/>
+                                                <rect key="frame" x="724" y="-7" width="72" height="51"/>
                                                 <buttonCell key="cell" type="push" title="选择图标" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="HZk-0E-FEj">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="controlContent" size="11"/>
+                                                    <font key="font" metaFont="label" size="11"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_selectIcon:" target="aeK-6h-1fO" id="Uhf-gt-ZHu"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fPp-42-1tL">
-                                                <rect key="frame" x="584" y="9" width="80" height="81"/>
+                                                <rect key="frame" x="800" y="9" width="80" height="81"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="fPp-42-1tL" secondAttribute="height" multiplier="1:1" id="T4T-02-vSz"/>
                                                 </constraints>
@@ -770,10 +770,10 @@
                                                 </connections>
                                             </button>
                                             <customView horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jZG-dh-nGw">
-                                                <rect key="frame" x="100" y="60" width="404" height="30"/>
+                                                <rect key="frame" x="100" y="60" width="620" height="30"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JhP-JD-Kew">
-                                                        <rect key="frame" x="37" y="4" width="367" height="22"/>
+                                                        <rect key="frame" x="37" y="4" width="583" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="XqK-50-3pA"/>
                                                         </constraints>
@@ -846,19 +846,19 @@
                                         </constraints>
                                     </customView>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48g-C8-Tyn">
-                                        <rect key="frame" x="10" y="10" width="674" height="483"/>
+                                        <rect key="frame" x="10" y="10" width="890" height="483"/>
                                         <clipView key="contentView" id="cCH-7x-MOU">
-                                            <rect key="frame" x="1" y="0.0" width="672" height="482"/>
+                                            <rect key="frame" x="1" y="0.0" width="888" height="482"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="70" headerView="TGK-WU-fhr" viewBased="YES" id="GEI-az-LTq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="672" height="457"/>
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" selectionHighlightStyle="none" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="70" headerView="TGK-WU-fhr" viewBased="YES" id="GEI-az-LTq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="888" height="457"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="669" minWidth="40" maxWidth="1000" id="Z2x-LN-yzk">
+                                                        <tableColumn width="885" minWidth="40" maxWidth="1000" id="Z2x-LN-yzk">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -887,7 +887,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="TGK-WU-fhr">
-                                            <rect key="frame" x="0.0" y="0.0" width="672" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="888" height="25"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -918,7 +918,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="628" y="-22.5"/>
+            <point key="canvasLocation" x="736" y="-22.5"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1010,7 +1010,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="controlContent" size="11"/>
+                                    <font key="font" metaFont="label" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
@@ -1225,8 +1225,9 @@
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="bXB-QK-L9u">
-                                <rect key="frame" x="20" y="10" width="746" height="90"/>
+                                <rect key="frame" x="20" y="10" width="500" height="90"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="500" id="4OX-hr-Kfq"/>
                                     <constraint firstAttribute="height" constant="90" id="GNz-Wa-ghh"/>
                                 </constraints>
                             </customView>
@@ -1316,7 +1317,6 @@
                             <constraint firstItem="rz1-jP-7EL" firstAttribute="height" secondItem="27s-nc-cHq" secondAttribute="height" id="E42-8s-99L"/>
                             <constraint firstItem="tqq-HW-W8a" firstAttribute="leading" secondItem="27s-nc-cHq" secondAttribute="leading" id="GIJ-Cc-iK8"/>
                             <constraint firstItem="qib-UC-8On" firstAttribute="leading" secondItem="qDU-fc-N0c" secondAttribute="trailing" constant="5" id="Nyu-MD-QVM"/>
-                            <constraint firstAttribute="trailing" secondItem="bXB-QK-L9u" secondAttribute="trailing" constant="20" id="PNy-94-3xQ"/>
                             <constraint firstItem="7sV-4j-Auq" firstAttribute="top" secondItem="27s-nc-cHq" secondAttribute="top" id="PS6-1L-R7k"/>
                             <constraint firstItem="Z5V-0o-BVn" firstAttribute="centerY" secondItem="qib-UC-8On" secondAttribute="centerY" id="Q7g-xi-NfG"/>
                             <constraint firstItem="Pa8-Kz-cIx" firstAttribute="trailing" secondItem="t70-fo-hib" secondAttribute="trailing" id="Qgl-7E-VZr"/>
@@ -1374,6 +1374,7 @@
                         <outlet property="tfPrefix" destination="qib-UC-8On" id="Gwp-GB-bLy"/>
                         <outlet property="webActionsBack" destination="bXB-QK-L9u" id="Bqm-EK-8Uc"/>
                         <outlet property="webActionsBack_h" destination="GNz-Wa-ghh" id="THy-YU-3OE"/>
+                        <outlet property="webActionsBack_w" destination="4OX-hr-Kfq" id="tU3-FP-GfC"/>
                         <outlet property="webBack" destination="7sV-4j-Auq" id="qRJ-84-7aj"/>
                         <outlet property="webBack_w" destination="PqF-sT-Zve" id="dBK-NR-LBz"/>
                     </connections>

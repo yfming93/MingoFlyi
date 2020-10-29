@@ -45,14 +45,19 @@
 
 #pragma mark table delegate
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
+    
     /*
      if(!_nib){
      _nib = [[NSNib alloc] initWithNibNamed:@"CustomCellView" bundle:nil];
      [tableView registerNib:_nib forIdentifier:@"customCell"];
      }*/
+    kWeakSelf
     FMTableCell *cellView = [tableView makeViewWithIdentifier:@"customCell" owner:self];
     kUser.webModels[row].index = row;
     cellView.model = kUser.webModels[row];
+    cellView.relaodBlock = ^{
+        [weakSelf.tableView reloadData];
+    };
 //    cellView.title.stringValue = @"aaa";
 //    cellView.subTitle.stringValue = @"bbb";
     return cellView;

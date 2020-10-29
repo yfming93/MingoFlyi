@@ -25,9 +25,9 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZRO-It-1WD">
-                            <rect key="frame" x="46" y="32" width="327" height="21"/>
+                            <rect key="frame" x="46" y="32" width="327" height="20"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="PpN-gj-Pc3">
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="system" size="12"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="unemphasizedSelectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
@@ -41,6 +41,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="fm_btnDeleteAction:" target="c22-O7-iKe" id="INF-lx-knA"/>
+                            </connections>
                         </button>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="z1h-0j-ZMT">
                             <rect key="frame" x="486" y="7" width="44" height="45"/>
@@ -75,9 +78,9 @@
                             </textFieldCell>
                         </textField>
                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="byO-G6-UiU">
-                            <rect key="frame" x="46" y="8" width="327" height="21"/>
+                            <rect key="frame" x="46" y="8" width="327" height="20"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="pTv-Gq-oyd">
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="system" size="12"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="unemphasizedSelectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
@@ -142,7 +145,7 @@
                 <outlet property="tfWebName" destination="byO-G6-UiU" id="l8x-53-dfJ"/>
                 <outlet property="tfWebUrl" destination="ZRO-It-1WD" id="YrH-ci-Xwj"/>
             </connections>
-            <point key="canvasLocation" x="217" y="249.5"/>
+            <point key="canvasLocation" x="221" y="204"/>
         </customView>
     </objects>
     <resources>

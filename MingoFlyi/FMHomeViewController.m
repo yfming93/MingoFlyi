@@ -47,7 +47,7 @@
 
 @property (strong) IBOutlet NSView *webActionsBack;
 @property (strong) IBOutlet NSLayoutConstraint *webActionsBack_h;
-
+@property (strong) IBOutlet NSLayoutConstraint *webActionsBack_w;
 @end
 
 @implementation FMHomeViewController
@@ -164,7 +164,7 @@
 }
 
 - (void)fm_webView {
-    [FMWebManager.shareInstance fm_layoutvWebback:self.webBack webBackWidth:self.webBack_w webActionsBack:self.webActionsBack webActionsBackHight:self.webActionsBack_h requestText:self.inputTextView.string];
+    [FMWebManager.shareInstance fm_layoutvWebback:self.webBack webBackWidth:self.webBack_w webActionsBack:self.webActionsBack webActionsBackHight:self.webActionsBack_h webActionsBackWidth:self.webActionsBack_w requestText:self.inputTextView.string];
 }
 
 - (void)scrollWheel:(NSEvent *)event {
