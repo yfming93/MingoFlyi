@@ -40,7 +40,7 @@
     self.tfWebName.stringValue = model.name;
     self.imaIcon.image = model.imaIcon;
     self.btnStopUse.state = model.isUsed;
-    [self fm_btnStopUse];
+    [self fm_btnStopUse:NO];
 
 }
 
@@ -92,21 +92,21 @@
     [FMNotifyManager fm_postIdentifier:kNotifyNameReloadSetting object:nil];
 }
 
-- (void)fm_btnStopUse{
+- (void)fm_btnStopUse:(BOOL)isClick{
     self.btnDelete.superview.wantsLayer = YES; // make the cell layer-backed
     if (self.btnStopUse.state == NSControlStateValueOn ) {
-        [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已启用\n%@",_model.name]];
+        if (isClick) [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已启用\n%@",_model.name]];
         self.btnDelete.superview.layer.backgroundColor = NSColor.systemGrayColor.CGColor;
 
     }else{
+        if (isClick) [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已禁用\n%@",_model.name]];
         self.btnDelete.superview.layer.backgroundColor = NSColor.gridColor.CGColor;
-        [FMHud fm_fadeInHud:[NSString stringWithFormat:@"已禁用\n%@",_model.name]];
     }
 }
 
 - (IBAction)fm_btnStopUseAction:(NSButton *)sender {
     kWeakSelf
-    [weakSelf fm_btnStopUse];
+    [weakSelf fm_btnStopUse:YES];
     kUser.webModels[_model.index].isUsed = !kUser.webModels[_model.index].isUsed;
     [weakSelf fm_save];
 }

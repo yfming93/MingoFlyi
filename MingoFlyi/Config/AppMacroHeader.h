@@ -10,7 +10,7 @@
 #define AppMacroHeader_h
 
 #define kWindow NSApplication.sharedApplication.keyWindow
-#define kWebWidth 320
+#define kWebWidth 300
 #define kWebActionsWH 70
 
 #define kWeakSelf __block typeof(self) weakSelf = self;

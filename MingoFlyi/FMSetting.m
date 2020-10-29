@@ -73,18 +73,18 @@
         mo.urlHostInput = @"https://translate.google.cn/#auto/zh-CN/%@";
         mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo.imaIcon = [NSImage imageNamed:@"ic_google"];
         mo.isUsed = YES;
-        mo.imaIcon  = NSImage.new;
-        mo.isShow = YES;
+        mo.isShow = NO;
 
         FMWebModel *mo2 = FMWebModel.new;
         mo2.name = @"Sougou";
         mo2.urlHostInput = @"https://fanyi.sogou.com/?transfrom=auto&transto=zh&model=general&keyword=%@";
         mo2.urlHost = mo2.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo2.chineseTag = mo2.urlHostInput.fm_fotmatUrlHost.lastObject;
+        mo2.imaIcon = [NSImage imageNamed:@"ic_sougou"];
         mo2.isUsed = YES;
-        mo2.imaIcon  = NSImage.new;
-        mo2.isShow = YES;
+        mo2.isShow = NO;
         
         [_webModels addObject:mo];
         [_webModels addObject:mo2];
