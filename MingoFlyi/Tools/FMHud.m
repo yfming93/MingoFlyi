@@ -38,6 +38,14 @@
     return manager;
 }
 
++ (void)fm_fadeInHud:(NSString *)msg {
+    [FMHud.shareInstance fm_fadeInHud:msg];
+}
+
++ (void)fm_fadeOutHud {
+    [FMHud.shareInstance fm_fadeOutHud];
+}
+
 - (void)fm_fadeInHud:(NSString *)msg {
     if (!msg.length) return;
     self.msg = msg;
@@ -85,8 +93,8 @@
     [self.isName sizeToFit];
     CGRect labelFrame = [self.isName frame];
     CGRect windowFrame = [self.window frame];
-    NSLog(@"label:(%f, %f) (%f x %f) ", labelFrame.origin.x, labelFrame.origin.y, labelFrame.size.width, labelFrame.size.height);
-    NSLog(@"window:(%f, %f) (%f x %f) ", windowFrame.origin.x, windowFrame.origin.y, windowFrame.size.width, windowFrame.size.height);
+//    NSLog(@"label:(%f, %f) (%f x %f) ", labelFrame.origin.x, labelFrame.origin.y, labelFrame.size.width, labelFrame.size.height);
+//    NSLog(@"window:(%f, %f) (%f x %f) ", windowFrame.origin.x, windowFrame.origin.y, windowFrame.size.width, windowFrame.size.height);
     
     windowFrame.size.width = labelFrame.size.width + HUD_HORIZONTAL_MARGIN * 2;
     windowFrame.size.height = HUD_HEIGHT;

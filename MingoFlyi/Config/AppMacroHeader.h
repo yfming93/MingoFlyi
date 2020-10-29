@@ -12,6 +12,7 @@
 #define kWindow NSApplication.sharedApplication.keyWindow
 #define kWebWidth 320
 #define kWebActionsWH 70
+#define kNotifyNameReloadSetting @"kNotifyReloadSetting"
 
 //#import <TargetConditionals.h>
 //

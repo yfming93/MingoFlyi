@@ -13,9 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 #define kHud FMHud.shareInstance
 
 @interface FMHud : NSObject
-- (void)fm_fadeInHud:(NSString *)msg;
-- (void)fm_fadeOutHud;
 + (FMHud *)shareInstance;
+
++ (void)fm_fadeInHud:(NSString *)msg;
++ (void)fm_fadeOutHud;
 
 @end
 

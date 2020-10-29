@@ -26,12 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FMWebModel : NSObject <NSCoding>
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *urlIcon;
+@property (nonatomic, strong) NSImage *imaIcon;
 @property (nonatomic, strong) NSString *chineseTag;
 @property (nonatomic, strong) NSString *urlHost;
 @property (nonatomic, strong) NSString *urlHostInput;
 @property (nonatomic, assign) BOOL isUsed;
 @property (nonatomic, assign) BOOL isShow;
+@property (nonatomic, assign) NSInteger index;
 
 @end
 

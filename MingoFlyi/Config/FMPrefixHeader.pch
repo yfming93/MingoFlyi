@@ -30,6 +30,6 @@
 #import "NSString+FMAdd.h"
 #import "AppTools.h"
 #import "NSTextView+FMPlaceHolder.h"
-
+#import "FMNotifyManager.h"
 
 #endif /* FMPrefixHeader_pch */

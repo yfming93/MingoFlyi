@@ -7,8 +7,6 @@
 //
 
 #import "FMWebManager.h"
-#import <SDWebImage/SDImageCache.h>
-#import <SDWebImage/SDWebImage.h>
 
 @interface FMWebManager () <WKNavigationDelegate,WKUIDelegate>
 @property (strong)  NSView *webBack;
@@ -36,6 +34,10 @@
     if (self) {
         self.arrWebActions = NSMutableArray.array;
         self.arrWebs = NSMutableArray.array;
+        [FMNotifyManager fm_addObserver:self identifier:kNotifyNameReloadSetting mainThread:YES actionBlock:^(id observer, id object) {
+            NSLog(@"kNotifyNameReloadSetting--");
+            [self fm_initWebs];
+        }];
     }
     return self;
 }
@@ -71,7 +73,7 @@
         
         [self.arrWebs addObject:web];
         
-        NSButton *btn = [NSButton buttonWithTitle:mo.name image:[NSImage imageNamed:@"ic_btn"] target:self action:@selector(fm_webActios:)];
+        NSButton *btn = [NSButton buttonWithTitle:mo.name image: mo.imaIcon ?  mo.imaIcon : [NSImage imageNamed:@"ic_btn"] target:self action:@selector(fm_webActios:)];
         btn.state = kUser.webModels[i].isShow;
         btn.alternateTitle = [NSString stringWithFormat:@"%@\n%@",mo.name,@"Close"];
         
@@ -101,8 +103,10 @@
 - (void)fm_webLayout {
     [self.webBack removeAllSubviews];
     [self.webActionsBack removeAllSubviews];
-    CGFloat w  = kWindow.frame.size.width;
-    kWindow.restorable = NO;
+    NSWindow *webBackWindow = self.webBack.window;
+    
+    CGFloat w  = webBackWindow.frame.size.width;
+    webBackWindow.restorable = NO;
     NSInteger webShowNum = 0,webUsedNum = 0;
     for (NSInteger i = 0; i < self.arrWebActions.count; i++) {
         if (kUser.webModels[i].isShow) {
@@ -135,7 +139,7 @@
     }else{
         self.webActionsBack_h.constant = 0;
     }
-    [kWindow setContentSize:NSMakeSize(550 +  (kWebWidth + 1) * webShowNum, CGRectMinYEdge)];
+    [webBackWindow setContentSize:NSMakeSize(550 +  (kWebWidth + 1) * webShowNum, CGRectMinYEdge)];
     self.webBack_w.constant = 20 + (kWebWidth + 1) * webShowNum;
 }
 

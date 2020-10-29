@@ -39,6 +39,7 @@
             NSString *strName = [NSString stringWithUTF8String:name];
             //进行解档取值
             id value = [aDecoder decodeObjectForKey:strName];
+            if (!value) continue;
             //利用KVC对属性赋值
             [self setValue:value forKey:strName];
         }
@@ -72,8 +73,8 @@
         mo.urlHostInput = @"https://translate.google.cn/#auto/zh-CN/%@";
         mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
-        mo.urlIcon = @"https://yfmingo.oss-cn-beijing.aliyuncs.com/images/ic_google.png";
         mo.isUsed = YES;
+        mo.imaIcon  = NSImage.new;
         mo.isShow = YES;
 
         FMWebModel *mo2 = FMWebModel.new;
@@ -81,8 +82,8 @@
         mo2.urlHostInput = @"https://fanyi.sogou.com/?transfrom=auto&transto=zh&model=general&keyword=%@";
         mo2.urlHost = mo2.urlHostInput.fm_fotmatUrlHost.firstObject;
         mo2.chineseTag = mo2.urlHostInput.fm_fotmatUrlHost.lastObject;
-        mo2.urlIcon = @"https://yfmingo.oss-cn-beijing.aliyuncs.com/images/ic_google.png";
         mo2.isUsed = YES;
+        mo2.imaIcon  = NSImage.new;
         mo2.isShow = YES;
         
         [_webModels addObject:mo];
@@ -117,9 +118,7 @@
             NSString *strName = [NSString stringWithUTF8String:name];
             //进行解档取值
             id value = [aDecoder decodeObjectForKey:strName];
-            if (value == nil) {
-                [self deleteFileWithFileName:@"" filePath:kSettingPath];
-            }
+            if (!value) continue;
             //利用KVC对属性赋值
             [self setValue:value forKey:strName];
         }

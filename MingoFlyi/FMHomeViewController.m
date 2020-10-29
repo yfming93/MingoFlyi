@@ -397,7 +397,7 @@
         default:
             break;
     }
-    [kHud fm_fadeInHud:message.length ? message: msg];
+    [FMHud fm_fadeInHud:message.length ? message: msg];
 }
 
 
