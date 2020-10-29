@@ -64,7 +64,6 @@
         BOOL isChinese = tem.isContainChinese;
         NSString *text = [tem fm_formatForChinese:tem];
         text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
-        //    text =
         //将待翻译的文字机型urf-8转码
         NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSString *url = [NSString stringWithFormat:mo.urlHost,isChinese ? @"en":mo.chineseTag,qEncoding];
@@ -103,13 +102,17 @@
 - (void)fm_webLayout {
     [self.webBack removeAllSubviews];
     [self.webActionsBack removeAllSubviews];
+    NSLog(@"self.webBack:%ld",self.webBack.subviews.count);
+    NSLog(@"self.webActionsBack:%ld",self.webActionsBack.subviews.count);
     NSWindow *webBackWindow = self.webBack.window;
     
     CGFloat w  = webBackWindow.frame.size.width;
     webBackWindow.restorable = NO;
     NSInteger webShowNum = 0,webUsedNum = 0;
+    NSMutableArray <NSNumber *>*temWidth = NSMutableArray.array;
     for (NSInteger i = 0; i < self.arrWebActions.count; i++) {
-        if (kUser.webModels[i].isShow) {
+        NSButton *btn = self.arrWebActions[i];
+        if (kUser.webModels[i].isShow && kUser.webModels[i].isUsed) {
             self.arrWebs[i].width = kWebWidth;
             webShowNum ++;
         }else{
@@ -117,16 +120,19 @@
         }
         
         if (kUser.webModels[i].isUsed) {
-            self.arrWebActions[i].width = kWebActionsWH;
+//            btn.width = kWebActionsWH;
+            [temWidth addObject:@(kWebActionsWH)];
+            btn.hidden = NO;
             webUsedNum++;
         }else{
-            self.arrWebActions[i].width = 0;
+            [temWidth addObject:@(0)];
+            btn.hidden = YES;
         }
     }
     CGFloat webX = 10 , btnX = 0;
     
-    for (NSInteger i = 0; i < self.arrWebActions.count; i++) {
-        self.arrWebActions[i].frame = CGRectMake(btnX, 10, self.arrWebActions[i].width, kWebActionsWH);
+    for (NSInteger i = 0; i < kUser.webModels.count; i++) {
+        self.arrWebActions[i].frame = CGRectMake(btnX, 10, temWidth[i].intValue, kWebActionsWH);
         self.arrWebs[i].frame = CGRectMake(webX, 0, self.arrWebs[i].width, self.webBack.height);
         [self.webActionsBack addSubview:self.arrWebActions[i]];
         [self.webBack addSubview:self.arrWebs[i]];

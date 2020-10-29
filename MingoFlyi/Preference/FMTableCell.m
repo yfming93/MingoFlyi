@@ -36,12 +36,13 @@
 }
 
 -(void)setModel:(FMWebModel *)model {
-    self.backgroundStyle = NSBackgroundStyleRaised;
     _model = model;
-    self.tfWebName.superview.window.backgroundColor = NSColor.redColor;
     self.tfWebUrl.stringValue = model.urlHostInput;
     self.tfWebName.stringValue = model.name;
     self.imaIcon.image = model.imaIcon;
+    self.btnStopUse.state = model.isUsed;
+    [self fm_btnStopUse];
+
 }
 
 - (IBAction)fm_changeImageIcon:(NSButton *)sender {
@@ -68,9 +69,46 @@
 }
 
 - (IBAction)fm_btnEditorAction:(NSButton *)sender {
+    if (sender.state == NSControlStateValueOn ) {
+        self.tfWebName.enabled = YES;
+        self.tfWebUrl.enabled = YES;
+    }else{
+        self.tfWebName.enabled = NO;
+        self.tfWebUrl.enabled = NO;
+        
+    }
+    [self fm_save];
     
 }
 
+- (void)fm_save{
+    kUser.webModels[_model.index].imaIcon = self.imaIcon.image;
+    kUser.webModels[_model.index].urlHostInput = self.tfWebUrl.stringValue;
+    kUser.webModels[_model.index].name = self.tfWebName.stringValue;
+    kUser.webModels[_model.index].isUsed = self.btnStopUse.state;
+    [FMNotifyManager fm_postIdentifier:kNotifyNameReloadSetting object:nil];
+}
+
+- (void)fm_btnStopUse{
+    self.btnDelete.superview.wantsLayer = YES; // make the cell layer-backed
+    if (self.btnStopUse.state == NSControlStateValueOn ) {
+        self.btnDelete.superview.layer.backgroundColor = NSColor.whiteColor.CGColor;
+    }else{
+        self.btnDelete.superview.layer.backgroundColor = NSColor.darkGrayColor.CGColor; //或任何你喜欢的颜色
+    }
+}
+
+- (IBAction)fm_btnStopUseAction:(NSButton *)sender {
+    [self performSelector:@selector(fm_btnStopUseAction02) withObject:nil afterDelay:1];
+}
+
+
+- (void)fm_btnStopUseAction02{
+    kWeakSelf
+    [weakSelf fm_btnStopUse];
+    kUser.webModels[_model.index].isUsed = !kUser.webModels[_model.index].isUsed;
+    [weakSelf fm_save];
+}
 
 
 @end

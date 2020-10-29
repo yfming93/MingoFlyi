@@ -26,7 +26,7 @@
                         </textField>
                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZRO-It-1WD">
                             <rect key="frame" x="46" y="32" width="327" height="21"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="PpN-gj-Pc3">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="PpN-gj-Pc3">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="unemphasizedSelectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -48,6 +48,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="fm_btnStopUseAction:" target="c22-O7-iKe" id="EvO-Ua-PUB"/>
+                            </connections>
                         </button>
                         <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeM-bR-4zY">
                             <rect key="frame" x="436" y="7" width="44" height="45"/>

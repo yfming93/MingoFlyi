@@ -12,6 +12,12 @@
 #define kWindow NSApplication.sharedApplication.keyWindow
 #define kWebWidth 320
 #define kWebActionsWH 70
+
+#define kWeakSelf __block typeof(self) weakSelf = self;
+
+
+
+
 #define kNotifyNameReloadSetting @"kNotifyReloadSetting"
 
 //#import <TargetConditionals.h>

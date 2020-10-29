@@ -223,7 +223,7 @@ CGRect fm_CGRectMoveToCenter(CGRect rect, CGPoint center)
 }
 
 - (void)removeAllSubviews {
-    for (NSInteger i = 0; i < self.subviews.count; i++) {
+    for (NSInteger i = 0; i < ((NSArray *)(self.subviews.mutableCopy)).count; i++) {
         NSView *v = self.subviews[i];
         [v removeFromSuperview];
     }
