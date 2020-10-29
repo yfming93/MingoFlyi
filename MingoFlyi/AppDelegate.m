@@ -35,6 +35,17 @@
     fyiWindow.title = @"Flyi飞译 ———— 让你变量命名不再烦恼";
     User *user = FMSetting.fm_get;
     kUser = user;
+    [self fm_setWindowToScreenCenter];
+  
+}
+
+- (void)fm_setWindowToScreenCenter {
+    CGRect windowFrame = [kWindow frame];
+        // 如下是获取整个屏幕的 中心
+    NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] visibleFrame];
+    windowFrame.origin.x = (screenRect.size.width - windowFrame.size.width) / 2;
+    windowFrame.origin.y = (screenRect.size.height - windowFrame.size.height) / 2;
+    [kWindow setFrame:windowFrame display:YES];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
