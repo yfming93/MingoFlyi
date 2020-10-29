@@ -26,7 +26,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences Flyi" alternate="YES" keyEquivalent="," allowsKeyEquivalentWhenHidden="YES" id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="aeK-6h-1fO" kind="modal" id="2Oe-25-WmS"/>
+                                                <segue destination="aeK-6h-1fO" kind="show" id="vpa-3q-Jfg"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -708,7 +708,7 @@
                                                             <constraint firstAttribute="height" constant="22" id="ila-NV-Yyl"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="翻译网站名称" drawsBackground="YES" id="5ge-Ju-wdS">
-                                                            <font key="font" metaFont="system" size="12"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -780,7 +780,7 @@
                                                             <constraint firstAttribute="height" constant="22" id="XqK-50-3pA"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="翻译地址（英译中模式）替换被翻译中文为%@占位符后的链接（参考如下谷歌翻译）" drawsBackground="YES" id="jR4-KG-mtF">
-                                                            <font key="font" metaFont="system" size="12"/>
+                                                            <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -810,7 +810,7 @@
                                                 </constraints>
                                                 <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSApplicationIcon" imagePosition="left" alignment="center" borderStyle="border" imageScaling="axesIndependently" inset="2" id="Dq4-hs-3S9">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="systemBold" size="11"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_addSureAction:" target="aeK-6h-1fO" id="XZu-u4-2zt"/>
@@ -1079,7 +1079,7 @@
                                         <rect key="frame" x="673" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="Fgp-vl-qPb">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>
@@ -1107,7 +1107,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_youdao" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="YmL-Uf-DMR">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5tl-Iu-64e">
@@ -1175,7 +1175,7 @@
                                         </constraints>
                                         <buttonCell key="cell" type="bevel" title="Copy" bezelStyle="regularSquare" image="ic_ciba" imagePosition="above" alignment="center" state="on" borderStyle="border" inset="2" id="eJe-Ac-y6f">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                     </button>
                                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daf-Zh-wIC">
@@ -1214,7 +1214,7 @@
                                         <rect key="frame" x="673" y="69" width="73" height="72"/>
                                         <buttonCell key="cell" type="radio" title="智能复制" bezelStyle="regularSquare" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="VUp-99-oT7">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system" size="12"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>

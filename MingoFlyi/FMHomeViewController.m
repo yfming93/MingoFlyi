@@ -331,7 +331,7 @@
 
 // 智能复制
 - (void)autoCopyAction:(NSButton *)sender {
-    [self.view.window makeFirstResponder:nil];
+//    [self.view.window makeFirstResponder:nil];
     if (sender.tag == _btnAutoCopy.tag) {
         kUser.indexAutoCopy = sender.state == NSControlStateValueOn ? sender.tag : 0;
     }else{
