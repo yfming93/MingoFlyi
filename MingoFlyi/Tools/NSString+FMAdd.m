@@ -11,6 +11,31 @@
 
 @implementation NSString (FMAdd)
 
+/// 获取重复子字符串个数 利用替换先把重复元素替换掉,再根据length长度做判断
+- (NSInteger )fm_getDuplicateSubStrCountInCompleteStr:(NSString *)completeStr withSubStr:(NSString *)subStr {
+    NSInteger subStrCount = [completeStr length] - [[completeStr stringByReplacingOccurrencesOfString:subStr withString:@""] length];
+    return subStrCount / [subStr length];
+}
+
+/// 获取重复子字符串位置 利用切分先得数组,再根据索引计算
+- (NSMutableArray *)fm_getDuplicateSubStrLocInCompleteStr:(NSString *)completeStr withSubStr:(NSString *)subStr {
+    NSArray * separatedStrArr = [completeStr componentsSeparatedByString:subStr];
+    NSMutableArray * locMuArr = [[NSMutableArray alloc]init];
+    
+    NSInteger index = 0;
+    for (NSInteger i = 0; i<separatedStrArr.count-1; i++) {
+        NSString * separatedStr = separatedStrArr[i];
+        index = index + separatedStr.length;
+        NSNumber * loc_num = [NSNumber numberWithInteger:index];
+        [locMuArr addObject:loc_num];
+        index = index+subStr.length;
+    }
+    return locMuArr;
+}
+
+
+
+
 // 将各种翻译的结果 转换 为 分割 空格的字符串
 - (NSString *)fm_formatForChinese:(NSString *)text {
     NSString *tempString = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

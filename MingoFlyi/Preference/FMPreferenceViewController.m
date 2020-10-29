@@ -107,8 +107,6 @@
     FMWebModel *mo = FMWebModel.new;
     mo.name = self.tfWebName.stringValue;
     mo.urlHostInput = self.tfWebUrl.stringValue;
-    mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
-    mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
     mo.imaIcon = self.imaIconSelected;
     mo.isUsed = YES;
     mo.isShow = NO;

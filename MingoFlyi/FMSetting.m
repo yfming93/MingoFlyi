@@ -13,6 +13,19 @@
 
 @implementation FMWebModel
 
+//mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
+//mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
+
+-(NSString *)urlHost {
+    _urlHost = self.urlHostInput.fm_fotmatUrlHost.firstObject;
+    return _urlHost;
+}
+
+-(NSString *)chineseTag {
+    _chineseTag = self.urlHostInput.fm_fotmatUrlHost.lastObject;
+    return _chineseTag;
+}
+
 //归档
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     unsigned int count;
@@ -71,8 +84,6 @@
         FMWebModel *mo = FMWebModel.new;
         mo.name = @"Google";
         mo.urlHostInput = @"https://translate.google.cn/#auto/zh-CN/%@";
-        mo.urlHost = mo.urlHostInput.fm_fotmatUrlHost.firstObject;
-        mo.chineseTag = mo.urlHostInput.fm_fotmatUrlHost.lastObject;
         mo.imaIcon = [NSImage imageNamed:@"ic_google"];
         mo.isUsed = YES;
         mo.isShow = NO;
@@ -80,8 +91,6 @@
         FMWebModel *mo2 = FMWebModel.new;
         mo2.name = @"Sougou";
         mo2.urlHostInput = @"https://fanyi.sogou.com/?transfrom=auto&transto=zh&model=general&keyword=%@";
-        mo2.urlHost = mo2.urlHostInput.fm_fotmatUrlHost.firstObject;
-        mo2.chineseTag = mo2.urlHostInput.fm_fotmatUrlHost.lastObject;
         mo2.imaIcon = [NSImage imageNamed:@"ic_sougou"];
         mo2.isUsed = YES;
         mo2.isShow = NO;

@@ -77,7 +77,15 @@
         text = [text lowercaseStringWithLocale:NSLocale.currentLocale];
         //将待翻译的文字机型urf-8转码
         NSString *qEncoding = [text stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        NSString *url = [NSString stringWithFormat:mo.urlHost,isChinese ? @"en":mo.chineseTag,qEncoding];
+        NSString *url = mo.urlHost;
+//        NSLog(@"urlHost----:%@",mo.urlHost);
+        NSLog(@"urlHost----:%@",mo.urlHostInput);
+        if ([mo.urlHost fm_getDuplicateSubStrCountInCompleteStr:mo.urlHost withSubStr:@"%@"] == 1) {
+            url = [NSString stringWithFormat:mo.urlHost,qEncoding];
+        }else if ([mo.urlHost fm_getDuplicateSubStrCountInCompleteStr:mo.urlHost withSubStr:@"%@"] == 2) {
+            url = [NSString stringWithFormat:mo.urlHost,isChinese ? @"en":mo.chineseTag,qEncoding];
+        }
+            
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
         [web loadRequest:request];
         

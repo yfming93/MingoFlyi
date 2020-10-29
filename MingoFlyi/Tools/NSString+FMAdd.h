@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (FMAdd)
+    /// 获取重复子字符串个数 利用替换先把重复元素替换掉,再根据length长度做判断
+- (NSInteger )fm_getDuplicateSubStrCountInCompleteStr:(NSString *)completeStr withSubStr:(NSString *)subStr;
+
+    /// 获取重复子字符串位置 利用切分先得数组,再根据索引计算
+- (NSMutableArray *)fm_getDuplicateSubStrLocInCompleteStr:(NSString *)completeStr withSubStr:(NSString *)subStr ;
+
 // 将各种翻译的结果 转换 为 分割 空格的字符串
 - (NSString *)fm_formatForChinese:(NSString *)text;
 
