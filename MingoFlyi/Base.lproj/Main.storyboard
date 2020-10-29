@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +26,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences Flyi" alternate="YES" keyEquivalent="," allowsKeyEquivalentWhenHidden="YES" id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="aeK-6h-1fO" kind="show" id="2Ma-zD-eLq"/>
+                                                <segue destination="aeK-6h-1fO" kind="modal" id="2Oe-25-WmS"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -735,7 +735,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="jA1-aM-ACX" secondAttribute="height" multiplier="1:1" id="2ax-Zi-BgF"/>
                                                 </constraints>
-                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="NSApplicationIcon" id="D5Y-Gb-LcM"/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="ic_cat" id="D5Y-Gb-LcM"/>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4H7-v7-KD0">
                                                 <rect key="frame" x="330" y="16" width="4" height="16"/>
@@ -750,20 +750,22 @@
                                                 <rect key="frame" x="724" y="-7" width="72" height="51"/>
                                                 <buttonCell key="cell" type="push" title="选择图标" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="HZk-0E-FEj">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="label" size="11"/>
+                                                    <font key="font" metaFont="menu" size="11"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_selectIcon:" target="aeK-6h-1fO" id="Uhf-gt-ZHu"/>
                                                 </connections>
                                             </button>
-                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fPp-42-1tL">
-                                                <rect key="frame" x="800" y="9" width="80" height="81"/>
+                                            <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fPp-42-1tL">
+                                                <rect key="frame" x="798" y="7" width="84" height="85"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="fPp-42-1tL" secondAttribute="height" multiplier="1:1" id="T4T-02-vSz"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSTouchBarAddDetailTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="YVF-oT-oKj">
+                                                <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSInfo" alignment="center" borderStyle="border" inset="2" id="YVF-oT-oKj">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                    <string key="title">新增网页
+翻译地址</string>
+                                                    <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_addSureAction:" target="aeK-6h-1fO" id="yLu-qn-14O"/>
@@ -777,7 +779,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="XqK-50-3pA"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="翻译地址（英文翻译成中文）替换中文为占位符后的链接" drawsBackground="YES" id="jR4-KG-mtF">
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="翻译地址（英译中模式）替换被翻译中文为%@占位符后的链接（参考如下谷歌翻译）" drawsBackground="YES" id="jR4-KG-mtF">
                                                             <font key="font" metaFont="system" size="12"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -806,14 +808,22 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="W1P-A0-gnG" secondAttribute="height" multiplier="1:1" id="pCT-0X-YuA"/>
                                                 </constraints>
-                                                <buttonCell key="cell" type="inline" bezelStyle="inline" imagePosition="left" alignment="center" borderStyle="border" inset="2" id="Dq4-hs-3S9">
+                                                <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSApplicationIcon" imagePosition="left" alignment="center" borderStyle="border" imageScaling="axesIndependently" inset="2" id="Dq4-hs-3S9">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <string key="title">添加新的
-翻译网站</string>
-                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                    <font key="font" metaFont="systemBold" size="11"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_addSureAction:" target="aeK-6h-1fO" id="XZu-u4-2zt"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="drp-rL-YCX">
+                                                <rect key="frame" x="729" y="33" width="62" height="61"/>
+                                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="0Vy-FN-pzD">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="fm_selectIcon:" target="aeK-6h-1fO" id="unx-yb-J95"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -831,6 +841,8 @@
                                             <constraint firstItem="jA1-aM-ACX" firstAttribute="leading" secondItem="jZG-dh-nGw" secondAttribute="trailing" constant="15" id="LQ1-pu-Vks"/>
                                             <constraint firstItem="W1P-A0-gnG" firstAttribute="top" secondItem="lhK-pH-X6J" secondAttribute="top" constant="10" id="Mde-Hx-1Dh"/>
                                             <constraint firstItem="jZG-dh-nGw" firstAttribute="height" secondItem="yEn-nr-dzY" secondAttribute="height" id="P7d-eJ-CZb"/>
+                                            <constraint firstItem="jA1-aM-ACX" firstAttribute="bottom" secondItem="drp-rL-YCX" secondAttribute="bottom" id="Q2W-gI-o53"/>
+                                            <constraint firstItem="jA1-aM-ACX" firstAttribute="top" secondItem="drp-rL-YCX" secondAttribute="top" id="TRD-2y-nfQ"/>
                                             <constraint firstAttribute="trailing" secondItem="fPp-42-1tL" secondAttribute="trailing" constant="10" id="UIu-P4-VuY"/>
                                             <constraint firstItem="fPp-42-1tL" firstAttribute="top" secondItem="lhK-pH-X6J" secondAttribute="top" constant="10" id="Up0-Vk-Aww"/>
                                             <constraint firstItem="jA1-aM-ACX" firstAttribute="centerX" secondItem="PJR-Se-51I" secondAttribute="centerX" id="XIw-qk-reL"/>
@@ -838,11 +850,13 @@
                                             <constraint firstAttribute="bottom" secondItem="PJR-Se-51I" secondAttribute="bottom" id="fUr-fJ-A6y"/>
                                             <constraint firstItem="jZG-dh-nGw" firstAttribute="leading" secondItem="yEn-nr-dzY" secondAttribute="leading" id="h2K-5Q-g33"/>
                                             <constraint firstAttribute="bottom" secondItem="jA1-aM-ACX" secondAttribute="bottom" constant="40" id="h2u-7o-NPf"/>
+                                            <constraint firstItem="jA1-aM-ACX" firstAttribute="trailing" secondItem="drp-rL-YCX" secondAttribute="trailing" id="hEv-X0-r2H"/>
                                             <constraint firstItem="JhP-JD-Kew" firstAttribute="leading" secondItem="CbG-P6-qjv" secondAttribute="trailing" constant="10" id="nNQ-BK-TBY"/>
                                             <constraint firstItem="JhP-JD-Kew" firstAttribute="centerY" secondItem="CbG-P6-qjv" secondAttribute="centerY" id="ott-YL-B6x"/>
                                             <constraint firstItem="jA1-aM-ACX" firstAttribute="width" secondItem="PJR-Se-51I" secondAttribute="width" constant="-10" id="qnY-iX-EYC"/>
                                             <constraint firstItem="CbG-P6-qjv" firstAttribute="centerY" secondItem="lhK-pH-X6J" secondAttribute="centerY" constant="-25" id="sG1-d6-ctD"/>
                                             <constraint firstItem="fPp-42-1tL" firstAttribute="leading" secondItem="jA1-aM-ACX" secondAttribute="trailing" constant="15" id="ubh-1i-4BZ"/>
+                                            <constraint firstItem="jA1-aM-ACX" firstAttribute="leading" secondItem="drp-rL-YCX" secondAttribute="leading" id="yLa-tH-Fkd"/>
                                         </constraints>
                                     </customView>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48g-C8-Tyn">
@@ -918,7 +932,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="736" y="-22.5"/>
+            <point key="canvasLocation" x="813" y="-129"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1010,7 +1024,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="label" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
@@ -1385,8 +1399,9 @@
     </scenes>
     <resources>
         <image name="NSApplicationIcon" width="32" height="32"/>
-        <image name="NSTouchBarAddDetailTemplate" width="18" height="30"/>
+        <image name="NSInfo" width="32" height="32"/>
         <image name="ic_baidu" width="30" height="30"/>
+        <image name="ic_cat" width="242" height="200"/>
         <image name="ic_ciba" width="30" height="30"/>
         <image name="ic_youdao" width="35" height="35"/>
     </resources>
