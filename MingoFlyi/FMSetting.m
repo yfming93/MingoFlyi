@@ -192,6 +192,10 @@
 
 + (User *)fm_get{
     User *setting =  [NSKeyedUnarchiver unarchiveObjectWithFile:kSettingPath];
+    if (!setting) {
+        NSString *url = [[NSBundle mainBundle] pathForResource:@"" ofType:@".flyi_setting"];
+        setting =  [NSKeyedUnarchiver unarchiveObjectWithFile:url];
+    }
     kUser = setting;
     return kUser;
 }

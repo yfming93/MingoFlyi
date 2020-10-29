@@ -30,6 +30,7 @@
 		88F89446253FE31E00410447 /* FMWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F89445253FE31E00410447 /* FMWebManager.m */; };
 		88F8944C2540015100410447 /* NSTextView+FMPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */; };
 		DA3AF26B2549BC2B0073E817 /* FMPreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3AF26A2549BC2B0073E817 /* FMPreferenceViewController.m */; };
+		DA3AF26D254B201C0073E817 /* .flyi_setting in Resources */ = {isa = PBXBuildFile; fileRef = DA3AF26C254B201B0073E817 /* .flyi_setting */; };
 		DAFF309D2540AC0C008E1A8C /* FMHud.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309C2540AC0C008E1A8C /* FMHud.m */; };
 		DAFF30A02540AE80008E1A8C /* FMSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAFF309E2540AE80008E1A8C /* FMSetting.m */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		98AF0BFD60AF56D72F3FF996 /* Pods-JFFanYi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFFanYi.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFFanYi/Pods-JFFanYi.release.xcconfig"; sourceTree = "<group>"; };
 		DA3AF2692549BC2B0073E817 /* FMPreferenceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMPreferenceViewController.h; sourceTree = "<group>"; };
 		DA3AF26A2549BC2B0073E817 /* FMPreferenceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMPreferenceViewController.m; sourceTree = "<group>"; };
+		DA3AF26C254B201B0073E817 /* .flyi_setting */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = .flyi_setting; sourceTree = "<group>"; };
 		DAFF309B2540AC0C008E1A8C /* FMHud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHud.h; sourceTree = "<group>"; };
 		DAFF309C2540AC0C008E1A8C /* FMHud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMHud.m; sourceTree = "<group>"; };
 		DAFF309E2540AE80008E1A8C /* FMSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMSetting.m; path = MingoFlyi/FMSetting.m; sourceTree = SOURCE_ROOT; };
@@ -173,6 +175,7 @@
 				1E3264FC1E97DEF300DF90FA /* Assets.xcassets */,
 				1E3264FE1E97DEF300DF90FA /* Main.storyboard */,
 				1E3265011E97DEF300DF90FA /* Info.plist */,
+				DA3AF26C254B201B0073E817 /* .flyi_setting */,
 				1E3264F61E97DEF200DF90FA /* Supporting Files */,
 				88F8944A2540015100410447 /* NSTextView+FMPlaceHolder.h */,
 				88F8944B2540015100410447 /* NSTextView+FMPlaceHolder.m */,
@@ -397,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3AF26D254B201C0073E817 /* .flyi_setting in Resources */,
 				88922A22252D706E009B1D69 /* Info.plist in Resources */,
 				1E3265271E986B2700DF90FA /* PodFile in Resources */,
 				1E3264FD1E97DEF300DF90FA /* Assets.xcassets in Resources */,
