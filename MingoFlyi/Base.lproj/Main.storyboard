@@ -1378,7 +1378,7 @@
                         <outlet property="btnUnderLineBig" destination="Z5V-0o-BVn" id="lvE-aU-Ele"/>
                         <outlet property="btnUnderLineSmall" destination="yFR-HV-Hh4" id="chm-xp-lTa"/>
                         <outlet property="clearButton" destination="0vy-7M-XmW" id="D2C-Qp-PbN"/>
-                        <outlet property="inputContentScrollView" destination="KPK-No-GcO" id="njZ-f6-QB0"/>
+                        <outlet property="inputContentScrollView" destination="KPK-No-GcO" id="5Rt-96-Jja"/>
                         <outlet property="inputTextView" destination="xud-vI-AMn" id="KcT-3o-uKR"/>
                         <outlet property="outputContentScrollView" destination="fCi-aa-ZUP" id="7kd-ET-E4z"/>
                         <outlet property="outputTextViewBaidu" destination="V3l-po-6bn" id="H9A-ZD-fbE"/>

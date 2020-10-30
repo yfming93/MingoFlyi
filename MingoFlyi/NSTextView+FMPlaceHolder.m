@@ -9,7 +9,7 @@
 #import "NSTextView+FMPlaceHolder.h"
 #import <objc/runtime.h>
 
-@interface NSTextView ()
+@interface NSTextView ()<NSTextDelegate,NSTextInput,NSTextViewDelegate>
 @property (nonatomic, strong) NSTextField *placeHolderTextField;
 @end
 
@@ -19,16 +19,53 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self fm_initPlaceHolder];
+    self.delegate = self;
+//    [self fm_initPlaceHolder];
+    self.placeHolderTextField = [self fm_addTextViewPlaceholderWithString:self.placeHolder textView:self];
+
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
-        [self fm_initPlaceHolder];
+//        [self fm_initPlaceHolder];
+        self.delegate = self;
+
     }
     return self;
+}
+
+
+
+- (BOOL)becomeFirstResponder
+{
+    [self setNeedsDisplay:YES];
+    return [super becomeFirstResponder];
+}
+
+
+- (BOOL)resignFirstResponder
+{
+    [self setNeedsDisplay:YES];
+    return [super resignFirstResponder];
+}
+
+- (void)drawRect:(NSRect)rect
+{
+    [super drawRect:rect];
+    if (!self.string.length){
+        self.placeHolderTextField = [self fm_addTextViewPlaceholderWithString:self.placeHolder textView:self];
+    }
+  
+}
+
+- (void)textDidChange:(NSNotification *)notification
+{
+    NSLog(@"text typed-self.string：%@",self.string);
+    if (!self.string.length){
+        [self fm_placeHolder];
+    }
 }
 
 - (void)fm_initPlaceHolder {
@@ -40,18 +77,18 @@
 }
 
 - (void)fm_placeHolder {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.string.length){
-            self.placeHolderTextField.hidden = YES;
-        }else{
-            self.placeHolderTextField.hidden = NO;
-        }
-    });
+    if (!self.string.length){
+//        self.placeHolderTextField = [self fm_addTextViewPlaceholderWithString:self.placeHolder textView:self];
+        NSAttributedString *st = self.fm_attributedString;
+//        [st drawAtPoint:NSMakePoint(5,2)];
+        NSLog(@"text drawAtPoint：%@",st);
+
+    }
 }
 
 - (void)viewWillDraw {
 //     NSLog(@"placeHolder:%@",self.placeHolder);
-    [self fm_placeHolder];
+//    [self fm_placeHolder];
 
 }
 
@@ -90,6 +127,15 @@
 }
 
 #pragma - mark 私有方法
+- (NSAttributedString *)fm_attributedString {
+    NSColor *txtColor = self.holderColor ? self.holderColor : NSColor.grayColor;
+    NSInteger txtFontSize = self.holderFont ? self.holderFont : 14;
+    NSFont *txtFont = [NSFont systemFontOfSize:txtFontSize];
+    NSDictionary *txtDict = [NSDictionary dictionaryWithObjectsAndKeys:txtColor, NSForegroundColorAttributeName,txtFont,NSFontAttributeName, nil];
+    NSAttributedString *pla = [[NSAttributedString alloc] initWithString:self.placeHolder attributes:txtDict];
+    return pla;
+}
+
 - (NSTextField *)fm_addTextViewPlaceholderWithString:(NSString *)placeholder textView:(NSTextView *)textView {
     if (!placeholder.length) return nil;
     NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(5, 0, self.frame.size.width, 40)];
