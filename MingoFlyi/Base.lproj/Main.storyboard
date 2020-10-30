@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -750,7 +750,7 @@
                                                 <rect key="frame" x="724" y="-7" width="72" height="51"/>
                                                 <buttonCell key="cell" type="push" title="选择图标" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="HZk-0E-FEj">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="message" size="11"/>
+                                                    <font key="font" metaFont="label" size="11"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="fm_selectIcon:" target="aeK-6h-1fO" id="Uhf-gt-ZHu"/>
@@ -1024,7 +1024,7 @@
                                 </constraints>
                                 <buttonCell key="cell" type="squareTextured" title="清空翻译" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VcS-hd-fHM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="message" size="11"/>
+                                    <font key="font" metaFont="label" size="11"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="clearContent:" target="XfG-lQ-9wD" id="4YO-U9-zF8"/>
