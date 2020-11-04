@@ -10,17 +10,16 @@
 #import "FMServiceManager.h"
 #import "YLGoogleTranslate.h"
 #import <WebKit/WebKit.h>
-#import "NSTextView+FMPlaceHolder.h"
 #import "FMWebManager.h"
 
-@interface FMHomeViewController () <NSTextViewDelegate,NSTextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
+@interface FMHomeViewController () <NSTextDelegate,NSTextFieldDelegate,WKNavigationDelegate,WKUIDelegate>
 
-@property (strong) IBOutlet NSScrollView *inputContentScrollView;
-@property (strong) IBOutlet NSTextView *inputTextView;
+
+@property (strong) IBOutlet NSTextField *inputTextView;
 @property (strong) IBOutlet NSScrollView *outputContentScrollView;
-@property (strong) IBOutlet NSTextView *outputTextViewBaidu;
-@property (strong) IBOutlet NSTextView *outputTextViewYoudao;
-@property (strong) IBOutlet NSTextView *outputTextViewCiba;
+@property (strong) IBOutlet NSTextField *outputTextViewBaidu;
+@property (strong) IBOutlet NSTextField *outputTextViewYoudao;
+@property (strong) IBOutlet NSTextField *outputTextViewCiba;
 
 @property (strong) IBOutlet NSButton *btnHumpSmall;
 @property (strong) IBOutlet NSButton *btnUnderLineSmall;
@@ -145,12 +144,12 @@
 }
 
 - (void)fm_reload {
-//    if (self.inputTextView.string.fm_stringContainsEmoji) {
-//        self.inputTextView.string = self.inputTextView.string.fm_filterEmoji;
+//    if (self.inputTextView.stringValue.fm_stringContainsEmoji) {
+//        self.inputTextView.stringValue = self.inputTextView.stringValue.fm_filterEmoji;
 //    }
-    if (self.inputTextView.string.length) {
+    if (self.inputTextView.stringValue.length) {
         kUser.windowWidth = self.view.window.frame.size.width;
-        [self fm_requetFanyi:_inputTextView.string];
+        [self fm_requetFanyi:_inputTextView.stringValue];
     }else{
         [self clearContent:nil];
     }
@@ -164,7 +163,7 @@
 }
 
 - (void)fm_webView {
-    [FMWebManager.shareInstance fm_layoutvWebback:self.webBack webBackWidth:self.webBack_w webActionsBack:self.webActionsBack webActionsBackHight:self.webActionsBack_h webActionsBackWidth:self.webActionsBack_w requestText:self.inputTextView.string];
+    [FMWebManager.shareInstance fm_layoutvWebback:self.webBack webBackWidth:self.webBack_w webActionsBack:self.webActionsBack webActionsBackHight:self.webActionsBack_h webActionsBackWidth:self.webActionsBack_w requestText:self.inputTextView.stringValue];
 }
 
 - (void)scrollWheel:(NSEvent *)event {
@@ -181,22 +180,22 @@
 }
 
 
-- (void)textDidChange:(NSNotification *)notification {
-    if (notification.object == _inputTextView) {
+
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    if (obj.object == _inputTextView) {
         [self performSelector:@selector(fm_reload) withObject:nil afterDelay:0.8];
     }
 }
 
-- (void)textDidEndEditing:(NSNotification *)notification {
-}
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
     
     if (obj.object == _tfFilter) {
-        [self fm_requetFanyi:_inputTextView.string];
+        [self fm_requetFanyi:_inputTextView.stringValue];
         kUser.filterText = _tfFilter.stringValue;
     }else  if (obj.object == _tfPrefix) {
-        [self fm_requetFanyi:_inputTextView.string];
+        [self fm_requetFanyi:_inputTextView.stringValue];
         kUser.prefixText = _tfPrefix.stringValue;
     }
 }
@@ -269,23 +268,23 @@
 
 
 - (void)outputTextAndWriteDataToThePasteboard:(NSString *)result type:(FanyiType)type  {
-    if (!self.inputTextView.string.length) {
+    if (!self.inputTextView.stringValue.length) {
         return;
     }
     NSString *tem = @"";
     switch (type) {
         case FanyiType_Baidu:{
-            self.outputTextViewBaidu.string = result;
+            self.outputTextViewBaidu.stringValue = result;
             tem = [NSString stringWithFormat:@"智能复制百度翻译结果\n%@",result];
         }
             break;
         case FanyiType_Youdao:{
-            self.outputTextViewYoudao.string = result;
+            self.outputTextViewYoudao.stringValue = result;
             tem = [NSString stringWithFormat:@"智能复制有道翻译结果\n%@",result];
         }
             break;
         case FanyiType_Ciba:{
-            self.outputTextViewCiba.string = result;
+            self.outputTextViewCiba.stringValue = result;
             tem = [NSString stringWithFormat:@"智能复制金山词霸翻译结果\n%@",result];
 
         }
@@ -310,22 +309,22 @@
 
 - (IBAction)clearContent:(NSButton *)sender {
     NSString *tem = @"";
-    self.inputTextView.string = tem;
-    self.outputTextViewBaidu.string = tem;
-    self.outputTextViewYoudao.string = tem;
-    self.outputTextViewCiba.string = tem;
+    self.inputTextView.stringValue = tem;
+    self.outputTextViewBaidu.stringValue = tem;
+    self.outputTextViewYoudao.stringValue = tem;
+    self.outputTextViewCiba.stringValue = tem;
     [self fm_fadeInHudWithMsg:@"清除所有翻译" type:sender.tag];
 
 }
 
 
 - (IBAction)filterAction:(NSButton *)sender {
-    [self fm_requetFanyi:_inputTextView.string];
+    [self fm_requetFanyi:_inputTextView.stringValue];
     kUser.isFliter = sender.state;
 }
 
 - (IBAction)prefixAction:(NSButton *)sender {
-    [self fm_requetFanyi:_inputTextView.string];
+    [self fm_requetFanyi:_inputTextView.stringValue];
     kUser.isPrefix = sender.state;
 }
 
@@ -343,13 +342,13 @@
     }
     switch (sender.tag) {
         case FanyiType_Baidu:
-            [self fm_copyToPasteboard:self.outputTextViewBaidu.string];
+            [self fm_copyToPasteboard:self.outputTextViewBaidu.stringValue];
             break;
         case FanyiType_Youdao:
-            [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
+            [self fm_copyToPasteboard:self.outputTextViewYoudao.stringValue];
             break;
         case FanyiType_Ciba:
-            [self fm_copyToPasteboard:self.outputTextViewCiba.string];
+            [self fm_copyToPasteboard:self.outputTextViewCiba.stringValue];
             break;
         default:
             break;
@@ -363,13 +362,13 @@
 - (void)clickCopyAction:(NSButton *)sender {
     switch (sender.tag) {
         case FanyiType_Baidu:
-            [self fm_copyToPasteboard:self.outputTextViewBaidu.string];
+            [self fm_copyToPasteboard:self.outputTextViewBaidu.stringValue];
             break;
         case FanyiType_Youdao:
-            [self fm_copyToPasteboard:self.outputTextViewYoudao.string];
+            [self fm_copyToPasteboard:self.outputTextViewYoudao.stringValue];
             break;
         case FanyiType_Ciba:
-            [self fm_copyToPasteboard:self.outputTextViewCiba.string];
+            [self fm_copyToPasteboard:self.outputTextViewCiba.stringValue];
             break;
         default:
             break;
@@ -383,16 +382,16 @@
     
     switch (type) {
         case FanyiType_Baidu:
-            if (self.outputTextViewBaidu.string.length) msg = [NSString stringWithFormat:@"已复制百度翻译结果\n%@",self.outputTextViewBaidu.string];
+            if (self.outputTextViewBaidu.stringValue.length) msg = [NSString stringWithFormat:@"已复制百度翻译结果\n%@",self.outputTextViewBaidu.stringValue];
             break;
         case FanyiType_Youdao:
-            if (self.outputTextViewYoudao.string.length) msg = [NSString stringWithFormat:@"已复制有道翻译结果\n%@",self.outputTextViewYoudao.string];
+            if (self.outputTextViewYoudao.stringValue.length) msg = [NSString stringWithFormat:@"已复制有道翻译结果\n%@",self.outputTextViewYoudao.stringValue];
             break;
         case FanyiType_Ciba:
-            if (self.outputTextViewCiba.string.length) msg = [NSString stringWithFormat:@"已复制词霸翻译结果\n%@",self.outputTextViewCiba.string];
+            if (self.outputTextViewCiba.stringValue.length) msg = [NSString stringWithFormat:@"已复制词霸翻译结果\n%@",self.outputTextViewCiba.stringValue];
             break;
         case FanyiType_Google:
-            if (self.outputTextViewCiba.string.length) msg = @"已复制谷歌翻译结果";
+            if (self.outputTextViewCiba.stringValue.length) msg = @"已复制谷歌翻译结果";
             break;
         default:
             break;
@@ -413,7 +412,7 @@
     }else{
         kUser.indexFanyi = sender.state == NSControlStateValueOn ? sender.tag : 0;
     }
-    [self fm_requetFanyi:_inputTextView.string];
+    [self fm_requetFanyi:_inputTextView.stringValue];
 }
 
 /*

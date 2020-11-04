@@ -29,8 +29,6 @@
 #import "Tools.h"
 #import "NSString+FMAdd.h"
 #import "AppTools.h"
-#import "NSTextView+FMPlaceHolder.h"
 #import "FMNotifyManager.h"
-#import "FMTextViewPlaceHolder.h"
 
 #endif /* FMPrefixHeader_pch */
